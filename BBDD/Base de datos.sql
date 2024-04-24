@@ -8,6 +8,56 @@ CREATE TABLE Cursos (
   grupo varchar(20) NOT NULL PRIMARY KEY,
   aula varchar(20)
 );
+
+-- valores de la tabla cursos
+INSERT INTO Cursos (grupo, aula) VALUES
+('B1A', NULL),
+('B1B', NULL),
+('B1C', NULL),
+('B1D', NULL),
+('B2A', NULL),
+('B2B', NULL),
+('B2C', NULL),
+('CFGB1', NULL),
+('CFGB2', NULL),
+('DAM1', NULL),
+('DAM2', NULL),
+('DAW1', NULL),
+('DAW2', NULL),
+('DIV3A', NULL),
+('DIV3B', NULL),
+('DIV4E', NULL),
+('DIV4F', NULL),
+('E1A', NULL),
+('E1B', NULL),
+('E1C', NULL),
+('E1D', NULL),
+('E1E', NULL),
+('E1F', NULL),
+('E2A', NULL),
+('E2B', NULL),
+('E2C', NULL),
+('E2D', NULL),
+('E2E', NULL),
+('E2F', NULL),
+('E2G', NULL),
+('E3A', NULL),
+('E3B', NULL),
+('E3C', NULL),
+('E3D', NULL),
+('E3E', NULL),
+('E4A', NULL),
+('E4B', NULL),
+('E4C', NULL),
+('E4D', NULL),
+('E4E', NULL),
+('E4F', NULL),
+('PEFP1', NULL),
+('PEFP2', NULL),
+('SMR1', NULL),
+('SMR2', NULL);
+
+
 -- tabla departamento
 CREATE TABLE Departamentos (
 codigo SMALLINT PRIMARY KEY AUTO_INCREMENT,
@@ -16,6 +66,29 @@ nombre VARCHAR(100)  NOT NULL,
 jefe VARCHAR(50),
 ubicacion VARCHAR(5)
 );
+
+
+-- valores de las tabla departamentos
+INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion) VALUES
+('fra', 'DPTO Francés', 'x', 'xxx'),
+('ing', 'DPTO Inglés', 'x', 'xxx'),
+('tec', 'DPTO Tecnología', 'x', 'xxx'),
+('rel', 'DPTO Religión', 'x', 'xxx'),
+('mat', 'DPTO Matemáticas', 'x', 'xxx'),
+('ef', 'DPTO Educación física', 'x', 'xxx'),
+('dib', 'DPTO Dibujo', 'x', 'xxx'),
+('inf', 'DPTO Informática', 'x', 'xxx'),
+('len', 'DPTO Lengua', 'x', 'xxx'),
+('fil', 'DPTO Filosofía', 'x', 'xxx'),
+('geh', 'DPTO Geografía e historia', 'x', 'xxx'),
+('ori', 'DPTO Orientación', 'x', 'xxx'),
+('fyq', 'DPTO Física y química', 'x', 'xxx'),
+('mus', 'DPTO Música', 'x', 'xxx'),
+('bio', 'DPTO Biología y geología', 'x', 'xxx'),
+('gri', 'DPTO Griego', 'x', 'xxx'),
+('eco', 'DPTO Economía', 'x', 'xxx'),
+('fol', 'DPTO FOL', 'x', 'xxx'),
+('IESJV', 'DPTO CENTRO', 'x', 'xxx');
 
 -- tabla usuarios
 CREATE TABLE Usuarios (
@@ -139,116 +212,6 @@ cod_usuario INT,
 FOREIGN KEY (cod_usuario) REFERENCES Usuarios(cod_usuario)
 );
 
--- valores de la tabla cursos
-
-INSERT INTO Cursos (grupo, aula) VALUES
-('B1A', NULL),
-('B1B', NULL),
-('B1C', NULL),
-('B1D', NULL),
-('B2A', NULL),
-('B2B', NULL),
-('B2C', NULL),
-('CFGB1', NULL),
-('CFGB2', NULL),
-('DAM1', NULL),
-('DAM2', NULL),
-('DAW1', NULL),
-('DAW2', NULL),
-('DIV3A', NULL),
-('DIV3B', NULL),
-('DIV4E', NULL),
-('DIV4F', NULL),
-('E1A', NULL),
-('E1B', NULL),
-('E1C', NULL),
-('E1D', NULL),
-('E1E', NULL),
-('E1F', NULL),
-('E2A', NULL),
-('E2B', NULL),
-('E2C', NULL),
-('E2D', NULL),
-('E2E', NULL),
-('E2F', NULL),
-('E2G', NULL),
-('E3A', NULL),
-('E3B', NULL),
-('E3C', NULL),
-('E3D', NULL),
-('E3E', NULL),
-('E4A', NULL),
-('E4B', NULL),
-('E4C', NULL),
-('E4D', NULL),
-('E4E', NULL),
-('E4F', NULL),
-('PEFP1', NULL),
-('PEFP2', NULL),
-('SMR1', NULL),
-('SMR2', NULL);
--- valores de las tabla departamentos
-INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion)
-VALUES('fra', 'DPTO Francés', 'x', 'xxx');
-
-INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion)
-VALUES('ing', 'DPTO Inglés', 'x', 'xxx');
-
-INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion)
-VALUES('tec', 'DPTO Tecnología', 'x', 'xxx');
-
-INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion)
-VALUES('rel', 'DPTO Religión', 'x', 'xxx');
-
-INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion)
-VALUES('mat', 'DPTO Matemáticas', 'x', 'xxx');
-
-INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion)
-VALUES('ef', 'DPTO Educación física', 'x', 'xxx');
-
-INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion)
-VALUES('dib', 'DPTO Dibujo', 'x', 'xxx');
-
-INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion)
-VALUES('inf', 'DPTO Informática', 'x', 'xxx');
-
-INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion)
-VALUES('len', 'DPTO Lengua', 'x', 'xxx');
-
-INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion)
-VALUES('fil', 'DPTO Filosofía', 'x', 'xxx');
-
-INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion)
-VALUES('geh', 'DPTO Geografía e historia', 'x', 'xxx');
-
-INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion)
-VALUES('ori', 'DPTO Orientación', 'x', 'xxx');
-
-INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion)
-VALUES('fyq', 'DPTO Física y química', 'x', 'xxx');
-
-INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion)
-VALUES('mus', 'DPTO Música', 'x', 'xxx');
-
-INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion)
-VALUES('bio', 'DPTO Biología y geología', 'x', 'xxx');
-
-INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion)
-VALUES('gri', 'DPTO Griego', 'x', 'xxx');
-
-INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion)
-VALUES('eco', 'DPTO Economía', 'x', 'xxx');
-
-INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion)
-VALUES('fol', 'DPTO FOL', 'x', 'xxx');
-
-INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion)
-VALUES('IESJV', 'DPTO CENTRO', 'x', 'xxx');
-
--- valores de las tabla usuarios
- INSERT INTO Usuarios(dni,nombre, apellidos, email, clave, rol, validar, departamento)
- VALUES('11111111a', 'administrador', 'administrador', 'incidenciasiesbargas@gmail.com','$2y$10$q.b1SyM1jZkK5x1iGIyb9eBmBh7AxiHgIgFmoYfPBUjCkUfhtfsSy',0,'si', (SELECT codigo FROM Departamentos WHERE nombre = "DPTO informática"));
-
 -- valores de las tabla periodos
 INSERT INTO Periodos (cod_periodo, inicio, fin) VALUES(1, '8:30', '9:25');
 INSERT INTO Periodos (cod_periodo, inicio, fin) VALUES(2, '9:25', '10:20');
@@ -282,7 +245,7 @@ CREATE TABLE Alumnos (
   nombre varchar(30) NOT NULL,
   apellidos varchar(50),
   grupo varchar(20),
-  FOREIGN KEY (grupo) REFERENCES cursos(grupo)
+  FOREIGN KEY (grupo) REFERENCES Cursos(grupo)
 );
 
 
