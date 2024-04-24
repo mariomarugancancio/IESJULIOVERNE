@@ -1,5 +1,5 @@
 <?php
-include 'conexion.php';
+include '../conexion.php';
 
 $email = $_GET['email'];
 $password = $_GET['password'];
