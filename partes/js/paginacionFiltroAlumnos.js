@@ -1,5 +1,5 @@
 function mostrarPagina(pagina, filasPorPagina) {
-  var tablaCompleta = document.getElementById("listaAlumnos");
+  var tablaCompleta = document.getElementById("lista");
   var filas = tablaCompleta.getElementsByTagName("tr");
 
   // Calcula el índice inicial y final de las filas que se mostrarán en la página actual
@@ -24,11 +24,7 @@ function mostrarPagina(pagina, filasPorPagina) {
   var inicio;
   if(pagina <= 5){
     inicio = 1;
-    if(totalPaginas >= 11){
-      fin = 11;
-    }else {
-      fin = totalPaginas;
-    }
+    fin = 10;
   }else{
     inicio = pagina - 5;
     fin = pagina + 5;

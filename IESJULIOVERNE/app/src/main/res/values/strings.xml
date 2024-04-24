@@ -1,0 +1,78 @@
+<resources>
+    <string name="app_name">IES BARGAS</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_signUp">SignUpActivity</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="navigation_drawer_open">Abrir menú de navegación</string>
+    <string name="navigation_drawer_close">Cerrar menú de navegación</string>
+
+    <string-array name="array_departamentos">
+        <item>DPTO francés</item>
+        <item>DPTO inglés</item>
+        <item>DPTO tecnología</item>
+        <item>DPTO religión</item>
+        <item>DPTO matemáticas</item>
+        <item>DPTO educación física</item>
+        <item>DPTO dibujo</item>
+        <item>DPTO informática</item>
+        <item>DPTO lengua</item>
+        <item>DPTO filosofía</item>
+        <item>DPTO geografía e historia</item>
+        <item>DPTO orientación</item>
+        <item>DPTO física y química</item>
+        <item>DPTO música</item>
+        <item>DPTO biología y geología</item>
+        <item>DPTO griego</item>
+        <item>DPTO economía</item>
+        <item>DPTO FOL</item>
+        <item>DPTO Centro</item>
+    </string-array>
+
+    <string-array name="array_tutores">
+        <item>Sólo si eres tutor. Si no eres tutor NO selecciones nada</item>
+        <item>B1A</item>
+        <item>B1B</item>
+        <item>B1C</item>
+        <item>B1D</item>
+        <item>B2A</item>
+        <item>B2B</item>
+        <item>B2C</item>
+        <item>CFGB1</item>
+        <item>CFGB2</item>
+        <item>DAM1</item>
+        <item>DAM2</item>
+        <item>DAW1</item>
+        <item>DIV3A</item>
+        <item>DIV3B</item>
+        <item>DIV4E</item>
+        <item>DIV4F</item>
+        <item>E1A</item>
+        <item>E1B</item>
+        <item>E1C</item>
+        <item>E1D</item>
+        <item>E1E</item>
+        <item>E1F</item>
+        <item>E2A</item>
+        <item>E2B</item>
+        <item>E2C</item>
+        <item>E2D</item>
+        <item>E2E</item>
+        <item>E2F</item>
+        <item>E3A</item>
+        <item>E3B</item>
+        <item>E3C</item>
+        <item>E3D</item>
+        <item>E3E</item>
+        <item>E4A</item>
+        <item>E4B</item>
+        <item>E4C</item>
+        <item>E4D</item>
+        <item>E4E</item>
+        <item>E4F</item>
+        <item>B1B</item>
+        <item>PEFP1</item>
+        <item>PEFP2</item>
+        <item>SMR1</item>
+        <item>SMR2</item>
+    </string-array>
+</resources>

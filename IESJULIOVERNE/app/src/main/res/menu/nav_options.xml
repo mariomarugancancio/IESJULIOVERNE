@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+   <group android:checkableBehavior="single">
+    <item android:id="@+id/nav_parts"
+        android:title="Partes"
+        android:icon="@drawable/parte2"/>
+
+    <item android:id="@+id/nav_shifts"
+        android:title="Guardias"
+        android:icon="@drawable/guardias2"/>
+
+    <item android:id="@+id/nav_main"
+        android:title="Principal"
+        android:icon="@drawable/menu_principal"/>
+   </group>
+    <item android:id="@+id/group_other_options"
+        android:title="Otras Opciones">
+    <menu>
+        <item android:id="@+id/nav_user"
+            android:title="Editar usuario"
+            android:icon="@drawable/perfil_icono"/>
+
+        <item android:id="@+id/nav_logout"
+            android:title="Cerrar Sesión"
+            android:icon="@drawable/cerrar_sesion"/>
+    </menu>
+    </item>
+</menu>

@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <script src="../js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/d7bc41fc30.js" crossorigin="anonymous"></script>
-    <script src="js/paginacionFiltro.js"></script>
+    <script src="js/paginacionFiltroAlumnos.js"></script>
 
 
 </head>
@@ -113,7 +113,7 @@ if (isset($_GET['Añadido'])) {
                     <h3 class="text-decoration-underline">Importar Alumnos </h2>
                         <p class="mb-2"> Seleccione un archivo de hoja de calculo para importar los alumnos</p>
 
-                        <form method="post" action="importar.php" enctype="multipart/form-data">
+                        <form method="post" action="./funcionalidad/importar.php" enctype="multipart/form-data">
                             <div class="mb-3 g-3">
                                 <label for="archivo" class="form-label">Seleccionar archivo:</label>
                                 <input type="file" class="form-control" id="archivo" name="archivo[]" multiple>
@@ -125,7 +125,7 @@ if (isset($_GET['Añadido'])) {
                     <!-- PHP_SELF para enviar al mismo archivo -->
                     <h3 class="text-decoration-underline mb-2">Eliminar todos los alumnos</h2>
 
-                        <form method="POST" action="eliminarTodosLosAlumnos.php">
+                        <form method="POST" action="./funcionalidad/eliminarTodosLosAlumnos.php">
                             <button type="submit" class="btn btn-primary ">Eliminar alumnos</button>
 
                         </form>
@@ -141,7 +141,7 @@ if (isset($_GET['Añadido'])) {
 
                 </div>
 
-                <table class="table  table-bordered table-striped table-hover text-center mt-2" id="listaAlumnos">
+                <table class="table  table-bordered table-striped table-hover text-center mt-2" id="lista">
                     <thead>
                         <tr>
                             <th scope="col">Matrícula</th>
@@ -216,7 +216,7 @@ if (isset($_GET['Añadido'])) {
 
     function eliminarAlumno(matricula) {
         if (confirm("¿Está seguro de que desea borrar este alumno?")) {
-            var url = "eliminarAlumno.php?matricula=" + matricula;
+            var url = "./funcionalidad/eliminarAlumno.php?matricula=" + matricula;
             window.location.href = url;
         }
     }
