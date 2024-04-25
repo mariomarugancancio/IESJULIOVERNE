@@ -134,63 +134,26 @@ FOREIGN KEY (cod_usuario) REFERENCES Usuarios(cod_usuario)
 
 
 -- valores de las tabla departamentos
-INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion)
-VALUES('fra', 'DPTO Francés', 'x', 'xxx');
+INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion) VALUES
+('fra', 'DPTO Francés', 'x', 'xxx'),
+('ing', 'DPTO Inglés', 'x', 'xxx'),
+('tec', 'DPTO Tecnología', 'x', 'xxx'),
+('rel', 'DPTO Religión', 'x', 'xxx'),
+('mat', 'DPTO Matemáticas', 'x', 'xxx'),
+('ef', 'DPTO Educación física', 'x', 'xxx'),
+('dib', 'DPTO Dibujo', 'x', 'xxx'),
+('inf', 'DPTO Informática', 'x', 'xxx'),
+('len', 'DPTO Lengua', 'x', 'xxx'),
+('fil', 'DPTO Filosofía', 'x', 'xxx'),
+('geh', 'DPTO Geografía e historia', 'x', 'xxx'),
+('ori', 'DPTO Orientación', 'x', 'xxx'),
+('fyq', 'DPTO Física y química', 'x', 'xxx'),
+('mus', 'DPTO Música', 'x', 'xxx'),
+('bio', 'DPTO Biología y geología', 'x', 'xxx'),
+('gri', 'DPTO Griego', 'x', 'xxx'),
+('eco', 'DPTO Economía', 'x', 'xxx'),
+('fol', 'DPTO FOL', 'x', 'xxx');
 
-INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion)
-VALUES('ing', 'DPTO Inglés', 'x', 'xxx');
-
-INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion)
-VALUES('tec', 'DPTO Tecnología', 'x', 'xxx');
-
-INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion)
-VALUES('rel', 'DPTO Religión', 'x', 'xxx');
-
-INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion)
-VALUES('mat', 'DPTO Matemáticas', 'x', 'xxx');
-
-INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion)
-VALUES('ef', 'DPTO Educación física', 'x', 'xxx');
-
-INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion)
-VALUES('dib', 'DPTO Dibujo', 'x', 'xxx');
-
-INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion)
-VALUES('inf', 'DPTO Informática', 'x', 'xxx');
-
-INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion)
-VALUES('len', 'DPTO Lengua', 'x', 'xxx');
-
-INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion)
-VALUES('fil', 'DPTO Filosofía', 'x', 'xxx');
-
-INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion)
-VALUES('geh', 'DPTO Geografía e historia', 'x', 'xxx');
-
-INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion)
-VALUES('ori', 'DPTO Orientación', 'x', 'xxx');
-
-INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion)
-VALUES('fyq', 'DPTO Física y química', 'x', 'xxx');
-
-INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion)
-VALUES('mus', 'DPTO Música', 'x', 'xxx');
-
-INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion)
-VALUES('bio', 'DPTO Biología y geología', 'x', 'xxx');
-
-INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion)
-VALUES('gri', 'DPTO Griego', 'x', 'xxx');
-
-INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion)
-VALUES('eco', 'DPTO Economía', 'x', 'xxx');
-
-INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion)
-VALUES('fol', 'DPTO FOL', 'x', 'xxx');
-
--- valores de las tabla usuarios
--- INSERT INTO Usuarios(dni,nombre, apellidos, email, clave, rol, validar, departamento)
--- VALUES('11111111a', 'administrador', 'administrador', 'incidenciasiesbargas@gmail.com','appincidencias',0,'si', (SELECT codigo FROM Departamentos WHERE nombre = "DPTO informática"));
 
 -- valores de las tabla periodos
 INSERT INTO Periodos (cod_periodo, inicio, fin) VALUES(1, '8:30', '9:25');
@@ -285,7 +248,7 @@ CREATE TABLE Asignaturas(
     nombre VARCHAR(100) NOT NULL,
     horas INT NOT NULL,
     curso VARCHAR(30) NOT NULL,
-    tipo VARCHAR(30)
+    tipo VARCHAR(40)
 );
 
 INSERT INTO Asignaturas (nombre, horas, curso, tipo) VALUES
@@ -348,7 +311,29 @@ INSERT INTO Asignaturas (nombre, horas, curso, tipo) VALUES
 ('Cultura Científica', 2, '4ESO', ' optativas'),
 ('Proyectos de Robótica', 2, '4ESO', ' optativas'),
 ('Artes Escénicas, Danza y Folclore', 2, '4ESO', ' optativas'),
-('Matemáticas I', 0, '1BTOCIENCIAS', ' obligatoria'),
+('Ciencias Aplicadas Básicas I', 3, 'PEFP1', 'Formátivos de Carácter General'),
+('Comunicación y Sociedad Básica I', 3, 'PEFP1', 'Formátivos de Carácter General'),
+('Autonomía y Desarrollo Personal', 4, 'PEFP1', 'Formátivos de Carácter General'),
+('Atención Básica al Cliente', 2, 'PEFP1', 'Formátivos de Carácter General'),
+('Iniciación a la Actividad Laboral y Emprendedora', 2, 'PEFP1', 'Formátivos de Carácter General'),
+('Prevención de Riesgos Laborales', 1, 'PEFP1', 'Formátivos de Carácter General'),
+('Tutoría', 1, 'PEFP1', 'Formátivos de Carácter General'),
+('Tratamiento Informático de Datos', 5, 'PEFP1', 'Profesionales'),
+('Aplicaciones Básicas de Ofimática', 5, 'PEFP1', 'Profesionales'),
+('Archivo y Comunicación', 4, 'PEFP1', 'Profesionales'),
+('Ciencias Aplicadas Básicas I', 3, 'PEFP2', 'Formátivos de Carácter General'),
+('Comunicación y Sociedad Básica I', 3, 'PEFP2', 'Formátivos de Carácter General'),
+('Autonomía y Desarrollo Personal', 4, 'PEFP2', 'Formátivos de Carácter General'),
+('Atención Básica al Cliente', 2, 'PEFP2', 'Formátivos de Carácter General'),
+('Iniciación a la Actividad Laboral y Emprendedora', 2, 'PEFP2', 'Formátivos de Carácter General'),
+('Prevención de Riesgos Laborales', 1, 'PEFP2', 'Formátivos de Carácter General'),
+('Tutoría', 1, 'PEFP1', 'Formátivos de Carácter General'),
+('Tratamiento Informático de Datos', 5, 'PEFP2', 'Profesionales'),
+('Aplicaciones Básicas de Ofimática', 5, 'PEFP2', 'Profesionales'),
+('Archivo y Comunicación', 4, 'PEFP2', 'Profesionales'),
+('Formación en Centros de Trabajo', 0, 'PEFP2', 'Profesionales');
+
+/*('Matemáticas I', 0, '1BTOCIENCIAS', ' obligatoria'),
 ('Educación Física', 0, '1BTOCIENCIAS', ' comunes'),
 ('Filosofía', 0, '1BTOCIENCIAS', ' comunes'),
 ('Lengua Castellana y Literatura I', 0, '1BTOCIENCIAS', ' comunes'),
@@ -386,9 +371,8 @@ INSERT INTO Asignaturas (nombre, horas, curso, tipo) VALUES
 ('Matemáticas aplicadas a las CCSS I (si no ha sido elegida', 0, '1BTOHUMCSO', ' optativas'),
 ('2 Lengua extranjera: Francés', 0, '1BTOHUMCSO', 'optativas'),
 ('Lenguaje y práctica musical', 0, '1BTOHUMCSO', 'optativas'),
-('Psicología', 0, '1BTOHUMCSO', 'optativas');
-
-
+('Psicología', 0, '1BTOHUMCSO', 'optativas')
+*/
 CREATE TABLE Incidencias (
   cod_incidencia INT PRIMARY KEY AUTO_INCREMENT,
   nombre varchar(100) NOT NULL,
