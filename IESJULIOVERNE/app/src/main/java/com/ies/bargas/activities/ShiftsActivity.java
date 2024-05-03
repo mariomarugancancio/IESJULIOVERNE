@@ -17,6 +17,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 import com.ies.bargas.R;
+import com.ies.bargas.activities.Parts.PartsActivity;
 import com.ies.bargas.util.Util;
 
 public class ShiftsActivity extends AppCompatActivity {

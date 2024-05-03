@@ -50,18 +50,6 @@
 
         </LinearLayout>
 
-        <!--Boton flotante-->
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/addParts"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="16dp"
-            android:clickable="true"
-            app:backgroundTint="?attr/colorPrimary"
-            app:borderWidth="0dp"
-            />
-
 
     </FrameLayout>
 
