@@ -79,7 +79,7 @@
     <section>
 
         <p>La prueba estará compuesta por <span class="negrita">50 preguntas de opción múltiple y tendrá una duración de
-                2 horas.</span></p>
+                1 hora y 30 minutos.</span></p>
         <p>La jornada será de <span class="negrita">9:00 a 13:30 h</span> y las actividades que se realizarán son:
         </p>
         <ul>
