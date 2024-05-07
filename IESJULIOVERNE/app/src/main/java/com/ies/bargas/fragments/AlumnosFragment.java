@@ -7,7 +7,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ies.bargas.R;
 
 /**
@@ -24,6 +26,9 @@ public class AlumnosFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private FloatingActionButton floatAction;
+
+
 
     public AlumnosFragment() {
         // Required empty public constructor
@@ -59,7 +64,18 @@ public class AlumnosFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_alumnos, container, false);
+
+        floatAction= view.findViewById(R.id.floatingAddAlumnos);
+
+
+        floatAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(requireContext(), "AddAlumnos", Toast.LENGTH_SHORT).show();
+            }
+        });
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_alumnos, container, false);
+        return view;
     }
 }
