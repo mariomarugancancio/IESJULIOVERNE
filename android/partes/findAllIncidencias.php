@@ -2,17 +2,18 @@
 include '../conexion.php';
 
 try {
-    // Preparo la consulta 
-    $sql = "SELECT grupo, curso FROM Cursos";
+    // Prepara la consulta
+    $sql = "SELECT * FROM Incidencias";
     $stmt = $db->prepare($sql);
 
-    // Ejecuto la consulta 
+    // Ejecuta la consulta 
     $stmt->execute();
 
-    // Buscar todos los cursos
-    $cursos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // Buscar todos los departamentos
+    $incidencias = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
     // Preparar el response
-    $response = $cursos;
+    $response = $incidencias;
 
     // encabezado en json
     header('Content-Type: application/json');

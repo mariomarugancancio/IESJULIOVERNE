@@ -441,7 +441,7 @@ CREATE TABLE Expulsiones (
   matricula_del_Alumno varchar(20) NOT NULL,
   fecha_Inicio date DEFAULT NULL,
   Fecha_Fin date DEFAULT NULL,
-  tipo_expulsion  varchar(20),
+  tipo_expulsion  varchar(40),
   fecha_Insercion timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (cod_expulsion),
   FOREIGN KEY (cod_usuario) REFERENCES usuarios(cod_usuario),

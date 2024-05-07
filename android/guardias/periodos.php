@@ -2,17 +2,19 @@
 include '../conexion.php';
 
 try {
+
     // Preparo la consulta 
-    $sql = "SELECT grupo, curso FROM Cursos";
+    $sql = "SELECT * FROM Periodos";
     $stmt = $db->prepare($sql);
 
     // Ejecuto la consulta 
     $stmt->execute();
 
     // Buscar todos los cursos
-    $cursos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $Periodos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
     // Preparar el response
-    $response = $cursos;
+    $response = $Periodos;
 
     // encabezado en json
     header('Content-Type: application/json');
