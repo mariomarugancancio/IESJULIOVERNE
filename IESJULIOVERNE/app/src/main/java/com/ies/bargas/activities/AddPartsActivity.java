@@ -1,4 +1,4 @@
-package com.ies.bargas.activities.Parts;
+package com.ies.bargas.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -24,22 +23,17 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.navigation.NavigationView;
 import com.ies.bargas.R;
-import com.ies.bargas.activities.LoginActivity;
-import com.ies.bargas.activities.MainActivity;
-import com.ies.bargas.activities.ShiftsActivity;
-import com.ies.bargas.activities.UserProfileActivity;
 import com.ies.bargas.controllers.WebService;
 import com.ies.bargas.model.Alumno;
 import com.ies.bargas.model.Asignatura;
+import com.ies.bargas.model.Departamento;
 import com.ies.bargas.model.Incidencia;
 import com.ies.bargas.model.Parte;
 import com.ies.bargas.util.Util;
@@ -48,10 +42,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.time.LocalDate;
 import java.util.List;
 
 public class AddPartsActivity extends AppCompatActivity {
@@ -65,21 +56,14 @@ public class AddPartsActivity extends AppCompatActivity {
     private List<Incidencia> globalInci;
     private EditText descripcion;
     private RadioGroup radioGroup;
-    private RadioButton radioEntrevista;
-    private RadioButton radioLlamada;
-    private RadioButton radioMensaje;
-    private RadioButton radioNotificacion;
     private CalendarView calendario;
     private Button guardar;
     private Button volver;
     private TextView error;
     private List<Alumno> globalAlumnos;
-    private Alumno globalAlumno;
-    private Incidencia globalIncidencia;
+    private String globalMatricula;
+    private int globalIncidencia;
     private List<Asignatura> globalAsignaturas;
-    private Asignatura globalAsignatura;
-
-    private LocalDate globalFechaComunicacion=LocalDate.now();
     private NavigationView navigationView;
 
     private DrawerLayout drawerLayout;
@@ -94,18 +78,12 @@ public class AddPartsActivity extends AppCompatActivity {
         spinnerIncidencia = findViewById(R.id.spinnerIncidencia);
         incidenciaDescripcion = findViewById(R.id.incidenciaDescripcion);
         radioGroup = findViewById(R.id.radioGroupCommunication);
-        radioEntrevista = findViewById(R.id.entrevista);
-        radioLlamada = findViewById(R.id.llamada);
-        radioMensaje = findViewById(R.id.mensaje);
-        radioNotificacion = findViewById(R.id.notificacion);
         descripcion = findViewById(R.id.partDescripcion);
         calendario = findViewById(R.id.calendarView);
         guardar= findViewById(R.id.buttonSave);
         volver= findViewById(R.id.buttonBack);
         error = findViewById(R.id.errorAddPart);
         spinnerAsignatura= findViewById(R.id.spinnerAsignatura);
-
-
         // configurar el diseño del layout
         navigationView = findViewById(R.id.nav_view);
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -121,8 +99,6 @@ public class AddPartsActivity extends AppCompatActivity {
         //se auto-rellenan el email y contraseña en caso de haberse guardado
         prefs = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
         setCredentialsIfExist(navUsername);
-
-
         // configurar la vista de la navegacion
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -158,21 +134,15 @@ public class AddPartsActivity extends AppCompatActivity {
             }
         });
         findAllCursos();
-        findAllIncidencias();
+        //findAllIncidencias();
 
         //Actauliza la lista de alumnos cada vez que se seleccione un Curso
-        spinnerCurso.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+       /* spinnerCurso.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // Obtiene el valor seleccionado del Spinner
-                String palabras=(String) parentView.getItemAtPosition(position);
-
-                String[] conjunto=palabras.split(" - ");
-
-                String grupo = conjunto[0];
-                String clase = conjunto[1];
+                String grupo = (String) parentView.getItemAtPosition(position);
                 findAlumnos(grupo);
-                findAsignaturas(clase);
                 findAsignaturas(grupo);
 
             }
@@ -181,13 +151,13 @@ public class AddPartsActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parentView) {
             }
         });
-
+*/
 
         //Actualiza la descripcion de la incidencia
         spinnerIncidencia.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                globalIncidencia=globalInci.get( position);
+                globalIncidencia=position+1;
                 incidenciaDescripcion.setText(globalInci.get(position).getDescripcion());
             }
 
@@ -199,7 +169,7 @@ public class AddPartsActivity extends AppCompatActivity {
         spinnerAlumno.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                globalAlumno=globalAlumnos.get(position);
+                globalMatricula=globalAlumnos.get(position).getMatricula();
             }
 
             @Override
@@ -207,33 +177,6 @@ public class AddPartsActivity extends AppCompatActivity {
 
             }
         });
-
-
-        spinnerAsignatura.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                for (Asignatura a: globalAsignaturas){
-                    if (parent.getItemAtPosition(position).equals(a.getNombre())){
-                        globalAsignatura=a;
-                    }
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        calendario.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                // Obtener la fecha seleccionada del CalendarView
-                // y crear un objeto LocalDate
-                globalFechaComunicacion= LocalDate.of(year, month + 1, dayOfMonth);
-            }
-        });
-
 
 
         guardar.setOnClickListener(new View.OnClickListener() {
@@ -252,7 +195,7 @@ public class AddPartsActivity extends AppCompatActivity {
         });
     }
 
-    private void findAsignaturas(String curso) {
+  /*  private void findAsignaturas(String curso) {
         List<Asignatura> asignaturas = new ArrayList<Asignatura>();
         //recuperar datos
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -281,14 +224,11 @@ public class AddPartsActivity extends AppCompatActivity {
                         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(AddPartsActivity.this,
                                 android.R.layout.simple_spinner_item, Asignatura.toStringNombre(asignaturas));
                         spinnerAsignatura.setAdapter(adapter1);
-
                     } else {
-                        globalAsignaturas=new ArrayList<Asignatura>();
                         String[] vacio = new String[0];
                         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(AddPartsActivity.this,
                                 android.R.layout.simple_spinner_item, vacio);
                         spinnerAsignatura.setAdapter(adapter1);
-
                     }
                 } catch (JSONException e) {
                     Toast.makeText(getApplicationContext(), "ERROR: No se encontro ninguna asignatura", Toast.LENGTH_LONG).show();
@@ -305,7 +245,7 @@ public class AddPartsActivity extends AppCompatActivity {
 
         });
         queue.add(jsonArrayRequest);
-    }
+    }*/
 
     private void findAllCursos() {
 
@@ -327,9 +267,7 @@ public class AddPartsActivity extends AppCompatActivity {
                             jsonObject = response.getJSONObject(i);
 
                             String grupo = jsonObject.getString("grupo");
-                            String curso = jsonObject.getString("curso");
-                            opciones[i] = grupo+" - "+curso;
-
+                            opciones[i] = grupo;
                         }
 
                         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(AddPartsActivity.this,
@@ -354,7 +292,7 @@ public class AddPartsActivity extends AppCompatActivity {
         queue.add(jsonArrayRequest);
     }
 
-    private void findAlumnos(String grupo) {
+  /*  private void findAlumnos(String grupo) {
         List<Alumno> alumnos = new ArrayList<Alumno>();
         //recuperar datos
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -432,7 +370,7 @@ public class AddPartsActivity extends AppCompatActivity {
                                 android.R.layout.simple_spinner_item, Incidencia.toStringNombre(incidencias));
                         spinnerIncidencia.setAdapter(adapter1);
 
-                        globalInci=incidencias;
+                        globalInci = incidencias;
                     }
                 } catch (JSONException e) {
                     Toast.makeText(getApplicationContext(), "ERROR: No se encontro ninguna incidencia", Toast.LENGTH_LONG).show();
@@ -447,75 +385,19 @@ public class AddPartsActivity extends AppCompatActivity {
         });
         queue.add(jsonArrayRequest);
     }
-
+*/
     private void AddParts(){
-
-        if (descripcion.getText().toString().isEmpty() || (!radioNotificacion.isChecked() && !radioLlamada.isChecked()
-        && !radioMensaje.isChecked() && !radioEntrevista.isChecked())){
-            error.setText("anade una descripcion y un metodo de comunicacion");
+        /*
+        if (descripcion.getText().toString().isEmpty() || !radioGroup.isSelected()){
+            error.setText("AÃ±ade una descripciÃ³n y un metodo de comunicaciÃ³n");
         } else {
             prefs = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
-            int cod_usuario= Util.getUserCodUsuarioPrefs(prefs);
-            String matricula= globalAlumno.getMatricula();
-            int incidencia = globalIncidencia.getCodigo();
-            int materia = globalAsignatura.getCodAsignatura();
-            LocalDate fecha = LocalDate.now();
-
-            LocalTime horaActual = LocalTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-            String horaFormateada = horaActual.format(formatter);
-
-
-            String descripc= descripcion.getText().toString();
-            LocalDate fechaComunicacion = globalFechaComunicacion;
-
-            String viaComunicacion="";
-            if (radioEntrevista.isChecked())
-                viaComunicacion=radioEntrevista.getText().toString();
-             else if (radioLlamada.isChecked())
-                viaComunicacion=radioLlamada.getText().toString();
-            else if (radioMensaje.isChecked())
-                viaComunicacion=radioMensaje.getText().toString();
-            else if (radioNotificacion.isChecked())
-                viaComunicacion=radioNotificacion.getText().toString();
-
-
-            Parte newParte = new Parte(cod_usuario,matricula, incidencia, materia, fecha, horaFormateada, descripc, fechaComunicacion, viaComunicacion, "puntos", 0);
-
-
-            RequestQueue queue = Volley.newRequestQueue(this);
-            String url = WebService.RAIZ + WebService.InsertParts + "?"
-                    + "cod_usuario=" + newParte.getCod_usuario()
-                    + "&matricula_Alumno=" + newParte.getMatriculaAlumno()
-                    + "&incidencia=" + newParte.getIncidencia()
-                    + "&materia=" + newParte.getMateria()
-                    + "&fecha=" + newParte.getFecha()
-                    + "&hora=" + newParte.getHora()
-                    + "&descripcion=" + newParte.getDescripcion()
-                    + "&fecha_Comunicacion=" + newParte.getFechaComunicacion()
-                    + "&via_Comunicacion=" + newParte.getViaComunicacion()
-                    + "&tipo_Parte=" + newParte.getTipoParte()
-                    + "&caducado=" + newParte.isCaducado();
-
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            Toast.makeText(AddPartsActivity.this, "El parte ha sido añadido", Toast.LENGTH_SHORT).show();
-                            comprobarExpulsion(newParte.getMatriculaAlumno(), newParte.getCod_usuario());
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(AddPartsActivity.this, "ERROR: " + error.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    });
-            queue.add(stringRequest);
-
+            int cod_usuario= Integer.parseInt(Util.getUserCodUsuarioPrefs(prefs));
+            String matricula= globalMatricula;
+            int incidencia = globalIncidencia;
+            Parte parte = new Parte(cod_usuario,matricula, incidencia, );
         }
-
-
+        */
     }
     private void setCredentialsIfExist(TextView navUsername) {
         String nombre = Util.getUserNombrePrefs(prefs);
@@ -524,56 +406,5 @@ public class AddPartsActivity extends AppCompatActivity {
             navUsername.setText(nombre+ " "+apellidos);
 
         }
-    }
-
-    private void comprobarExpulsion(String matriculaAlumno, int cod_usuario){
-
-
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url = WebService.RAIZ + WebService.SelectPartes + "?" +
-                "matricula=" + matriculaAlumno;
-
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                JSONObject jsonObject = null;
-                try {
-
-                    int puntos=0;
-
-                    if(response.length()>0) {
-                        for (int i = 0; i < response.length(); i++) {
-
-                            jsonObject = response.getJSONObject(i);
-
-                            int punto = jsonObject.getInt("puntos");
-                            puntos += punto;
-                        }
-                    }
-
-                    Toast.makeText(getApplicationContext(), globalAlumno.getNombre()+" tiene "+ puntos +" puntos", Toast.LENGTH_SHORT).show();
-
-                    if (puntos>9) {
-                        FloatingFragment floatingFragment = FloatingFragment.newInstance(globalAlumno, cod_usuario);
-                        floatingFragment.show(getSupportFragmentManager(), "floatingFragment");
-                    } else{
-                        Intent intent = new Intent(AddPartsActivity.this, PartsActivity.class);
-                        startActivity(intent);
-                    }
-
-                } catch (JSONException e) {
-                    Toast.makeText(getApplicationContext(), "ERROR: No se encontro ningún parte", Toast.LENGTH_LONG).show();
-                }
-            }
-
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(AddPartsActivity.this, "ERROR: " + error.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
-
-        queue.add(jsonArrayRequest);
-
     }
 }

@@ -1,9 +1,13 @@
-package com.ies.bargas.activities.Parts;
+package com.ies.bargas.activities;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
 import android.os.Bundle;
+import android.service.controls.actions.FloatAction;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -16,16 +20,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.ies.bargas.R;
-import com.ies.bargas.activities.LoginActivity;
-import com.ies.bargas.activities.MainActivity;
-import com.ies.bargas.activities.ShiftsActivity;
-import com.ies.bargas.activities.UserProfileActivity;
 import com.ies.bargas.adapters.PagerAdapterParts;
 import com.ies.bargas.util.Util;
 
@@ -36,7 +38,8 @@ public class PartsActivity extends AppCompatActivity {
     private SharedPreferences prefs;
     private LinearLayout linearLayout;
     private TabLayout tabLayout;
-
+    private TextView titulo;
+    private FloatingActionButton floatAction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +57,7 @@ public class PartsActivity extends AppCompatActivity {
 
         setTabLayout();
 
-
+        floatAction=findViewById(R.id.addParts);
 
         //shared preferences
 
@@ -126,6 +129,14 @@ public class PartsActivity extends AppCompatActivity {
             }
         });
 
+
+        floatAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PartsActivity.this, AddPartsActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 

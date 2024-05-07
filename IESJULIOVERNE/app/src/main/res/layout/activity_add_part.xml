@@ -3,22 +3,20 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+    <!-- añade una toolbar-->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-        <!-- añade una toolbar-->
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-
-        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
@@ -239,16 +237,13 @@
                 <TextView
                     android:id="@+id/errorAddPart"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textColor="@color/red"/>
+                    android:layout_height="wrap_content"/>
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="50dp"
-                    android:layout_marginBottom="20dp"
                     android:gravity="center">
 
 
@@ -275,8 +270,6 @@
 
 </ScrollView>
     </LinearLayout>
-
-
     <!-- añade un navigationView para configurar el menu del nav_drawer_menu.xml-->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
@@ -286,9 +279,4 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/header_nav_drawer"
         app:menu="@menu/nav_options" />
-
-
-
-
-
 </androidx.drawerlayout.widget.DrawerLayout>

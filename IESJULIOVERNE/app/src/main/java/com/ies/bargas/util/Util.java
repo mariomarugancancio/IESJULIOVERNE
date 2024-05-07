@@ -34,8 +34,8 @@ public class Util {
         return preferences.getInt("cod_delphos", 0);
     }
     //Devuelve el codigo del usuario guardado
-    public static int getUserCodUsuarioPrefs(SharedPreferences preferences) {
-        return preferences.getInt("cod_usuario", 0);
+    public static String getUserCodUsuarioPrefs(SharedPreferences preferences) {
+        return preferences.getString("cod_usuario", "");
     }
 
     //Devuelve el departamento guardado

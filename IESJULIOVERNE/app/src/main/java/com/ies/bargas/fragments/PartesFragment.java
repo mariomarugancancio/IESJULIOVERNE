@@ -1,20 +1,14 @@
 package com.ies.bargas.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.service.controls.actions.FloatAction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ies.bargas.R;
-import com.ies.bargas.activities.Parts.AddPartsActivity;
-import com.ies.bargas.activities.Parts.PartsActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,7 +24,6 @@ public class PartesFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private FloatingActionButton floatAction;
 
     public PartesFragment() {
         // Required empty public constructor
@@ -66,20 +59,7 @@ public class PartesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_partes, container, false);
-
-        floatAction= view.findViewById(R.id.floatingAddParts);
-
-
-        floatAction.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(requireContext(), AddPartsActivity.class);
-                startActivity(intent);
-            }
-        });
-
         // Inflate the layout for this fragment
-        return view;
+        return inflater.inflate(R.layout.fragment_partes, container, false);
     }
 }
