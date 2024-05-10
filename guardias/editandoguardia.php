@@ -38,7 +38,8 @@ if(isset($_GET['cod_guardias'])){
 }
 ?>
 
-<div id="formulario" class="mx-auto mt-3" style="width:400px; height:300px;">
+<div id="formulario" class="mx-auto mt-3" style="width:400px;">
+
     <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
         <input type="hidden" name="cod_guardias" value="<?php  if(isset($_GET['cod_guardias'])) echo   $_GET['cod_guardias']; ?>">
         <?php if($_SESSION["usuario_login"]["rol"]==0){
