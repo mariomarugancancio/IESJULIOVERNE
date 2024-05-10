@@ -27,7 +27,7 @@ if($inicio<$fin){
     $activeWorksheet->getColumnDimension('D')->setWidth(40);
 
     $select = "SELECT cod_guardias,observaciones, fecha,  Guardias.cod_usuario AS cod_usuario,
-    Usuarios.nombre AS nombre, Usuarios.apellidos AS apellidos, Periodos.inicio AS periodoinicio, Periodos.fin AS periodofin
+    Usuarios.nombre AS nombre, Usuarios.apellidos AS apellidos, Usuarios.cod_delphos AS delphos, Periodos.inicio AS periodoinicio, Periodos.fin AS periodofin
     FROM Guardias
     JOIN Periodos ON Guardias.periodo = Periodos.cod_periodo
     JOIN Usuarios ON Guardias.cod_usuario = Usuarios.cod_usuario
@@ -54,9 +54,9 @@ if($inicio<$fin){
         if($semana == 1){
             $select1 = "SELECT clase
             FROM Horarios
-            WHERE cod_usuario = ? AND inicio = ? AND fin = ? AND  dia = 'Lunes';";
+            WHERE (cod_usuario = ? OR cod_delphos = ?)  AND inicio = ? AND fin = ? AND  dia = 'Lunes';";
              $resul1 = $db->prepare($select1);
-             $resul1->execute(array( intval($usuario),$columna['periodoinicio'], $columna['periodofin']));  
+             $resul1->execute(array( $usuario,$columna['delphos'],$columna['periodoinicio'], $columna['periodofin']));  
              if ($columna1 = $resul1->fetch(PDO::FETCH_ASSOC)) {
                 $activeWorksheet->setCellValue('C' . $i, $columna1['clase']);
             }
@@ -64,36 +64,36 @@ if($inicio<$fin){
         }else if($semana == 2){
             $select1 = "SELECT clase
             FROM Horarios
-            WHERE cod_usuario = ? AND inicio = ? AND fin = ? AND  dia = 'Martes';";
+            WHERE (cod_usuario = ? OR cod_delphos = ?)  AND inicio = ? AND fin = ? AND  dia = 'Martes';";
              $resul1 = $db->prepare($select1);
-             $resul1->execute(array( intval($usuario),$columna['periodoinicio'], $columna['periodofin']));  
+             $resul1->execute(array( intval($usuario),$columna['delphos'],$columna['periodoinicio'], $columna['periodofin']));  
              if ($columna1 = $resul1->fetch(PDO::FETCH_ASSOC)) {
                 $activeWorksheet->setCellValue('C' . $i, $columna1['clase']);
             }
         }else if($semana == 3){
             $select1 = "SELECT clase
             FROM Horarios
-            WHERE cod_usuario = ? AND inicio = ? AND fin = ? AND  dia = 'Miércoles';";
+            WHERE (cod_usuario = ? OR cod_delphos = ?)  AND inicio = ? AND fin = ? AND  dia = 'Miércoles';";
              $resul1 = $db->prepare($select1);
-             $resul1->execute(array( intval($usuario),$columna['periodoinicio'], $columna['periodofin']));  
+             $resul1->execute(array( intval($usuario),$columna['delphos'],$columna['periodoinicio'], $columna['periodofin']));  
              if ($columna1 = $resul1->fetch(PDO::FETCH_ASSOC)) {
                 $activeWorksheet->setCellValue('C' . $i, $columna1['clase']);
             }
         }else if($semana == 4){
             $select1 = "SELECT clase
             FROM Horarios
-            WHERE cod_usuario = ? AND inicio = ? AND fin = ? AND  dia = 'Jueves';";
+            WHERE (cod_usuario = ? OR cod_delphos = ?)  AND inicio = ? AND fin = ? AND  dia = 'Jueves';";
              $resul1 = $db->prepare($select1);
-             $resul1->execute(array( intval($usuario),$columna['periodoinicio'], $columna['periodofin']));  
+             $resul1->execute(array( intval($usuario),$columna['delphos'],$columna['periodoinicio'], $columna['periodofin']));  
              if ($columna1 = $resul1->fetch(PDO::FETCH_ASSOC)) {
                 $activeWorksheet->setCellValue('C' . $i, $columna1['clase']);
              }
             }else if($semana == 5){
                 $select1 = "SELECT clase
                 FROM Horarios
-                WHERE cod_usuario = ? AND inicio = ? AND fin = ? AND  dia = 'Viernes';";
+                WHERE (cod_usuario = ? OR cod_delphos = ?)  AND inicio = ? AND fin = ? AND  dia = 'Viernes';";
                  $resul1 = $db->prepare($select1);
-                 $resul1->execute(array( intval($usuario),$columna['periodoinicio'], $columna['periodofin']));  
+                 $resul1->execute(array( intval($usuario),$columna['delphos'],$columna['periodoinicio'], $columna['periodofin']));  
                  if ($columna1 = $resul1->fetch(PDO::FETCH_ASSOC)) {
                     $activeWorksheet->setCellValue('C' . $i, $columna1['clase']);
                 }
