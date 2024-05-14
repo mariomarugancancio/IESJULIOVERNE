@@ -12,6 +12,10 @@ public class Periodo {
         this.inicio = inicio;
         this.fin = fin;
     }
+    public Periodo( String inicio, String fin) {
+        this.inicio = inicio;
+        this.fin = fin;
+    }
 
     public int getCod_periodo() {
         return cod_periodo;

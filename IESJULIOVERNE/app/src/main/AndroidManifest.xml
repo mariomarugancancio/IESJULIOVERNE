@@ -49,7 +49,12 @@
         <activity
             android:name=".activities.SignUpActivity"
             android:exported="true" />
-
+        <activity
+            android:name=".activities.parts.AddAlumnosActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activities.parts.ModifyAlumnoActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

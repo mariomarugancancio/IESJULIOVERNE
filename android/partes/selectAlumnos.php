@@ -4,12 +4,8 @@ include '../conexion.php';
 try {
 
     // Preparo la consulta 
-    $sql = "SELECT cod_guardias,observaciones, fecha, Guardias.cod_usuario AS cod_usuario,
-    Usuarios.nombre AS nombre, Usuarios.apellidos AS apellidos, Usuarios.cod_delphos AS delphos, Periodos.inicio AS periodoinicio, Periodos.fin AS periodofin
-                FROM Guardias
-                JOIN Periodos ON Guardias.periodo = Periodos.cod_periodo
-                JOIN Usuarios ON Guardias.cod_usuario = Usuarios.cod_usuario
-                ORDER BY fecha DESC, periodoinicio DESC;";
+    $sql = "SELECT * FROM Alumnos ORDER BY matricula, apellidos, nombre";
+
     $stmt = $db->prepare($sql);
 
     // Ejecuto la consulta 
