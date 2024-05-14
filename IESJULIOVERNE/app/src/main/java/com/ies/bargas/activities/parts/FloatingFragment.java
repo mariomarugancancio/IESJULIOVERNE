@@ -1,5 +1,6 @@
 package com.ies.bargas.activities.parts;
 
+import android.app.Dialog;
 import android.content.Intent;
 
 import android.os.Bundle;
@@ -41,6 +42,16 @@ public class FloatingFragment extends DialogFragment {
         globalAlumno =alumno;
         globalCod_usuario=codigo;
         return new FloatingFragment();
+    }
+
+
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        // Crea un diálogo sin permitir que se cancele al tocar fuera de él
+        Dialog dialog = super.onCreateDialog(savedInstanceState);
+        dialog.setCanceledOnTouchOutside(false);
+        return dialog;
     }
 
     @Nullable
