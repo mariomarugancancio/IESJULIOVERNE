@@ -13,7 +13,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+
 import com.android.volley.Request;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ies.bargas.activities.shifts.AddShiftsActivity;
@@ -49,6 +52,10 @@ public class GuardiasTotalFragment extends Fragment {
         listViewShifts.setAdapter(adapter);
         registerForContextMenu(listViewShifts);
 
+        //Cargar los datos
+        cargarDatos();
+
+        //Devolver la vista
         return view;
     }
 
@@ -74,9 +81,15 @@ public class GuardiasTotalFragment extends Fragment {
             String url = WebService.RAIZ + WebService.Delete;
             StringRequest request = new StringRequest(Request.Method.POST, url,
                     response -> {
-                        // Eliminar la guardia de la lista y actualizar el ListView
-                        guardiasList.remove(info.position);
-                        adapter.notifyDataSetChanged();
+                        //Comprobar si la eliminación fue exitosa
+                        if (response.equals("Guardia eliminada correctamente")) {
+                            // Eliminar la guardia de la lista y actualizar el ListView
+                            guardiasList.remove(info.position);
+                            adapter.notifyDataSetChanged();
+                        } else {
+                            //Mostrar un mensaje de error
+                            Toast.makeText(getActivity(), "Error al eliminar la guardia", Toast.LENGTH_SHORT).show();
+                        }
                     },
                     error -> {
                         // Manejar errores
@@ -97,18 +110,12 @@ public class GuardiasTotalFragment extends Fragment {
     // Método para cargar datos en el ListView
     private void cargarDatos() {
         String url = WebService.RAIZ + WebService.ObtenerGuardias;
-        StringRequest request = new StringRequest(Request.Method.GET, url,
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url,
                 response -> {
                     try {
-                        // Convertir la respuesta en un JSONArray
-                        JSONArray jsonArray = new JSONArray(response);
-
-                        // Limpiar la lista de guardias
                         guardiasList.clear();
-
-                        // Recorrer el JSONArray y añadir cada guardia a la lista
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        for (int i = 0; i < response.length(); i++) {
+                            JSONObject jsonObject = response.getJSONObject(i);
                             String guardia = jsonObject.getString("fecha") + " " +
                                     jsonObject.getString("periodo") + " " +
                                     jsonObject.getString("clase") + " " +
@@ -116,17 +123,15 @@ public class GuardiasTotalFragment extends Fragment {
                                     jsonObject.getString("observaciones");
                             guardiasList.add(guardia);
                         }
-
-                        // Notificar al adaptador que los datos han cambiado
                         adapter.notifyDataSetChanged();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 },
+                //Manejar errores
                 error -> {
-                    // Manejar errores
                     error.printStackTrace();
                 });
-        Volley.newRequestQueue(getActivity()).add(request);
+        Volley.newRequestQueue(getActivity()).add(jsonArrayRequest);
     }
 }
