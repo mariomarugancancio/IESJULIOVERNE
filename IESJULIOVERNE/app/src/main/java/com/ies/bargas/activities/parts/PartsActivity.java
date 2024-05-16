@@ -15,23 +15,16 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.tabs.TabLayout;
 import com.ies.bargas.R;
 import com.ies.bargas.activities.LoginActivity;
 import com.ies.bargas.activities.MainActivity;
 import com.ies.bargas.activities.shifts.ShiftsActivity;
 import com.ies.bargas.activities.UserProfileActivity;
-import com.ies.bargas.adapters.PagerAdapterParts;
 import com.ies.bargas.fragments.AlumnosFragment;
 import com.ies.bargas.fragments.ExpulsionesFragment;
-import com.ies.bargas.fragments.GuardiasSalaProfesoresFragment;
-import com.ies.bargas.fragments.GuardiasSemanaFragment;
-import com.ies.bargas.fragments.GuardiasTotalFragment;
-import com.ies.bargas.fragments.GuardiasUsuarioFragment;
 import com.ies.bargas.fragments.PartesFragment;
 import com.ies.bargas.util.Util;
 

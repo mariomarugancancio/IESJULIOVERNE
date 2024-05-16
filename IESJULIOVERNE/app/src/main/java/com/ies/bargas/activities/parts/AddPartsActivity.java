@@ -76,8 +76,8 @@ public class AddPartsActivity extends AppCompatActivity {
     private List<Alumno> globalAlumnos;
     private Alumno globalAlumno;
     private Incidencia globalIncidencia;
-    private List<Asignatura> globalAsignaturas;
-    private Asignatura globalAsignatura;
+    private List<Asignatura> globalAsignaturas = new ArrayList<Asignatura>();
+    private Asignatura globalAsignatura = new Asignatura();
 
     private LocalDate globalFechaComunicacion=LocalDate.now();
     private NavigationView navigationView;
@@ -481,12 +481,18 @@ public class AddPartsActivity extends AppCompatActivity {
             else if (radioNotificacion.isChecked())
                 viaComunicacion=radioNotificacion.getText().toString();
 
+            if (globalAsignaturas.isEmpty())
+                materia=0;
 
             Parte newParte = new Parte(cod_usuario,matricula, incidencia, materia, fecha, horaFormateada, descripc, fechaComunicacion, viaComunicacion, "puntos", 0);
 
 
             RequestQueue queue = Volley.newRequestQueue(this);
-            String url = WebService.RAIZ + WebService.InsertParts + "?"
+            String url;
+
+
+
+            url = WebService.RAIZ + WebService.InsertParts + "?"
                     + "cod_usuario=" + newParte.getCod_usuario()
                     + "&matricula_Alumno=" + newParte.getMatriculaAlumno()
                     + "&incidencia=" + newParte.getIncidencia()
