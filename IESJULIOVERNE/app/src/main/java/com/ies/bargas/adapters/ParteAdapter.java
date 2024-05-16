@@ -108,11 +108,19 @@ public class ParteAdapter extends BaseAdapter {
                 MenuItem caducar= popupMenu.getMenu().findItem(R.id.caducar);
                 titulo.setTitle("Codigo: "+parte.getCod_parte());
                 titulo.setEnabled(false);
-                if (parte.isCaducado()!=0){
+                int caducidad=0;
+                if (parte.isCaducado()==0){
+                    caducar.setTitle("Caducar");
+                    caducidad=1;
+                } else if (parte.isCaducado()==1){
+                    caducar.setTitle("Rehabilitar");
+                } else {
+                    caducar.setTitle("Usado");
                     caducar.setEnabled(false);
                 }
 
                 // Configurar un listener para manejar la selección de elementos del menú
+                final int finalCaducidad = caducidad;
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
@@ -153,7 +161,8 @@ public class ParteAdapter extends BaseAdapter {
                         else if (item.getItemId() == R.id.caducar){
                             RequestQueue queue = Volley.newRequestQueue(context);
                             String url = WebService.RAIZ + WebService.caducarParte + "?"
-                                    + "cod_parte=" + parte.getCod_parte();
+                                    + "cod_parte=" + parte.getCod_parte()
+                                    + "&caducado=" + finalCaducidad;
 
                             StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                                     new Response.Listener<String>() {
@@ -161,13 +170,13 @@ public class ParteAdapter extends BaseAdapter {
                                         public void onResponse(String response) {
                                             int respuesta= Integer.parseInt(response);
                                             if (respuesta==0){
-                                                Toast.makeText(context, "No se ha podido caducar porque no existe el parte ¯\\_( ͡° ͜ʖ ͡°)_/¯", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(context, "No se ha podido modificar la caducidad porque no existe el parte ¯\\_( ͡° ͜ʖ ͡°)_/¯", Toast.LENGTH_SHORT).show();
                                             } else if (respuesta==1){
-                                                Toast.makeText(context, "El parte "+ parte.getCod_parte()+" Ha sido caducado correctamente", Toast.LENGTH_SHORT).show();
-                                                partes.get(partes.indexOf(parte)).setCaducado(1);
+                                                Toast.makeText(context, "La caducidad del parte "+ parte.getCod_parte()+" Ha sido modificado correctamente", Toast.LENGTH_SHORT).show();
+                                                partes.get(partes.indexOf(parte)).setCaducado(finalCaducidad);
                                                 notifyDataSetChanged();
                                             } else {
-                                                Toast.makeText(context, "Algo ha fallado durante la caducacion, no preguntes el qué ¯\\_( ͡° ͜ʖ ͡°)_/¯", Toast.LENGTH_LONG).show();
+                                                Toast.makeText(context, "Algo ha fallado durante la modificacion de la caducidad, no preguntes el qué ¯\\_( ͡° ͜ʖ ͡°)_/¯", Toast.LENGTH_LONG).show();
                                             }
                                         }
                                     },
