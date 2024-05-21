@@ -49,7 +49,7 @@ public class ShiftAdapter extends ArrayAdapter<Guardia> {
 
         fechaTextView.setText(currentGuardia.getFecha()+"");
         periodoTextView.setText(currentGuardia.getPeriodo().getInicio()+"-"+currentGuardia.getPeriodo().getFin());
-        claseTextView.setText("");
+        claseTextView.setText(currentGuardia.getClase());
         profesorTextView.setText(currentGuardia.getUsuario().getNombre()+" "+currentGuardia.getUsuario().getApellidos());
         observacionesTextView.setText(currentGuardia.getObservaciones()+"");
 

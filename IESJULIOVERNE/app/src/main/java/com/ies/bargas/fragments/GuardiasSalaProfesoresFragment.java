@@ -80,8 +80,9 @@ public class GuardiasSalaProfesoresFragment extends Fragment implements Serializ
                             Periodo periodo = new Periodo (jsonObject.getString("periodoinicio"), jsonObject.getString("periodofin"));
                             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.US);
                             LocalDate localDate = LocalDate.parse(jsonObject.getString("fecha"), dateFormatter);
+                            String clase = jsonObject.getString("clase");
                             Guardia guardia = new Guardia( jsonObject.getInt("cod_guardias"), jsonObject.getString("observaciones"), user,
-                                    localDate, periodo);
+                                    localDate, periodo, clase);
                             guardiasList.add(guardia);
 
 

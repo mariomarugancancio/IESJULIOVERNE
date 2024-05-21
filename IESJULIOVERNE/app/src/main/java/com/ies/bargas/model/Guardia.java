@@ -12,12 +12,15 @@ public class Guardia {
     private LocalDate fecha;
     private Periodo periodo;
 
-    public Guardia(int cod_guardia, String observaciones, User usuario, LocalDate fecha, Periodo periodo) {
+    private String clase;
+
+    public Guardia(int cod_guardia, String observaciones, User usuario, LocalDate fecha, Periodo periodo, String clase) {
         this.cod_guardia = cod_guardia;
         this.observaciones = observaciones;
         this.usuario = usuario;
         this.fecha = fecha;
         this.periodo = periodo;
+        this.clase = clase;
     }
 
     public Guardia(String observaciones, User usuario, LocalDate fecha, Periodo periodo) {
@@ -65,6 +68,13 @@ public class Guardia {
 
     public void setPeriodo(Periodo periodo) {
         this.periodo = periodo;
+    }
+    public String getClase() {
+        return clase;
+    }
+
+    public void setClase(String clase) {
+        this.clase = clase;
     }
 
     @Override
