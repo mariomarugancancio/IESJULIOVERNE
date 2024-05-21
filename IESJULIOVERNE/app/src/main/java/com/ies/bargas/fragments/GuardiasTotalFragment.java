@@ -1,6 +1,8 @@
 package com.ies.bargas.fragments;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -27,6 +29,7 @@ import com.ies.bargas.R;
 import com.ies.bargas.model.Guardia;
 import com.ies.bargas.model.Periodo;
 import com.ies.bargas.model.User;
+import com.ies.bargas.util.Util;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,6 +50,7 @@ public class GuardiasTotalFragment extends Fragment implements Serializable {
     private ShiftAdapter adapter;
     private ArrayList<Guardia> guardiasList;
 
+    private SharedPreferences prefs;
 
 
     @Override
@@ -57,10 +61,6 @@ public class GuardiasTotalFragment extends Fragment implements Serializable {
         guardiasList = new ArrayList<>();
         //Cargar los datos
         cargarDatos();
-
-
-
-
         //Devolver la vista
         return view;
     }
@@ -115,7 +115,9 @@ public class GuardiasTotalFragment extends Fragment implements Serializable {
 
     // Método para cargar datos en el ListView
     private void cargarDatos() {
-        String url = WebService.RAIZ + WebService.ObtenerGuardias;
+
+        prefs = getActivity().getSharedPreferences("Preferences", Context.MODE_PRIVATE);
+        String url = WebService.RAIZ + WebService.ObtenerGuardiasUser + "?cod_usuario=" + Util.getUserCodUsuarioPrefs(prefs);
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url,
                 response -> {
                     try {
