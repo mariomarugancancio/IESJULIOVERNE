@@ -177,7 +177,7 @@ if ($_SESSION['usuario_login']['rol'] != 0) {
           <td colspan='5' class='text-center td-title'>Usuarios autorizados</td></tr>";
 
       }
-      $usuarios = "SELECT nombre, apellidos, email, cod_usuario, rol FROM Usuarios WHERE validar = 'si' and rol != '2' and email != '" . $_SESSION["usuario_login"]["email"] . "' ORDER BY nombre, apellidos";
+      $usuarios = "SELECT nombre, apellidos, email, cod_usuario, rol FROM Usuarios WHERE validar = 'si' and (rol = '0' or rol = '1') and email != '" . $_SESSION["usuario_login"]["email"] . "' ORDER BY nombre, apellidos";
       $usuarios = $db->query($usuarios)->fetchAll();
 
       $contador = 0;

@@ -29,6 +29,16 @@ public class User {
         this.rol = rol;
     }
 
+
+    public User(int cod_usuario, String nombre, String apellidos, int cod_delphos) {
+        this.cod_usuario = cod_usuario;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.cod_delphos = cod_delphos;
+
+    }
+
+
     public User(String email, String clave, String nombre, String apellidos, String dni, int cod_delphos, String validar, Departamento departamento, String tutor_grupo, String rol) {
         this.email = email;
         this.clave = clave;

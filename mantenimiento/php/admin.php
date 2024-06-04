@@ -17,6 +17,15 @@ controlarrol(0);
   <link rel="stylesheet" href="../css/bootstrap.min.css">
   <link rel="stylesheet" href="../css/styles.css">
   <title>Administrador</title>
+  <style>
+    .atleti{
+      width: 200px;
+      height: 200px;
+      position: fixed;
+      top: 50;
+    right: 0;
+    }
+  </style>
 </head>
 
 <body>
@@ -24,6 +33,7 @@ controlarrol(0);
     require_once("funciones/header.php");
  
   ?>
+  <img src="../../images/griezmann.gif" class="atleti">
   <article>
     <section>
       <div class="container px-4 py-5" id="Incidencias">

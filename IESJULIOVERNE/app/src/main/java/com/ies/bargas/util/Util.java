@@ -51,6 +51,7 @@ public class Util {
     public static String getUsertutorPrefs(SharedPreferences preferences) {
         return preferences.getString("tutor_grupo", "");
     }
+    //Devuelve el rol del usuario guardado
     public static String getUserRolPrefs(SharedPreferences preferences) {
         return preferences.getString("rol", "");
     }

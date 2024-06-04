@@ -14,10 +14,6 @@ WHERE (fecha = CURDATE() AND TIME(Periodos.inicio) > DATE_SUB(TIME('$hora_actual
 OR (fecha = CURDATE() + INTERVAL 1 DAY AND TIME('$hora_actual') >= TIME('21:15:00'))
 ORDER BY fecha ASC, periodoinicio ASC;";
 $resul = $db->query($select);
-
-
-
-$resul = $db->query($select);
 $i=0;
 $periodoActual="";
 $periodoSiguiente="";

@@ -1,6 +1,8 @@
 package com.ies.bargas.fragments;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -20,26 +22,35 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ies.bargas.activities.shifts.AddShiftsActivity;
+import com.ies.bargas.adapters.ShiftAdapter;
 import com.ies.bargas.controllers.WebService;
 
 import com.ies.bargas.R;
+import com.ies.bargas.model.Guardia;
+import com.ies.bargas.model.Periodo;
+import com.ies.bargas.model.User;
+import com.ies.bargas.util.Util;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
-public class GuardiasTotalFragment extends Fragment {
+public class GuardiasTotalFragment extends Fragment implements Serializable {
 
     private ListView listViewShifts;
-    private ArrayAdapter<String> adapter;
-    private ArrayList<String> guardiasList;
-    private String obtenerIdDeGuardia(String guardia) {
-        return guardia.split(" ")[0];
-    }
+    private ShiftAdapter adapter;
+    private ArrayList<Guardia> guardiasList;
+
+    private SharedPreferences prefs;
 
 
     @Override
@@ -48,13 +59,8 @@ public class GuardiasTotalFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_guardias_total, container, false);
         listViewShifts = view.findViewById(R.id.listViewShifts);
         guardiasList = new ArrayList<>();
-        adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, guardiasList);
-        listViewShifts.setAdapter(adapter);
-        registerForContextMenu(listViewShifts);
-
         //Cargar los datos
         cargarDatos();
-
         //Devolver la vista
         return view;
     }
@@ -70,11 +76,11 @@ public class GuardiasTotalFragment extends Fragment {
     public boolean onContextItemSelected(MenuItem item) {
         //Obtener info en el context menu del objeto que se pinche
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        String guardiaSeleccionada = guardiasList.get(info.position);
+        Guardia guardiaSeleccionada = guardiasList.get(info.position);
         if (item.getItemId() == R.id.edit) {
             // Ir a la actividad de agregar/editar guardia
             Intent intent = new Intent(getActivity(), AddShiftsActivity.class);
-            intent.putExtra("guardia", guardiaSeleccionada);
+            intent.putExtra("guardia", (Serializable) guardiaSeleccionada);
             startActivity(intent);
         } else if (item.getItemId() == R.id.delete) {
             // Llamar al archivo PHP para eliminar la guardia
@@ -98,7 +104,7 @@ public class GuardiasTotalFragment extends Fragment {
                 @Override
                 protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<>();
-                    params.put("id", obtenerIdDeGuardia(guardiaSeleccionada));
+                    params.put("id", guardiaSeleccionada.getCod_guardia()+"");
                     return params;
                 }
             };
@@ -109,20 +115,31 @@ public class GuardiasTotalFragment extends Fragment {
 
     // Método para cargar datos en el ListView
     private void cargarDatos() {
-        String url = WebService.RAIZ + WebService.ObtenerGuardias;
+
+        prefs = getActivity().getSharedPreferences("Preferences", Context.MODE_PRIVATE);
+        String url = WebService.RAIZ + WebService.ObtenerGuardiasUser + "?cod_usuario=" + Util.getUserCodUsuarioPrefs(prefs);
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url,
                 response -> {
                     try {
                         guardiasList.clear();
                         for (int i = 0; i < response.length(); i++) {
                             JSONObject jsonObject = response.getJSONObject(i);
-                            String guardia = jsonObject.getString("fecha") + " " +
-                                    jsonObject.getString("periodo") + " " +
-                                    jsonObject.getString("clase") + " " +
-                                    jsonObject.getString("profesor") + " " +
-                                    jsonObject.getString("observaciones");
+                            User user = new User(jsonObject.getInt("cod_usuario"), jsonObject.getString("nombre"),jsonObject.getString("apellidos"), jsonObject.getInt("delphos"));
+
+                            Periodo periodo = new Periodo (jsonObject.getString("periodoinicio"), jsonObject.getString("periodofin"));
+                            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.US);
+                            LocalDate localDate = LocalDate.parse(jsonObject.getString("fecha"), dateFormatter);
+                            String clase = jsonObject.getString("clase");
+                            Guardia guardia = new Guardia( jsonObject.getInt("cod_guardias"), jsonObject.getString("observaciones"), user,
+                                    localDate, periodo, clase);
                             guardiasList.add(guardia);
+
+
                         }
+
+                        adapter = new ShiftAdapter(getActivity(), R.layout.list_view_item_shifts, guardiasList);
+                        listViewShifts.setAdapter(adapter);
+                        registerForContextMenu(listViewShifts);
                         adapter.notifyDataSetChanged();
                     } catch (JSONException e) {
                         e.printStackTrace();

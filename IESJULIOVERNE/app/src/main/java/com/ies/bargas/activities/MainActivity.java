@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private int counter = 0;
     private SharedPreferences prefs;
+    //Variable para el rol del usuario
+    private String userRole;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,6 +151,21 @@ public class MainActivity extends AppCompatActivity {
         if (!nombre.isEmpty() && !apellidos.isEmpty()){
             navUsername.setText(nombre+ " "+apellidos);
 
+        }
+    }
+
+    //Método para el rol
+    @Override
+    protected void onResume(){
+        super.onResume();
+
+        //Obtiene el rol del usuario de las SharedPreferences
+        userRole = Util.getUserRolPrefs(prefs);
+
+        //Restringe la visualización de tabs según el rol del usuario
+        if (!userRole.equals("0")){
+            navigationView.getMenu().removeItem(R.id.navigation_semana);
+            navigationView.getMenu().removeItem(R.id.navigation_total);
         }
     }
 }

@@ -1,23 +1,43 @@
 <?php
-include 'conexion.php';
-$db = conexion();
+include '../conexion.php';
 
-// Obtener la fecha de inicio y fin de la semana 
-$startDate = date('Y-m-d', strtotime('monday this week'));
-$endDate = date('Y-m-d', strtotime('sunday this week'));
+try {
 
-// Preparar la consulta SQL
-$sql = "SELECT * FROM Guardias WHERE fecha >= ? AND fecha <= ?";
+    // Preparo la consulta 
+    $sql = "SELECT cod_guardias,observaciones, fecha,  Guardias.cod_usuario AS cod_usuario,
+    Usuarios.nombre AS nombre, Usuarios.apellidos AS apellidos, Usuarios.cod_delphos AS delphos, Periodos.inicio AS periodoinicio, Periodos.fin AS periodofin
+    , Horarios.clase AS clase
+    FROM Guardias
+    JOIN Periodos ON Guardias.periodo = Periodos.cod_periodo
+    JOIN Usuarios ON Guardias.cod_usuario = Usuarios.cod_usuario
+    JOIN Horarios ON Horarios.cod_delphos = Usuarios.cod_delphos
+    WHERE Horarios.inicio = Periodos.inicio AND Horarios.fin = Periodos.fin AND Horarios.clase IS NOT NULL AND
+                CASE 
+                    WHEN DAYOFWEEK(fecha) = 2 THEN 'Lunes'
+                    WHEN DAYOFWEEK(fecha) = 3 THEN 'Martes'
+                    WHEN DAYOFWEEK(fecha) = 4 THEN 'Miércoles'
+                    WHEN DAYOFWEEK(fecha) = 5 THEN 'Jueves'
+                    WHEN DAYOFWEEK(fecha) = 6 THEN 'Viernes'
+                    END = Horarios.dia
+    AND YEARWEEK(fecha, 1) = YEARWEEK(NOW(), 1)
+    ORDER BY fecha ASC, periodoinicio ASC;";
+    $stmt = $db->prepare($sql);
 
-// Preparar la declaración
-$stmt = $db->prepare($sql);
+    // Ejecuto la consulta 
+    $stmt->execute();
 
-// Ejecutar la consulta 
-$stmt->execute([$startDate, $endDate]);
+    // Buscar todos los alumnos
+    $alumnos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // Preparar el response
+    $response = $alumnos;
 
-// Obtener todas las guardias de la semana actual
-$guardias = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // encabezado en json
+    header('Content-Type: application/json');
 
-// Devolver las guardias como JSON
-echo json_encode($guardias);
+    // Preparar el response
+    echo json_encode($response);
+
+} catch (PDOException $e) {
+    echo "Error: " . $e->getMessage();
+}
 ?>
