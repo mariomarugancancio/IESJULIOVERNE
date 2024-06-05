@@ -23,6 +23,11 @@ import com.ies.bargas.R;
 import com.ies.bargas.activities.parts.AddPartsActivity;
 import com.ies.bargas.adapters.ParteAdapter;
 import com.ies.bargas.controllers.WebService;
+<<<<<<< Updated upstream
+=======
+import com.ies.bargas.model.Alumno;
+import com.ies.bargas.model.Incidencia;
+>>>>>>> Stashed changes
 import com.ies.bargas.model.Parte;
 
 import org.json.JSONArray;
@@ -108,6 +113,7 @@ public class PartesFragment extends Fragment {
 
                             jsonObject = response.getJSONObject(i);
 
+<<<<<<< Updated upstream
                             // Extraer atributos del objeto JSON
                             int cod_parte = jsonObject.getInt("cod_parte");
                             int cod_usuario = jsonObject.getInt("cod_usuario");
@@ -118,6 +124,12 @@ public class PartesFragment extends Fragment {
                                     materia = jsonObject.getInt("materia");
                                 } catch (Exception e) {}
 
+=======
+                            // Extraer atributos del objeto JSON para la tabla Partes
+                            int cod_parte = jsonObject.getInt("cod_parte");
+                            int cod_usuario = jsonObject.getInt("cod_usuario");
+                            int materia = jsonObject.optInt("materia", 0); // Usar optInt para manejar el caso en que el atributo no esté presente
+>>>>>>> Stashed changes
                             LocalDate fecha = LocalDate.parse(jsonObject.getString("fecha"));
                             String hora = jsonObject.getString("hora");
                             String descripcion = jsonObject.getString("descripcion");
@@ -125,9 +137,27 @@ public class PartesFragment extends Fragment {
                             String viaComunicacion = jsonObject.getString("via_Comunicacion");
                             String tipoParte = jsonObject.getString("tipo_Parte");
                             int caducado = jsonObject.getInt("caducado");
+<<<<<<< Updated upstream
                             String matricula = jsonObject.optString("grupo");
 
                             Parte parte = new Parte(cod_parte, cod_usuario, matriculaAlumno, incidencia, materia, fecha,
+=======
+
+                            // Extraer atributos del objeto JSON para la tabla Alumnos
+                            String matricula = jsonObject.optString("matricula");
+                            String nombreAlumno = jsonObject.optString("nombre");
+                            String apellidos = jsonObject.optString("apellidos");
+                            String grupoAlumno = jsonObject.optString("grupo"); // Cambiado para coincidir con el nombre del atributo en la tabla
+
+                            // Extraer atributos del objeto JSON para la tabla Incidencia
+                            int cod_incidencia = jsonObject.getInt("cod_incidencia");
+                            String nombreIncidencia = jsonObject.getString("inci_nombre");
+                            int puntos = jsonObject.getInt("puntos");
+                            String descripcionIncidencia = jsonObject.getString("inci_descripcion");
+
+                            Parte parte = new Parte(cod_parte, cod_usuario, new Alumno(matricula, nombreAlumno, apellidos, grupoAlumno),
+                                    new Incidencia(cod_incidencia, nombreIncidencia, puntos, descripcionIncidencia), materia, fecha,
+>>>>>>> Stashed changes
                                     hora, descripcion, fechaComunicacion, viaComunicacion, tipoParte, caducado);
 
 
@@ -141,7 +171,11 @@ public class PartesFragment extends Fragment {
 
 
                 } catch (JSONException e) {
+<<<<<<< Updated upstream
                     Toast.makeText(requireContext(), "ERROR: No se encontro ningún alumno", Toast.LENGTH_LONG).show();
+=======
+                    Toast.makeText(context, "ERROR: No se encontro ningún parte", Toast.LENGTH_LONG).show();
+>>>>>>> Stashed changes
                 }
             }
         },

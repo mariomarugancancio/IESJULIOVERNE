@@ -50,6 +50,12 @@
             android:name=".activities.parts.ModifyAlumnoActivity"
             android:exported="true" />
         <activity
+<<<<<<< Updated upstream
+=======
+            android:name=".activities.parts.ModifyExpulsionActivity"
+            android:exported="true" />
+        <activity
+>>>>>>> Stashed changes
             android:name=".activities.parts.PartsActivity"
             android:exported="true" />
         <activity

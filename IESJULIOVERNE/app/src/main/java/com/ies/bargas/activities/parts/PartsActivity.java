@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -34,7 +35,7 @@ public class PartsActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private SharedPreferences prefs;
     private BottomNavigationView bottomNavigationView;
-
+    private String rol;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,7 @@ public class PartsActivity extends AppCompatActivity {
         //shared preferences
 
         prefs = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
+        rol= Util.getUserRolPrefs(prefs);
         // configurar la vista de la navegacion
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -101,6 +103,7 @@ public class PartsActivity extends AppCompatActivity {
         // Configura el BottomNavigationView
         bottomNavigationView = findViewById(R.id.bottom_navigation_parts);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment selectedFragment = null;
@@ -122,12 +125,31 @@ public class PartsActivity extends AppCompatActivity {
             }
         });
 
+
         // Establece el fragment inicial
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_part, new PartesFragment()).commit();
             bottomNavigationView.setSelectedItemId(R.id.navigation_partes);
         }
+
+
+        // Obtener referencia al menú del BottomNavigationView y deshabilitar elementos
+        Menu bottomMenu = bottomNavigationView.getMenu();
+        MenuItem partesItem = bottomMenu.findItem(R.id.navigation_partes);
+        MenuItem expulsionesItem = bottomMenu.findItem(R.id.navigation_expulsiones);
+        MenuItem alumnosItem = bottomMenu.findItem(R.id.navigation_alumnos);
+
+        // Desactivar ítems según sea necesario
+        if (!rol.equals("0")){
+            expulsionesItem.setEnabled(false);
+            expulsionesItem.setVisible(false);
+            alumnosItem.setEnabled(false);
+            alumnosItem.setVisible(false);
+        }
+
+
     }
+
 
 
 

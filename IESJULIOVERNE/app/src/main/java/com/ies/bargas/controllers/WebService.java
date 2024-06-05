@@ -28,6 +28,14 @@ public class WebService {
     public static final String modifyPart="partes/modifyParte.php";
     public static final String deleteParte="partes/deleteParte.php";
     public static final String caducarParte="partes/caducarParte.php";
+<<<<<<< Updated upstream
+=======
+    public static final String comprobarExpulsion="partes/findExpulsionByAlumno.php";
+    public static final String findAllExpulsiones="partes/findAllExpulsiones.php";
+    public static final String findAllPartesByAlumno="partes/findAllPartesByAlumno.php";
+    public static final String usarPartes="partes/usarPartes.php";
+    public static final String modifyExpulsion="partes/modifyExpulsion.php";
+>>>>>>> Stashed changes
 
 
 

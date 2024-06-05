@@ -61,6 +61,7 @@ public class ParteAdapter extends BaseAdapter {
 
         Parte parte = partes.get(position);
 
+<<<<<<< Updated upstream
         TextView codUsuarioView = listItemView.findViewById(R.id.cod_usuario);
         TextView codParteView = listItemView.findViewById(R.id.cod_parte);
         TextView matriculaAlumnoView = listItemView.findViewById(R.id.matricula_Alumno);
@@ -73,6 +74,12 @@ public class ParteAdapter extends BaseAdapter {
         TextView viaComunicacionView = listItemView.findViewById(R.id.via_Comunicacion);
         TextView tipoParteView = listItemView.findViewById(R.id.tipo_Parte);
         TextView caducadoView = listItemView.findViewById(R.id.caducado);
+=======
+        TextView nombre = listItemView.findViewById(R.id.nombre_Alumno);
+        TextView apellidos = listItemView.findViewById(R.id.apellidos_Alumno);
+        TextView puntos = listItemView.findViewById(R.id.puntos_Incidencia);
+        TextView descripcion = listItemView.findViewById(R.id.descripcion_incidencia);
+>>>>>>> Stashed changes
 
         listItemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,8 +87,22 @@ public class ParteAdapter extends BaseAdapter {
                 Intent intent = new Intent(context, ModifyPartActivity.class);
                 intent.putExtra("cod_parte", parte.getCod_parte());
                 intent.putExtra("cod_usuario", parte.getCod_usuario());
+<<<<<<< Updated upstream
                 intent.putExtra("matricula_Alumno", parte.getMatriculaAlumno());
                 intent.putExtra("incidencia", parte.getIncidencia());
+=======
+
+                intent.putExtra("matricula_Alumno", parte.getMatriculaAlumno().getMatricula());
+                intent.putExtra("grupo_Alumno", parte.getMatriculaAlumno().getGrupo());
+                intent.putExtra("apellidos_Alumno", parte.getMatriculaAlumno().getApellidos());
+                intent.putExtra("nombre_Alumno", parte.getMatriculaAlumno().getNombre());
+
+                intent.putExtra("incidencia", parte.getIncidencia().getCodigo());
+                intent.putExtra("descripcion_incidencia", parte.getIncidencia().getDescripcion());
+                intent.putExtra("nombre_incidencia", parte.getIncidencia().getNombre());
+                intent.putExtra("puntos_incidencia", parte.getIncidencia().getPuntos());
+
+>>>>>>> Stashed changes
                 intent.putExtra("materia", parte.getMateria());
                 intent.putExtra("fecha", parte.getFecha().toString());
                 intent.putExtra("hora", parte.getHora());
@@ -199,6 +220,7 @@ public class ParteAdapter extends BaseAdapter {
             }
         });
 
+<<<<<<< Updated upstream
         codUsuarioView.setText("Profesor: " + parte.getCod_usuario());
         codParteView.setText("Código: " + parte.getCod_parte());
         matriculaAlumnoView.setText("Alumno: " + parte.getMatriculaAlumno());
@@ -211,6 +233,12 @@ public class ParteAdapter extends BaseAdapter {
         viaComunicacionView.setText("Vía de Comunicación: " + parte.getViaComunicacion());
         tipoParteView.setText("Tipo de Parte: " + parte.getTipoParte());
         caducadoView.setText("¿Caducado?: " + parte.isCaducado());
+=======
+        nombre.setText("Nombre: " + parte.getMatriculaAlumno().getNombre());
+        apellidos.setText("Apellidos: " + parte.getMatriculaAlumno().getApellidos());
+        puntos.setText("Puntos: " + parte.getIncidencia().getPuntos());
+        descripcion.setText("Incidencia: " + parte.getIncidencia().getDescripcion());
+>>>>>>> Stashed changes
 
         return listItemView;
     }

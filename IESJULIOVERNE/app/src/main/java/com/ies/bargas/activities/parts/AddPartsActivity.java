@@ -458,8 +458,8 @@ public class AddPartsActivity extends AppCompatActivity {
         } else {
             prefs = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
             int cod_usuario= Util.getUserCodUsuarioPrefs(prefs);
-            String matricula= globalAlumno.getMatricula();
-            int incidencia = globalIncidencia.getCodigo();
+            Alumno matricula= globalAlumno;
+            Incidencia incidencia = globalIncidencia;
             int materia = globalAsignatura.getCodAsignatura();
             LocalDate fecha = LocalDate.now();
 
@@ -494,8 +494,8 @@ public class AddPartsActivity extends AppCompatActivity {
 
             url = WebService.RAIZ + WebService.InsertParts + "?"
                     + "cod_usuario=" + newParte.getCod_usuario()
-                    + "&matricula_Alumno=" + newParte.getMatriculaAlumno()
-                    + "&incidencia=" + newParte.getIncidencia()
+                    + "&matricula_Alumno=" + newParte.getMatriculaAlumno().getMatricula()
+                    + "&incidencia=" + newParte.getIncidencia().getCodigo()
                     + "&materia=" + newParte.getMateria()
                     + "&fecha=" + newParte.getFecha()
                     + "&hora=" + newParte.getHora()
@@ -510,7 +510,7 @@ public class AddPartsActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(String response) {
                             Toast.makeText(AddPartsActivity.this, "El parte ha sido añadido", Toast.LENGTH_SHORT).show();
-                            comprobarExpulsion(newParte.getMatriculaAlumno(), newParte.getCod_usuario());
+                            comprobarExpulsion(newParte.getMatriculaAlumno().getMatricula(), newParte.getCod_usuario());
                         }
                     },
                     new Response.ErrorListener() {
@@ -536,7 +536,40 @@ public class AddPartsActivity extends AppCompatActivity {
 
     private void comprobarExpulsion(String matriculaAlumno, int cod_usuario){
 
+        //Comprueba si esta ya expulsado
 
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url;
+
+
+        url = WebService.RAIZ + WebService.comprobarExpulsion + "?"
+                + "matricula=" + matriculaAlumno;
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        int respuesta= Integer.parseInt(response);
+                        if (respuesta==1) {
+                            Toast.makeText(AddPartsActivity.this, "El Alumno ya tenía una expulsión anterior", Toast.LENGTH_SHORT).show();
+
+                            Intent intent = new Intent(AddPartsActivity.this, PartsActivity.class);
+                            startActivity(intent);
+                        }   else
+                            sumarPuntos(matriculaAlumno,cod_usuario);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(AddPartsActivity.this, "ERROR: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+        queue.add(stringRequest);
+    }
+
+    private void sumarPuntos(String matriculaAlumno, int cod_usuario){
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = WebService.RAIZ + WebService.SelectPartes + "?" +
                 "matricula=" + matriculaAlumno;
@@ -547,9 +580,9 @@ public class AddPartsActivity extends AppCompatActivity {
                 JSONObject jsonObject = null;
                 try {
 
-                    int puntos=0;
+                    int puntos = 0;
 
-                    if(response.length()>0) {
+                    if (response.length() > 0) {
                         for (int i = 0; i < response.length(); i++) {
 
                             jsonObject = response.getJSONObject(i);
@@ -559,12 +592,12 @@ public class AddPartsActivity extends AppCompatActivity {
                         }
                     }
 
-                    Toast.makeText(getApplicationContext(), globalAlumno.getNombre()+" tiene "+ puntos +" puntos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), globalAlumno.getNombre() + " tiene " + puntos + " puntos", Toast.LENGTH_SHORT).show();
 
-                    if (puntos>9) {
+                    if (puntos > 9) {
                         FloatingFragment floatingFragment = FloatingFragment.newInstance(globalAlumno, cod_usuario);
                         floatingFragment.show(getSupportFragmentManager(), "floatingFragment");
-                    } else{
+                    } else {
                         Intent intent = new Intent(AddPartsActivity.this, PartsActivity.class);
                         startActivity(intent);
                     }
@@ -582,6 +615,5 @@ public class AddPartsActivity extends AppCompatActivity {
         });
 
         queue.add(jsonArrayRequest);
-
     }
 }

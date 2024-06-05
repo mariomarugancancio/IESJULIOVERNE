@@ -40,6 +40,7 @@ import com.ies.bargas.activities.shifts.ShiftsActivity;
 import com.ies.bargas.controllers.WebService;
 import com.ies.bargas.model.Alumno;
 import com.ies.bargas.model.Asignatura;
+<<<<<<< Updated upstream
 import com.ies.bargas.model.Curso;
 import com.ies.bargas.model.Incidencia;
 import com.ies.bargas.model.Parte;
@@ -49,6 +50,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+=======
+import com.ies.bargas.model.Incidencia;
+import com.ies.bargas.model.Parte;
+import com.ies.bargas.util.Util;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+>>>>>>> Stashed changes
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -441,7 +450,11 @@ public class ModifyPartActivity extends AppCompatActivity {
                             String userDescripcion = jsonObject.getString("descripcion");
                             Incidencia incidencia = new Incidencia(codigo, nombre, puntos, userDescripcion);
                             incidencias.add(incidencia);
+<<<<<<< Updated upstream
                             if (codigo==globalParte.getIncidencia())
+=======
+                            if (codigo==globalParte.getIncidencia().getCodigo())
+>>>>>>> Stashed changes
                                 n=i;
                         }
                         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(ModifyPartActivity.this,
@@ -468,7 +481,11 @@ public class ModifyPartActivity extends AppCompatActivity {
 
     private void recuperarAlumno(){
         RequestQueue queue = Volley.newRequestQueue(this);
+<<<<<<< Updated upstream
         String url = WebService.RAIZ + WebService.findAlumno + "?matricula=" + globalParte.getMatriculaAlumno();
+=======
+        String url = WebService.RAIZ + WebService.findAlumno + "?matricula=" + globalParte.getMatriculaAlumno().getMatricula();
+>>>>>>> Stashed changes
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
@@ -484,7 +501,11 @@ public class ModifyPartActivity extends AppCompatActivity {
                             String nombre = jsonObject.getString("nombre");
                             String apellidos = jsonObject.getString("apellidos");
                             String grupo = jsonObject.getString("grupo");
+<<<<<<< Updated upstream
                             globalAlumno = new Alumno(globalParte.getMatriculaAlumno(), nombre, apellidos, grupo);
+=======
+                            globalAlumno = new Alumno(globalParte.getMatriculaAlumno().getMatricula(), nombre, apellidos, grupo);
+>>>>>>> Stashed changes
 
                         }
                     }
@@ -526,8 +547,22 @@ public class ModifyPartActivity extends AppCompatActivity {
 
         codParte = intent.getIntExtra("cod_parte", 0);
         codUsuario = intent.getIntExtra("cod_usuario", 0);
+<<<<<<< Updated upstream
         matriculaAlumno = intent.getStringExtra("matricula_Alumno");
         incidencia = intent.getIntExtra("incidencia", 0);
+=======
+
+        matriculaAlumno = intent.getStringExtra("matricula_Alumno");
+        String grupo = intent.getStringExtra("grupo_Alumno");
+        String apellidos = intent.getStringExtra("apellidos_Alumno");
+        String nombre = intent.getStringExtra("nombre_Alumno");
+
+        incidencia = intent.getIntExtra("incidencia", 0);
+        String descripcionInci = intent.getStringExtra("descripcion_incidencia");
+        String nombreInci = intent.getStringExtra("nombre_incidencia");
+        int puntosInci = intent.getIntExtra("puntos_incidencia", 0);
+
+>>>>>>> Stashed changes
         materia = intent.getIntExtra("materia", 0);
         fecha = LocalDate.parse(intent.getStringExtra("fecha"));
         hora = intent.getStringExtra("hora");
@@ -537,7 +572,13 @@ public class ModifyPartActivity extends AppCompatActivity {
         tipoParte = intent.getStringExtra("tipo_Parte");
         caducado = intent.getIntExtra("caducado", 0);
 
+<<<<<<< Updated upstream
         globalParte= new Parte(codParte, codUsuario, matriculaAlumno, incidencia, materia, fecha, hora, descripcion, fechaComunicacion, viaComunicacion, tipoParte, caducado);
+=======
+        globalParte= new Parte(codParte, codUsuario, new Alumno( matriculaAlumno, nombre, apellidos, grupo),
+                new Incidencia(incidencia, nombreInci, puntosInci, descripcionInci), materia, fecha,
+                hora, descripcion, fechaComunicacion, viaComunicacion, tipoParte, caducado);
+>>>>>>> Stashed changes
     }
 
     private void rellenarDatos(){
@@ -566,8 +607,13 @@ public class ModifyPartActivity extends AppCompatActivity {
         } else {
             int cod_parte= globalParte.getCod_parte();
             int cod_usuario= globalParte.getCod_usuario();
+<<<<<<< Updated upstream
             String matricula= globalAlumno.getMatricula();
             int incidencia= globalIncidencia.getCodigo();
+=======
+            Alumno matricula= globalAlumno;
+            Incidencia incidencia= globalIncidencia;
+>>>>>>> Stashed changes
             int materia= globalAsignatura.getCodAsignatura();
             LocalDate fecha= LocalDate.now();
 
@@ -606,8 +652,13 @@ public class ModifyPartActivity extends AppCompatActivity {
             url = WebService.RAIZ + WebService.modifyPart + "?"
                     + "cod_parte=" + newParte.getCod_parte()
                     + "&cod_usuario=" + newParte.getCod_usuario()
+<<<<<<< Updated upstream
                     + "&matricula_Alumno=" + newParte.getMatriculaAlumno()
                     + "&incidencia=" + newParte.getIncidencia()
+=======
+                    + "&matricula_Alumno=" + newParte.getMatriculaAlumno().getMatricula()
+                    + "&incidencia=" + newParte.getIncidencia().getCodigo()
+>>>>>>> Stashed changes
                     + "&materia=" + newParte.getMateria()
                     + "&fecha=" + newParte.getFecha()
                     + "&hora=" + newParte.getHora()
