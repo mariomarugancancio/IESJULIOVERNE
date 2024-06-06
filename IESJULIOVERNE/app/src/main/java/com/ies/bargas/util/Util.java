@@ -54,6 +54,7 @@ public class Util {
     public static String getUserRolPrefs(SharedPreferences preferences) {
         return preferences.getString("rol", "");
     }
+    
     //Borra los valores guardados
     public static void removeSharedPreferences(SharedPreferences preferences) {
         SharedPreferences.Editor editor = preferences.edit();

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <script src="../js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/d7bc41fc30.js" crossorigin="anonymous"></script>
+    <script src="js/paginacionFiltro.js"></script>
 
     <!-- <style>
       @media (min-width: 768px) {
@@ -23,9 +24,26 @@
 
   if ($_SESSION['usuario_login']['rol'] == "1") {
     header('Location: guardiasprofesor.php');
-  }
+  } 
 ?>
-    <table class="table  table-bordered table-striped table-hover text-center" >
+
+<div class="row m-2">
+                <div class="col-lg-2 col-md-2 py-1 my-2">
+                <label>Filtrar por fecha</label>
+                </div>
+                 <div class="col-lg-2 col-md-2 my-2">
+                 <input type="date" id="filtroFecha" class="form-control" placeholder="Filtrar por fecha">
+                </div>
+                <div class="col-lg-4 col-md-4 my-2">
+                    <input type="text" id="filtroNombreProfesor" class="form-control"
+                        placeholder="Filtrar por nombre del profesor">
+                </div>
+                <div class="col-lg-4 col-md-4 my-2">
+                    <input type="text" id="filtroClase" class="form-control"
+                        placeholder="Filtrar por clase">
+                </div>
+                </div>
+    <table  id="tablaGuardias" class="table  table-bordered table-striped table-hover text-center" >
   <thead>
     <tr>
       <th scope="col">Fecha</th>
@@ -50,13 +68,22 @@
         include("../guardias/listaguardias.php");
       }
     }else{    
-       header('Location: guardiasprofesor.php');
+      include("../guardias/listaguardiasprofesores.php");
     }
       ?>
       
   </tbody>
+  
 </table>
+<div class="d-flex justify-content-center mt-5" id="tablaPaginacion">
 
+<nav aria-label="Page navigation example">
+    <ul class="pagination" id="paginacion">
+
+    </ul>
+</nav>
+
+</div>
 <script>
   function editarGuardia(cod_guardias) {
     var url = "editandoguardia.php?cod_guardias=" + cod_guardias;

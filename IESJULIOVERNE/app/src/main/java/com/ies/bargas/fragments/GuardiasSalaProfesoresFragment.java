@@ -1,6 +1,8 @@
 package com.ies.bargas.fragments;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -27,6 +29,7 @@ import com.ies.bargas.R;
 import com.ies.bargas.model.Guardia;
 import com.ies.bargas.model.Periodo;
 import com.ies.bargas.model.User;
+import com.ies.bargas.util.Util;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,18 +38,20 @@ import org.json.JSONObject;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-
 public class GuardiasSalaProfesoresFragment extends Fragment implements Serializable {
 
     private ListView listViewShifts;
     private ShiftAdapter adapter;
     private ArrayList<Guardia> guardiasList;
 
+    //Variable para el rol del usuario
+    private String rol;
 
 
     @Override
@@ -55,12 +60,13 @@ public class GuardiasSalaProfesoresFragment extends Fragment implements Serializ
         View view = inflater.inflate(R.layout.fragment_guardias_sala_profesores, container, false);
         listViewShifts = view.findViewById(R.id.listViewShiftsSalaProfesores);
         guardiasList = new ArrayList<>();
+
+        //Obtiene el rol del usuario de las preferencias compartidas
+        SharedPreferences prefs = getActivity().getSharedPreferences("Preferences", Context.MODE_PRIVATE);
+        rol = Util.getUserRolPrefs(prefs);
+
         //Cargar los datos
         cargarDatos();
-
-
-
-
         //Devolver la vista
         return view;
     }
@@ -85,10 +91,9 @@ public class GuardiasSalaProfesoresFragment extends Fragment implements Serializ
                                     localDate, periodo, clase);
                             guardiasList.add(guardia);
 
-
                         }
 
-                        adapter = new ShiftAdapter(getActivity(), R.layout.list_view_item_shifts, guardiasList);
+                        adapter = new ShiftAdapter(getActivity(), R.layout.list_view_item_shifts, guardiasList, "salaProfesores");
                         listViewShifts.setAdapter(adapter);
                         registerForContextMenu(listViewShifts);
                         adapter.notifyDataSetChanged();

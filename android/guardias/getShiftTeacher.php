@@ -20,8 +20,8 @@ try {
                     WHEN DAYOFWEEK(fecha) = 5 THEN 'Jueves'
                     WHEN DAYOFWEEK(fecha) = 6 THEN 'Viernes'
                     END = Horarios.dia
-    AND (fecha = CURDATE() AND TIME(Periodos.inicio) > DATE_SUB(TIME('$hora_actual'), INTERVAL 55 MINUTE))
-    OR (fecha = CURDATE() + INTERVAL 1 DAY AND TIME('$hora_actual') >= TIME('21:15:00'))
+    AND ((fecha = CURDATE() AND TIME(Periodos.inicio) > DATE_SUB(TIME('$hora_actual'), INTERVAL 55 MINUTE))
+    OR (fecha = CURDATE() + INTERVAL 1 DAY AND TIME('$hora_actual') >= TIME('21:15:00')))
     ORDER BY fecha ASC, periodoinicio ASC;";
     $stmt = $db->prepare($sql);
 

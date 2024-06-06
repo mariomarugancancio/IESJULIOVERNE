@@ -26,9 +26,12 @@
             echo'  <li class="nav-item">'?>
             <a class="nav-link   <?php if(str_contains($_SERVER['SCRIPT_NAME'],'lugaryfecha.php')) echo 'active' ?>"  href="lugaryfecha.php">Lugar y Fecha</a>
             <?php echo '</li>';
-                        echo'  <li class="nav-item">'?>
-                        <a class="nav-link   <?php if(str_contains($_SERVER['SCRIPT_NAME'],'patrocinadores.php')) echo 'active' ?>"  href="patrocinadores.php">Patrocinadores</a>
-                        <?php echo '</li>
+              echo'  <li class="nav-item">'?>
+              <a class="nav-link   <?php if(str_contains($_SERVER['SCRIPT_NAME'],'patrocinadores.php')) echo 'active' ?>"  href="patrocinadores.php">Patrocinadores</a>
+              <?php echo '</li>';
+              echo'  <li class="nav-item">'?>
+              <a class="nav-link   <?php if(str_contains($_SERVER['SCRIPT_NAME'],'ganadores.php')) echo 'active' ?>"  href="ganadores.php">Ganadores</a>
+              <?php echo '</li>
             </ul> 
           </nav>';
 ?>

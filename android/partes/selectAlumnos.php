@@ -4,7 +4,7 @@ include '../conexion.php';
 try {
 
     // Preparo la consulta 
-    $sql = "SELECT * FROM Alumnos ORDER BY matricula, apellidos, nombre";
+    $sql = "SELECT * FROM Alumnos";
 
     $stmt = $db->prepare($sql);
 

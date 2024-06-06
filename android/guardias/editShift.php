@@ -1,5 +1,5 @@
 <?php
-    include 'conexion.php';
+    include '../conexion.php';
     $db = conexion();
     $cod_guardias = $_POST['cod_guardias'];
     $fecha = $_POST['fecha'];

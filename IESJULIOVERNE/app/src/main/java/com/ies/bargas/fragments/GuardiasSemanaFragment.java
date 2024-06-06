@@ -80,8 +80,8 @@ public class GuardiasSemanaFragment extends Fragment implements Serializable {
             startActivity(intent);
         } else if (item.getItemId() == R.id.delete) {
             // Llamar al archivo PHP para eliminar la guardia
-            String url = WebService.RAIZ + WebService.Delete;
-            StringRequest request = new StringRequest(Request.Method.POST, url,
+            String url = WebService.RAIZ + WebService.Delete + "?cod_guardias=" + guardiaSeleccionada.getCod_guardia();
+            StringRequest request = new StringRequest(Request.Method.GET, url,
                     response -> {
                         //Comprobar si la eliminación fue exitosa
                         if (response.equals("Guardia eliminada correctamente")) {
@@ -131,7 +131,7 @@ public class GuardiasSemanaFragment extends Fragment implements Serializable {
 
                         }
 
-                        adapter = new ShiftAdapter(getActivity(), R.layout.list_view_item_shifts, guardiasList);
+                        adapter = new ShiftAdapter(getActivity(), R.layout.list_view_item_shifts, guardiasList, "semana");
                         listViewShifts.setAdapter(adapter);
                         registerForContextMenu(listViewShifts);
                         adapter.notifyDataSetChanged();

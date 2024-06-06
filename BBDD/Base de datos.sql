@@ -4371,3 +4371,6 @@ INSERT INTO `Horarios` (`cod_horario`, `nombre`, `apellidos`, `dia`, `inicio`, `
 (14357, ' María del Mar', 'Rodríguez Rodríguez', 'Miércoles', '13:35:00', '14:30:00', 'FQU\nE2F\n(1 B2.2)', NULL, 142236),
 (14358, ' María del Mar', 'Rodríguez Rodríguez', 'Jueves', '13:35:00', '14:30:00', 'FYQM\nB1A\n(1 A1.4)', NULL, 142236),
 (14359, ' María del Mar', 'Rodríguez Rodríguez', 'Viernes', '13:35:00', '14:30:00', 'FYQM\nB1B\n(1 A 0.4)', NULL, 142236);
+
+
+SELECT * FROM Horarios;

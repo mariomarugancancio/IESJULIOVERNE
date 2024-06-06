@@ -1,12 +1,14 @@
 package com.ies.bargas.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
@@ -23,12 +25,14 @@ public class ShiftAdapter extends ArrayAdapter<Guardia> {
     private Context context;
     private int layout;
     private List<Guardia> guardias;
+    private String tipoGuardia;
 
-    public ShiftAdapter(@NonNull Context context, int layout, List<Guardia> guardias) {
+    public ShiftAdapter(@NonNull Context context, int layout, List<Guardia> guardias, String tipoGuardia) {
         super(context, 0, guardias);
         this.layout=layout;
         this.context = context;
         this.guardias = guardias;
+        this.tipoGuardia=tipoGuardia;
     }
 
     @NonNull
@@ -40,7 +44,7 @@ public class ShiftAdapter extends ArrayAdapter<Guardia> {
         }
 
         Guardia currentGuardia = guardias.get(position);
-
+        LinearLayout filaShiftLinearLayout = listItemView.findViewById(R.id.filaShift);
         TextView fechaTextView = listItemView.findViewById(R.id.Fecha);
         TextView periodoTextView = listItemView.findViewById(R.id.Periodo);
         TextView claseTextView = listItemView.findViewById(R.id.Clase);
@@ -53,6 +57,12 @@ public class ShiftAdapter extends ArrayAdapter<Guardia> {
         profesorTextView.setText(currentGuardia.getUsuario().getNombre()+" "+currentGuardia.getUsuario().getApellidos());
         observacionesTextView.setText(currentGuardia.getObservaciones()+"");
 
+
+        //Colores
+        if(tipoGuardia.equals("salaProfesores")) {
+            //Ver que color toca en función de la hora
+            filaShiftLinearLayout.setBackgroundColor(Color.GREEN);
+        }
        /* listItemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,64 +75,6 @@ public class ShiftAdapter extends ArrayAdapter<Guardia> {
             }
         });*/
 
-        listItemView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-
-                // Crear un objeto PopupMenu
-                PopupMenu popupMenu = new PopupMenu(context, v);
-                // Inflar el archivo de menú XML
-                popupMenu.getMenuInflater().inflate(R.menu.context_menu_shifts, popupMenu.getMenu());
-
-                MenuItem titulo= popupMenu.getMenu().findItem(R.id.titulo);
-                titulo.setTitle(currentGuardia.getFecha()+"");
-                titulo.setEnabled(false);
-
-                // Configurar un listener para manejar la selección de elementos del menú
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                       /* if (item.getItemId() == R.id.eliminar) {
-
-
-                            RequestQueue queue = Volley.newRequestQueue(context);
-                            String url = WebService.RAIZ + WebService.DeleteAlumno + "?"
-                                    + "matricula=" + currentAlumno.getMatricula();
-
-                            StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                                    new Response.Listener<String>() {
-                                        @Override
-                                        public void onResponse(String response) {
-                                            int respuesta= Integer.parseInt(response);
-                                            if (respuesta==0){
-                                                Toast.makeText(context, "No se ha podido eliminar porque no existe el usuario ¯\\_( ͡° ͜ʖ ͡°)_/¯", Toast.LENGTH_SHORT).show();
-                                            } else if (respuesta==1){
-                                                Toast.makeText(context, currentAlumno.getNombre()+" Ha sido eliminado correctamente", Toast.LENGTH_SHORT).show();
-                                                alumnos.remove(currentAlumno);
-                                                notifyDataSetChanged();
-                                            } else {
-                                                Toast.makeText(context, "Algo ha fallado durante la eliminación, no preguntes el qué ¯\\_( ͡° ͜ʖ ͡°)_/¯", Toast.LENGTH_LONG).show();
-                                            }
-                                        }
-                                    },
-                                    new Response.ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(VolleyError error) {
-                                            Toast.makeText(context, "ERROR: " + error.getMessage(), Toast.LENGTH_LONG).show();
-                                        }
-                                    });
-                            queue.add(stringRequest);
-
-
-                            return true;
-                        }*/
-                        return false;
-                    }
-                });
-                popupMenu.show();
-                return true;
-            }
-        });
         return listItemView;
     }
 }

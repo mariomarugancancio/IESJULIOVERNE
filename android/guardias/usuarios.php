@@ -7,7 +7,8 @@ try {
     $sql = "SELECT  u.cod_usuario, u.dni, u.nombre, u.apellidos, u.email, u.clave, u.rol, u.cod_delphos, u.validar, d.codigo AS departamento_codigo, d.nombre AS departamento_nombre, u.tutor_grupo
     FROM Usuarios u
     LEFT JOIN Departamentos d ON u.departamento = d.codigo
-    WHERE rol IN('0','1')";
+    WHERE rol IN('0','1')
+    ORDER BY nombre, apellidos";
 
     $stmt = $db->prepare($sql);
 

@@ -120,6 +120,7 @@
 <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>" onchange='submit();'>
 
 </form>
+
     <table class="table  table-bordered table-hover text-center align-middle" id="contenidoTabla">
   <thead>
     <tr>

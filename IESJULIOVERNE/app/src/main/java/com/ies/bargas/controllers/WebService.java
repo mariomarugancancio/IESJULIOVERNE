@@ -2,7 +2,7 @@ package com.ies.bargas.controllers;
 
 public class WebService {
     //public static final String RAIZ = "https://iesbargas.es/android/"; //Hosting
-    public static final String RAIZ = "http://192.168.150.248/IESJULIOVERNE/android/"; //tener en cuenta en vez de poner localhost poner la ip
+    public static final String RAIZ = "http://192.168.150.59/IESJULIOVERNE/android/"; //tener en cuenta en vez de poner localhost poner la ip
     public static final String LOGIN = "usuarios/login.php";
     public static final String SIGNUP = "usuarios/signup.php";
     public static final String Departamentos = "usuarios/findAllDepartamentos.php";
@@ -20,6 +20,16 @@ public class WebService {
     public static final String SelectAlumnos="partes/selectAlumnos.php";
     public static final String ModificarAlumno="partes/modifyAlumno.php";
     public static final String DeleteAlumno="partes/deleteAlumno.php";
+    public static final String findAllParts="partes/findAllPartes.php";
+    public static final String findAlumno="partes/findAlumno.php";
+    public static final String modifyPart="partes/modifyParte.php";
+    public static final String deleteParte="partes/deleteParte.php";
+    public static final String caducarParte="partes/caducarParte.php";
+    public static final String comprobarExpulsion="partes/findExpulsionByAlumno.php";
+    public static final String findAllExpulsiones="partes/findAllExpulsiones.php";
+    public static final String findAllPartesByAlumno="partes/findAllPartesByAlumno.php";
+    public static final String usarPartes="partes/usarPartes.php";
+    public static final String modifyExpulsion="partes/modifyExpulsion.php";
 
     //Guardias
     public static final String AddShifts = "guardias/addShifts.php";

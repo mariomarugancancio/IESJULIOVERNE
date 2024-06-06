@@ -6,7 +6,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <link rel="stylesheet" href="../css/principal.css">
+    <link rel="stylesheet" href="../css/selector.css">
     <!-- Bootstrap CSS v5.2.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
 </head>
@@ -74,6 +74,20 @@
                                     <h4 class='card-title text-decoration-underline'>Gestionar Alumnos</h4>
                                     <p class='card-text'>Apartado para importar, eliminar y modificar alumnos</p>
                                     <a href='gestionarAlumnos.php'><button type='button' class='btn btn-light'>Gestionar Alumnos</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='card col-7 g-3 m-auto my-3 bg-dark text-light'>
+                        <div class='row'>
+                            <div class='col-2 d-lg-block d-none'>
+                                <img src='./img/exportar.jpg' class=' rounded-start' alt='foto' style='height: 150px; margin-left: -8px;'>
+                            </div>
+                            <div class='col-10'>
+                                <div class='card-body'>
+                                    <h4 class='card-title text-decoration-underline'>Exportar Alumnos</h4>
+                                    <p class='card-text'>Apartado para exportar los alumnos matriculados a un archivo externo</p>
+                                    <a href='exportarAlumnos.php'><button type='button' class='btn btn-light'>Exportar Alumnos</button></a>
                                 </div>
                             </div>
                         </div>
