@@ -2,10 +2,12 @@ package com.ies.bargas.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +31,7 @@ import com.ies.bargas.model.Alumno;
 import com.ies.bargas.model.Incidencia;
 >>>>>>> Stashed changes
 import com.ies.bargas.model.Parte;
+import com.ies.bargas.util.Util;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -57,6 +60,8 @@ public class PartesFragment extends Fragment {
     private ListView listViewPartes;
     private ParteAdapter adapter;
     private Context context;
+    private SharedPreferences prefs;
+    private FragmentManager childFragment;
 
     public PartesFragment() {
         // Required empty public constructor
@@ -86,6 +91,7 @@ public class PartesFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
     }
 
@@ -97,9 +103,21 @@ public class PartesFragment extends Fragment {
         floatAction= view.findViewById(R.id.floatingAddParts);
         listViewPartes= view.findViewById(R.id.listViewPartes);
         context=requireContext();
+        childFragment= getChildFragmentManager();
+
+        prefs = context.getSharedPreferences("Preferences", Context.MODE_PRIVATE);
+        int cod_usuario = Util.getUserCodUsuarioPrefs(prefs);
+        String rol = Util.getUserRolPrefs(prefs);
+
+        if (!rol.equals("0") && !rol.equals("1"))
+            floatAction.hide();
+
+
 
         RequestQueue queue = Volley.newRequestQueue(requireContext());
-        String url = WebService.RAIZ + WebService.findAllParts;
+        String url = WebService.RAIZ + WebService.findAllParts+ "?"
+                + "cod_usuario=" + cod_usuario
+                + "&rol=" + rol;
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
@@ -165,7 +183,7 @@ public class PartesFragment extends Fragment {
 
                         }
                     }
-                    adapter = new ParteAdapter(context, globalPartes);
+                    adapter = new ParteAdapter(context, globalPartes, childFragment);
                     // Establecer el adaptador en el ListView
                     listViewPartes.setAdapter(adapter);
 

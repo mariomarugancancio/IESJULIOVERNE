@@ -2,6 +2,7 @@ package com.ies.bargas.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,18 +13,26 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ies.bargas.R;
+import com.ies.bargas.activities.parts.FloatingFragment;
 import com.ies.bargas.activities.parts.ModifyPartActivity;
 import com.ies.bargas.controllers.WebService;
 import com.ies.bargas.model.Parte;
 import com.ies.bargas.model.Parte;
+import com.ies.bargas.util.Util;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -31,10 +40,16 @@ public class ParteAdapter extends BaseAdapter {
 
     private Context context;
     private List<Parte> partes;
+    private SharedPreferences prefs;
+    private String rol;
+    private FragmentManager fragmentManager;
 
-    public ParteAdapter(Context context, List<Parte> partes) {
+
+    public ParteAdapter(Context context, List<Parte> partes, FragmentManager fragmentManager) {
         this.context = context;
         this.partes = partes;
+        this.prefs = context.getSharedPreferences("Preferences", Context.MODE_PRIVATE);
+        this.fragmentManager= fragmentManager;
     }
 
     @Override
@@ -58,6 +73,9 @@ public class ParteAdapter extends BaseAdapter {
         if (convertView == null) {
             listItemView = LayoutInflater.from(context).inflate(R.layout.part_list, parent, false);
         }
+
+        rol= Util.getUserRolPrefs(prefs);
+
 
         Parte parte = partes.get(position);
 
@@ -84,6 +102,7 @@ public class ParteAdapter extends BaseAdapter {
         listItemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+<<<<<<< Updated upstream
                 Intent intent = new Intent(context, ModifyPartActivity.class);
                 intent.putExtra("cod_parte", parte.getCod_parte());
                 intent.putExtra("cod_usuario", parte.getCod_usuario());
@@ -91,16 +110,17 @@ public class ParteAdapter extends BaseAdapter {
                 intent.putExtra("matricula_Alumno", parte.getMatriculaAlumno());
                 intent.putExtra("incidencia", parte.getIncidencia());
 =======
+=======
+                if (parte.isCaducado()==0) {
 
-                intent.putExtra("matricula_Alumno", parte.getMatriculaAlumno().getMatricula());
-                intent.putExtra("grupo_Alumno", parte.getMatriculaAlumno().getGrupo());
-                intent.putExtra("apellidos_Alumno", parte.getMatriculaAlumno().getApellidos());
-                intent.putExtra("nombre_Alumno", parte.getMatriculaAlumno().getNombre());
+                    Intent intent = new Intent(context, ModifyPartActivity.class);
+                    intent.putExtra("cod_parte", parte.getCod_parte());
+                    intent.putExtra("cod_usuario", parte.getCod_usuario());
 
-                intent.putExtra("incidencia", parte.getIncidencia().getCodigo());
-                intent.putExtra("descripcion_incidencia", parte.getIncidencia().getDescripcion());
-                intent.putExtra("nombre_incidencia", parte.getIncidencia().getNombre());
-                intent.putExtra("puntos_incidencia", parte.getIncidencia().getPuntos());
+                    intent.putExtra("matricula_Alumno", parte.getMatriculaAlumno().getMatricula());
+                    intent.putExtra("grupo_Alumno", parte.getMatriculaAlumno().getGrupo());
+                    intent.putExtra("apellidos_Alumno", parte.getMatriculaAlumno().getApellidos());
+                    intent.putExtra("nombre_Alumno", parte.getMatriculaAlumno().getNombre());
 
 >>>>>>> Stashed changes
                 intent.putExtra("materia", parte.getMateria());
@@ -112,6 +132,22 @@ public class ParteAdapter extends BaseAdapter {
                 intent.putExtra("tipo_Parte", parte.getTipoParte());
                 intent.putExtra("caducado", parte.isCaducado());
                 context.startActivity(intent);
+                    intent.putExtra("incidencia", parte.getIncidencia().getCodigo());
+                    intent.putExtra("descripcion_incidencia", parte.getIncidencia().getDescripcion());
+                    intent.putExtra("nombre_incidencia", parte.getIncidencia().getNombre());
+                    intent.putExtra("puntos_incidencia", parte.getIncidencia().getPuntos());
+
+                    intent.putExtra("materia", parte.getMateria());
+                    intent.putExtra("fecha", parte.getFecha().toString());
+                    intent.putExtra("hora", parte.getHora());
+                    intent.putExtra("descripcion", parte.getDescripcion());
+                    intent.putExtra("fecha_Comunicacion", parte.getFechaComunicacion().toString());
+                    intent.putExtra("via_Comunicacion", parte.getViaComunicacion());
+                    intent.putExtra("tipo_Parte", parte.getTipoParte());
+                    intent.putExtra("caducado", parte.isCaducado());
+                    context.startActivity(intent);
+                } else
+                    Toast.makeText(context, "El parte "+parte.getCod_parte()+" no se puede editar porque está caducado o usado", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -127,6 +163,7 @@ public class ParteAdapter extends BaseAdapter {
 
                 MenuItem titulo= popupMenu.getMenu().findItem(R.id.titulo);
                 MenuItem caducar= popupMenu.getMenu().findItem(R.id.caducar);
+                MenuItem eliminar= popupMenu.getMenu().findItem(R.id.eliminar);
                 titulo.setTitle("Codigo: "+parte.getCod_parte());
                 titulo.setEnabled(false);
                 int caducidad=0;
@@ -138,7 +175,10 @@ public class ParteAdapter extends BaseAdapter {
                 } else {
                     caducar.setTitle("Usado");
                     caducar.setEnabled(false);
+                    eliminar.setVisible(false);
                 }
+                if (!rol.equals("0"))
+                    eliminar.setVisible(false);
 
                 // Configurar un listener para manejar la selección de elementos del menú
                 final int finalCaducidad = caducidad;
@@ -162,7 +202,7 @@ public class ParteAdapter extends BaseAdapter {
                                             } else if (respuesta==1){
                                                 Toast.makeText(context, "El parte "+ parte.getCod_parte()+" Ha sido eliminado correctamente", Toast.LENGTH_SHORT).show();
                                                 partes.remove(parte);
-                                                notifyDataSetChanged();
+                                                sumarPuntos(parte);
                                             } else {
                                                 Toast.makeText(context, "Algo ha fallado durante la eliminación, no preguntes el qué ¯\\_( ͡° ͜ʖ ͡°)_/¯", Toast.LENGTH_LONG).show();
                                             }
@@ -195,7 +235,7 @@ public class ParteAdapter extends BaseAdapter {
                                             } else if (respuesta==1){
                                                 Toast.makeText(context, "La caducidad del parte "+ parte.getCod_parte()+" Ha sido modificado correctamente", Toast.LENGTH_SHORT).show();
                                                 partes.get(partes.indexOf(parte)).setCaducado(finalCaducidad);
-                                                notifyDataSetChanged();
+                                                sumarPuntos(parte);
                                             } else {
                                                 Toast.makeText(context, "Algo ha fallado durante la modificacion de la caducidad, no preguntes el qué ¯\\_( ͡° ͜ʖ ͡°)_/¯", Toast.LENGTH_LONG).show();
                                             }
@@ -243,5 +283,114 @@ public class ParteAdapter extends BaseAdapter {
         return listItemView;
     }
 
+    public void sumarPuntos(Parte parte){
+        RequestQueue queue = Volley.newRequestQueue(context);
+        String url = WebService.RAIZ + WebService.SelectPartes + "?" +
+                "matricula=" + parte.getMatriculaAlumno().getMatricula();
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONObject jsonObject = null;
+                try {
+
+                    int puntos = 0;
+
+                    if (response.length() > 0) {
+                        for (int i = 0; i < response.length(); i++) {
+
+                            jsonObject = response.getJSONObject(i);
+
+                            int punto = jsonObject.getInt("puntos");
+                            puntos += punto;
+                        }
+                    }
+
+                    Toast.makeText(context, parte.getMatriculaAlumno().getNombre() + " tiene " + puntos + " puntos", Toast.LENGTH_SHORT).show();
+
+                    if (puntos > 9) {
+                        FloatingFragment floatingFragment = FloatingFragment.newInstance(parte.getMatriculaAlumno(), parte.getCod_usuario());
+                        floatingFragment.show(fragmentManager, "floatingFragment");
+                    } else {
+                        comprobarExpulsion(parte);
+                    }
+                } catch (JSONException e) {
+                    Toast.makeText(context, "ERROR: No se encontro ningún parte", Toast.LENGTH_LONG).show();
+                }
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context ,"ERROR: " + error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        queue.add(jsonArrayRequest);
+    }
+
+    private void comprobarExpulsion(Parte parte){
+        //Comprueba si esta ya expulsado
+
+        RequestQueue queue = Volley.newRequestQueue(context);
+        String url;
+
+
+        url = WebService.RAIZ + WebService.comprobarExpulsion + "?"
+                + "matricula=" + parte.getMatriculaAlumno().getMatricula();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        int respuesta= Integer.parseInt(response);
+                        if (respuesta==1)
+                            eliminarExpulsion(parte);
+                        else
+                            notifyDataSetChanged();
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, "ERROR: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+        queue.add(stringRequest);
+    }
+
+    private void eliminarExpulsion(Parte parte){
+
+        RequestQueue queue = Volley.newRequestQueue(context);
+        String url;
+
+
+        url = WebService.RAIZ + WebService.deleteExpulsion + "?"
+                + "matricula_del_Alumno=" + parte.getMatriculaAlumno().getMatricula();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        int respuesta= Integer.parseInt(response);
+                        if (respuesta==0){
+                            Toast.makeText(context, "No se ha encontrado ninguna expulsion a eliminar", Toast.LENGTH_LONG).show();
+                        }else if (respuesta==1){
+                            Toast.makeText(context, "Eliminado la expulsion", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(context, "No se ha eliminado la expulsion encontrada", Toast.LENGTH_LONG).show();
+                        }
+                        notifyDataSetChanged();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, "ERROR: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+        queue.add(stringRequest);
+    }
 
 }
