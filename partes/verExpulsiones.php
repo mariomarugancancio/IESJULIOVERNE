@@ -16,6 +16,7 @@
         }
     </style>
     <script src="./js/paginacionFiltroExpulsiones.js"></script>
+
 </head>
 
 <body>
@@ -44,6 +45,8 @@
                     echo '<h3 class="text-light rounded bg-success p-2 px-3">Expulsion insertada exitosamente</h3>';
                 } elseif ($_GET['insertado'] == 0) {
                     echo '<h3 class="text-light rounded bg-danger p-2 px-3">No se ha podido insertar la Expulsion. Intentelo más tarde</h3>';
+                } elseif ($_GET['insertado'] == 2) {
+                    echo '<h3 class="text-light rounded bg-danger p-2 px-3">No se ha podido insertar la Expulsion. Puntos insuficientes</h3>';
                 }
             }
             ?>
@@ -144,7 +147,7 @@
                                 echo "<td><p><a class='text-decoration-none  text-black' href='detalleExpulsion.php?cod_expulsion=" . $row['cod_expulsion'] . "'>Ver detalle -></a></p></td>";
                             } else {
                                 echo "<td class='text-warning'>" . $row['estado'] . "</td>";
-                                echo "<td><p><a class='text-decoration-none  text-black' href='confirmarExpulsion.php?cod_expulsion=" . $row['cod_expulsion'] . "'>Confirmar expulsión -></a></p></td>";
+                                echo "<td><p><a class='text-decoration-none  text-black' href='confirmarExpulsion.php?cod_expulsion=" . $row['cod_expulsion'] . "&puntosInsuficientes=false'>Confirmar expulsión -></a></p></td>";
                             }
                             echo "</tr>";
                         }
@@ -170,6 +173,9 @@
         require_once "./archivosComunes/footerPartes.php";
         ?>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {

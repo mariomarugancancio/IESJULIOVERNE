@@ -6,8 +6,9 @@
     <div id="footerCredits" class="text-center my-2 p-2">
             <h6 class="fw-bold">Desarrollado y mantenido por:</h6>
             <div class="row container mx-auto">
-                <div class="col-12 col-md-6">Sergio Seves Manzanero</div>
-                <div class="col-12 col-md-6">Eduardo Nogueira Diaz</div>
+                <div class="col-12 col-md-4">Sergio Seves Manzanero</div>
+                <div class="col-12 col-md-4">Mario Marugán Cancio</div>
+                <div class="col-12 col-md-4">Eduardo Nogueira Diaz</div>
 
             </div>
         </div>

@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="../css/selector.css">
     <!-- Bootstrap CSS v5.2.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
-    <script src="../js/multiselect-dropdown.js"></script>
 
 </head>
 
@@ -40,8 +39,7 @@
                     </div>
                     <div class="col">
                         <label for="matriculaAlumno" class="form-label">Matrícula del Alumno</label>
-                        <select name="matricula_Alumno[]" id="matriculaAlumno" class="form-select" multiple required multiselect-search="true" multiselect-select-all="true" multiselect-max-items="3" onchange="console.log(this.selectedOptions)">
-                            <option value="">Seleccione uno o más Alumnos</option>
+                        <select name="matricula_Alumno[]" id="matriculaAlumno" class="form-select" multiple  onclick="marcar(this)">
                         </select>
                     </div>
                 </div>
@@ -98,58 +96,76 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const grupoSelect = document.getElementById("grupo");
-            const matriculaAlumnoSelect = document.getElementById("matriculaAlumno");
+            let matriculaAlumnoSelect = document.getElementById("matriculaAlumno");
             const materiaSelect = document.getElementById("materia");
 
             grupoSelect.addEventListener("change", function() {
                 const grupo = this.value;
-
                 // Limpiar el select de alumnos y materias
                 matriculaAlumnoSelect.innerHTML = '<option value="">Seleccione uno o más Alumnos</option>';
                 materiaSelect.innerHTML = '<option value="">Seleccione una Materia</option>';
 
                 if (grupo) {
+                    
                     fetchAlumnos(grupo);
                     fetchMaterias(grupo);
                 }
             });
 
             function fetchAlumnos(grupo) {
-                const alumnos = <?php
-                                $consulta = $db->prepare("SELECT matricula, CONCAT(nombre, ' ', apellidos) AS nombreCompleto, grupo FROM Alumnos");
-                                $consulta->execute();
-                                $alumnos = $consulta->fetchAll(PDO::FETCH_ASSOC);
-                                echo json_encode($alumnos);
-                                ?>;
+                fetch(`./funcionalidad/fetch_alumnos.php?grupo=${encodeURIComponent(grupo)}`)
+        .then(response => response.json())
+        .then(alumnos => {
+
+            // Filtrar y agregar las opciones al select
+            alumnos.forEach(alumno => {
+                const option = document.createElement("option");
+                option.value = alumno.matricula;
+                option.textContent = alumno.nombreCompleto;
                 
-                const filteredAlumnos = alumnos.filter(alumno => alumno.grupo === grupo);
-                filteredAlumnos.forEach(alumno => {
-                    const option = document.createElement("option");
-                    option.value = alumno.matricula;
-                    option.textContent = alumno.nombreCompleto;
-                    matriculaAlumnoSelect.appendChild(option);
-                });
+                matriculaAlumnoSelect.appendChild(option);
+            });
+
+
+        })
+        .catch(error => console.error('Error:', error));
+
             }
 
             function fetchMaterias(grupo) {
-                const materias = <?php
-                                    $consulta = $db->prepare("SELECT grupo, Cursos.curso, a.cod_asignatura , a.nombre FROM Cursos 
-                                    JOIN Asignaturas a ON a.curso = Cursos.curso");
-                                    $consulta->execute();
-                                    $materias = $consulta->fetchAll(PDO::FETCH_ASSOC);
-                                    echo json_encode($materias);
-                                    ?>;
-
-                const filteredMaterias = materias.filter(materia => materia.grupo === grupo);
-                filteredMaterias.forEach(materia => {
+                fetch(`./funcionalidad/fetch_materias.php?grupo=${encodeURIComponent(grupo)}`)
+        .then(response => response.json())
+        .then(materias => {
+            console.log(materias.length);
+            // Filtrar y agregar las opciones al select
+                materias.forEach(materia => {
                     const option = document.createElement("option");
                     option.value = materia.cod_asignatura;
                     option.textContent = materia.nombre;
                     materiaSelect.appendChild(option);
                 });
+
+        })
+        .catch(error => console.error('Error:', error));
+
+
+               
             }
         });
     </script>
 </body>
-
+<script>
+todos = new Array();
+function marcar(s) {
+cual=s.selectedIndex;
+for(y=0;y<s.options.length;y++){
+if(y==cual){
+s.options[y].selected=(todos[y]==true)?false:true;
+todos[y]=(todos[y]==true)?false:true;
+}else{
+s.options[y].selected=todos[y];
+}
+}
+}
+</script>
 </html>

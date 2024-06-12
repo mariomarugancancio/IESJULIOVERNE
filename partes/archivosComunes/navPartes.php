@@ -27,7 +27,16 @@ if ($_SESSION['usuario_login']['rol'] == "0") {
   <?php echo '</li>';
 
   echo '<li class="nav-item">' ?>
-  <a class="nav-link   <?php if (str_contains($_SERVER['SCRIPT_NAME'], 'exportarAlumnos.php')) echo 'active' ?>" href="exportarAlumnos.php">Exportar Alumnos</a>
+  <div class="dropdown">
+  <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    Exportar datos
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    <li><a class="dropdown-item" href="./funcionalidad/exportarAlumnosPuntos.php">Exportar Alumnos por Puntos</a></li>
+    <li><a class="dropdown-item" href="./funcionalidad/exportarAlumnosPartes.php">Exportar Alumnos por Partes</a></li>
+    <li><a class="dropdown-item" href="./funcionalidad/exportarAlumnosExpulsiones.php">Exportar Alumnos por Expulsiones</a></li>
+  </ul>
+</div>
 <?php echo '</li>';
 }
 echo '</ul>       

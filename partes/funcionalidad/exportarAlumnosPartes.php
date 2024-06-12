@@ -1,13 +1,13 @@
 <?php
 //include database configuration file
-$db = require_once ('../archivosComunes/conexion.php');
+$db = require_once ('../../archivosComunes/conexion.php');
 ;
 
 //get records from database
-$query = $db->query("SELECT a.grupo, a.matricula, a.nombre, a.apellidos, sum(p.puntos) AS puntos
- FROM Alumnos a, Partes p 
- WHERE a.matricula = p.matricula_alumno
- GROUP BY a.grupo, a.matricula, a.nombre, a.apellidos 
+$query = $db->query("SELECT a.grupo, a.matricula, a.nombre, a.apellidos, i.puntos  AS puntos, i.descripcion AS incidencia, p.descripcion AS descripcion,
+materia, fecha, hora, fecha_Comunicacion, via_Comunicacion, caducado, cod_parte
+ FROM Alumnos a, Partes p, Incidencias i 
+ WHERE a.matricula = p.matricula_alumno AND p.incidencia = i.cod_incidencia
  ORDER BY a.grupo, a.matricula DESC");
 
 if ($query->rowCount() > 0) {
@@ -18,12 +18,12 @@ if ($query->rowCount() > 0) {
     $f = fopen('php://memory', 'w');
 
     //set column headers
-    $fields = array('Grupo', 'Matricula', 'Nombre', 'Apellidos', 'Puntos');
+    $fields = array('Grupo', 'Matricula', 'Nombre', 'Apellidos', 'Cod_parte', 'Puntos', 'Incidencia','Descripcion', 'Materia','Fecha', 'Hora', 'Fecha_Comunicacion', 'Via_Comunicacion', 'Caducado');
     fputcsv($f, $fields, $delimiter);
 
     //output each row of the data, format line as csv and write to file pointer
     while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-        $lineData = array($row['grupo'], $row['matricula'], $row['nombre'], $row['apellidos'], $row['puntos']);
+        $lineData = array($row['grupo'], $row['matricula'], $row['nombre'], $row['apellidos'], $row['puntos'], $row['cod_parte'], $row['incidencia'], $row['descripcion'], $row['materia'], $row['fecha'], $row['hora'], $row['fecha_Comunicacion'], $row['via_Comunicacion'], $row['caducado']);
         fputcsv($f, $lineData, $delimiter);
     }
 

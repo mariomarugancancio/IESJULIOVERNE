@@ -35,7 +35,8 @@
         CONCAT(a.nombre, ' ', a.apellidos) AS nombreAlumno,
         e.fecha_Insercion,
         e.fecha_Inicio,
-        e.Fecha_Fin
+        e.Fecha_Fin,
+        e.tipo_expulsion
         FROM Expulsiones e
         JOIN alumnos a ON e.matricula_del_Alumno = a.matricula 
         JOIN Usuarios u ON e.cod_usuario = u.cod_usuario
@@ -57,9 +58,15 @@
                     echo "<p class='card-text'>Alumno: " . $expulsion['nombreAlumno'] . "</p>";
                     echo "<p class='card-text'>Fecha de la expulsión: " . $expulsion['fecha_Insercion'] . "</p>";
                     echo "<h5 class='card-title my-3 text-decoration-underline'>Periodo de expulsión</h5>";
-                    echo "<p class='card-text'>Desde: " . $expulsion['fecha_Inicio'] . "</p>";
+                    echo "<p class='card-text'>Desde: " . $expulsion['fecha_inicio'] . "</p>";
                     echo "<p class='card-text'>Hasta: " . $expulsion['Fecha_Fin'] . "</p>";
+                    echo "<p class='card-text'>Tipo de expulsión: " . $expulsion['tipo_expulsion'] . "</p>";
                     echo "<button class='btn btn-danger mt-4' onclick='eliminarExpulsion(" . $cod_expulsion . ")'>Eliminar Expulsión</button>";
+                    if ($expulsion['tipo_expulsion'] == "Expulsión a Casa"){
+                            echo "<button class='btn btn-danger mt-4 ms-4' onclick='pdfExpulsionCasa(" . $cod_expulsion . ")'>PDF Expulsión a casa</button>";
+                        }else{
+                            echo "<button class='btn btn-danger mt-4 ms-4' onclick='pdfExpulsionTrabajoSocioEducativo(" . $cod_expulsion . ")'>PDF Expulsión Trabajo Socio Educativo</button>";
+                        }
                     echo "</div>";
                     echo "</div>";
 
@@ -120,7 +127,12 @@
                 window.location.href = "./funcionalidad/eliminarExpulsion.php?cod_expulsion=" + cod_expulsion;
             }
         }
-
+        function pdfExpulsionCasa(cod_expulsion) {
+                window.location.href = "./funcionalidad/pdfExpulsionCasa.php?cod_expulsion=" + cod_expulsion;
+        }
+        function pdfExpulsionTrabajoSocioEducativo(cod_expulsion) {
+                window.location.href = "./funcionalidad/pdfExpulsionTrabajoSocioEducativo.php?cod_expulsion=" + cod_expulsion;
+        }
         function verParte(cod_parte) {
             window.location.href = "detalleParte.php?cod_parte=" + cod_parte;
         }

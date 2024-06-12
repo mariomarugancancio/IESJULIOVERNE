@@ -1,18 +1,18 @@
 <?php
 //include database configuration file
-$db = require_once ('../archivosComunes/conexion.php');
+$db = require_once ('../../archivosComunes/conexion.php');
 ;
 
 //get records from database
-$query = $db->query("SELECT a.grupo, a.matricula, a.nombre, a.apellidos, sum(p.puntos) AS puntos
- FROM Alumnos a, Partes p 
- WHERE a.matricula = p.matricula_alumno
+$query = $db->query("SELECT a.grupo, a.matricula, a.nombre, a.apellidos, sum(i.puntos) AS puntos
+ FROM Alumnos a, Partes p, Incidencias i 
+ WHERE a.matricula = p.matricula_alumno AND p.incidencia = i.cod_incidencia
  GROUP BY a.grupo, a.matricula, a.nombre, a.apellidos 
  ORDER BY a.grupo, a.matricula DESC");
 
 if ($query->rowCount() > 0) {
     $delimiter = ",";
-    $filename = "partes_" . date('Y-m-d') . ".csv";
+    $filename = "partes_puntos_totales" . date('Y-m-d') . ".csv";
 
     //create a file pointer
     $f = fopen('php://memory', 'w');

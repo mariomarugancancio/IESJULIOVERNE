@@ -23,7 +23,7 @@ try {
 
     // Preparar la consulta SQL para insertar el parte
     $consulta = $db->prepare(
-        "INSERT INTO partes (cod_Usuario, matricula_Alumno, incidencia, materia, fecha, hora, descripcion, fecha_Comunicacion, via_Comunicacion, caducado) 
+        "INSERT INTO Partes (cod_Usuario, matricula_Alumno, incidencia, materia, fecha, hora, descripcion, fecha_Comunicacion, via_Comunicacion, caducado) 
         VALUES (:cod_Usuario, :matricula_Alumno, :incidencia, :materia, :fecha, :hora, :descripcion, :fecha_Comunicacion, :via_Comunicacion, :caducado)"
     );
 
@@ -40,26 +40,34 @@ try {
         $consulta->bindParam(':caducado', $caducado);
 
         // Ejecutar la consulta
-        $consulta->execute();
+       $consulta->execute();
     }
 
     // Obtener la suma de puntos de todos los partes del alumno
     $consultaPuntos = $db->prepare("
-        SELECT matricula_Alumno, SUM(i.puntos) AS total_puntos 
+        SELECT p.matricula_Alumno, a.nombre, a.apellidos, SUM(i.puntos) AS total_puntos 
         FROM Incidencias i 
         JOIN Partes p ON i.cod_incidencia = p.incidencia 
+        JOIN Alumnos a ON p.matricula_Alumno = a.matricula
         WHERE p.matricula_Alumno IN (" . implode(',', array_fill(0, count($matriculas_Alumnos), '?')) . ")
-        GROUP BY matricula_Alumno
+        AND p.matricula_Alumno NOT IN (
+            SELECT matricula_del_Alumno
+            FROM Expulsiones
+            WHERE fecha_Inicio IS NULL
+            )
+        GROUP BY p.matricula_Alumno, a.nombre, a.apellidos
     ");
     $consultaPuntos->execute($matriculas_Alumnos);
     $resultadoPuntos = $consultaPuntos->fetchAll(PDO::FETCH_ASSOC);
 
     // Array para guardar los alumnos que superan los 10 puntos
     $alumnosExpulsion = [];
-
+    $alumnosExpulsionNombre = [];
     foreach ($resultadoPuntos as $puntosAlumno) {
         if ($puntosAlumno['total_puntos'] >= 10) {
             $alumnosExpulsion[] = $puntosAlumno['matricula_Alumno'];
+            $alumnosExpulsionNombre[] = $puntosAlumno['nombre']." ".$puntosAlumno['apellidos'];
+
         }
     }
 
@@ -91,19 +99,20 @@ try {
                                 <div class='card-body bg-dark rounded-lg'>
                                     <form action='insertarExpulsion.php' method='post'>
         ";
-        
+        $i=0;
         foreach ($alumnosExpulsion as $matricula_Alumno) {
             echo "
                 <input type='hidden' name='matriculas_Alumnos[]' value='" . $matricula_Alumno . "'>
-                <p class='mb-4'>El alumno con matrícula " . $matricula_Alumno . " ha acumulado 10 o más puntos. ¿Qué tipo de expulsión desea llevar a cabo?</p>
+                <p class='mb-4'>El alumno con matrícula " . $alumnosExpulsionNombre[$i] . " ha acumulado 10 o más puntos. ¿Qué tipo de expulsión desea llevar a cabo?</p>
                 <div class='form-group'>
                     <label for='tipo_expulsion_" . $matricula_Alumno . "'>Tipo de expulsión</label>
                     <select class='form-control' id='tipo_expulsion_" . $matricula_Alumno . "' name='tipo_expulsion[" . $matricula_Alumno . "]'>
                         <option value='Trabajo Social Educativo'>Trabajo Social Educativo</option>
-                        <option value='Expulsion a Casa'>Expulsión a casa</option>
+                        <option value='Expulsión a Casa'>Expulsión a casa</option>
                     </select>
                 </div>
             ";
+            $i++;
         }
         
         echo "
@@ -132,6 +141,7 @@ try {
     // En caso de error, deshacer la transacción y redirigir al usuario con un mensaje de error
     $db->rollBack();
     header("Location: ../verPartes.php?insertado=0");
+
     exit();
 }
 ?>

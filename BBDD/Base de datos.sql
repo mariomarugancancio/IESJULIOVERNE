@@ -1,7 +1,15 @@
-DROP DATABASE IF EXISTS Proyectodaw;
-CREATE DATABASE Proyectodaw;
-USE Proyectodaw;
-
+DROP DATABASE IF EXISTS IESJULIOVERNE;
+CREATE DATABASE IESJULIOVERNE;
+USE IESJULIOVERNE;
+SELECT i.puntos
+                FROM Partes p  
+                JOIN Expulsiones e ON p.matricula_Alumno = e.matricula_del_alumno
+                JOIN Incidencias i ON p.incidencia = i.cod_incidencia
+                JOIN Usuarios u ON p.cod_usuario = u.cod_usuario
+                JOIN alumnos a ON p.matricula_Alumno = a.matricula
+                WHERE  p.cod_parte = 1
+                ORDER BY p.fecha DESC
+                
 -- tabla departamento
 CREATE TABLE Departamentos (
 codigo SMALLINT PRIMARY KEY AUTO_INCREMENT,
@@ -255,6 +263,7 @@ CREATE TABLE Asignaturas(
 );
 
 INSERT INTO Asignaturas (nombre, horas, curso, tipo) VALUES
+('Jefatura', 0, 'Jefatura', null),
 ('Lengua Castellana y Literatura', 5, '1ESO', ' comunes'),
 ('Matemáticas', 4, '1ESO', ' comunes'),
 ('Lengua Extranjera (Inglés)', 4, '1ESO', ' comunes'),
@@ -416,25 +425,26 @@ INSERT INTO Incidencias (nombre, puntos, descripcion) VALUES
 -- --------------------------------------------------------
 
 CREATE TABLE Partes (
-  cod_parte INTEGER NOT NULL auto_increment,
-  cod_usuario INTEGER NOT NULL,
-  matricula_Alumno varchar(20) NOT NULL,
-  incidencia INT NOT NULL,
-  materia INT NULL,
-  fecha date NOT NULL,
-  hora time NOT NULL,
-  descripcion text,
-  fecha_Comunicacion date NOT NULL,
-  via_Comunicacion varchar(25) NOT NULL,
-  tipo_Parte varchar(20) NOT NULL,
-  caducado tinyint(1) NOT NULL,
-  PRIMARY KEY (cod_parte),
-  FOREIGN KEY (cod_usuario) REFERENCES Usuarios(cod_usuario),
-  FOREIGN KEY (materia) REFERENCES Asignaturas(cod_asignatura),
-  FOREIGN KEY (incidencia) REFERENCES Incidencias(cod_incidencia)
-
-
+    cod_parte INTEGER NOT NULL AUTO_INCREMENT,
+    cod_usuario INTEGER NOT NULL,
+    matricula_Alumno VARCHAR(20) NOT NULL,
+    incidencia INT NOT NULL,
+    materia INT NULL,
+    fecha DATE NOT NULL,
+    hora TIME NOT NULL,
+    descripcion TEXT,
+    fecha_Comunicacion DATE NOT NULL,
+    via_Comunicacion VARCHAR(25) NOT NULL,
+    caducado TINYINT(1) NOT NULL,
+    PRIMARY KEY (cod_parte),
+    FOREIGN KEY (cod_usuario)
+        REFERENCES Usuarios (cod_usuario),
+    FOREIGN KEY (materia)
+        REFERENCES Asignaturas (cod_asignatura),
+    FOREIGN KEY (incidencia)
+        REFERENCES Incidencias (cod_incidencia)
 );
+
 
 CREATE TABLE Expulsiones (
   cod_expulsion  INTEGER NOT NULL auto_increment,
@@ -1472,17 +1482,17 @@ INSERT INTO Usuarios (cod_usuario, dni, nombre, apellidos, email, clave, rol, co
 (170, '03875260J', 'Carolina', 'Sanchez Rosell', 'guasasa77@hotmail.com', '$2y$10$HX88Y88.//VBV5iaSn5z7eSyF4l2XOFIK8VvMnbfqaLtjxaXAxSt2', '1', 45256, 'si', 'No.', 2);
 
 
-INSERT INTO Partes (cod_usuario, matricula_Alumno, incidencia, materia, fecha, hora, descripcion, fecha_Comunicacion, via_Comunicacion, tipo_Parte, caducado) VALUES
-(2, '2021/1120', 1,1, '2023-10-09', '14:18:50', 'Tener un movil encendido en la mesa durante la clase.    ', '2023-10-10', 'Mensaje', 'Puntos', 2),
-(2, '2021/1120', 2,1, '2024-10-09', '14:18:50', 'Tener un movil encendido en la mesa durante la clase.    ', '2023-10-10', 'Mensaje', 'Puntos', 2),
-(2, '2021/1120', 2,2, '2023-10-09', '14:18:50', 'Tener un movil encendido en la mesa durante la clase.    ', '2023-10-10', 'Mensaje', 'Puntos', 2),
-(2, '2021/1120', 4,2, '2023-10-09', '14:18:50', 'Tener un movil encendido en la mesa durante la clase.    ', '2023-10-10', 'Mensaje', 'Puntos', 2),
-(2, '2021/1120', 4,2, '2023-10-09', '14:18:50', 'Tener un movil encendido en la mesa durante la clase.    ', '2023-10-10', 'Mensaje', 'Puntos', 2),
-(2, '2021/1120', 4,3, '2023-10-09', '14:18:50', 'Tener un movil encendido en la mesa durante la clase.    ', '2023-10-10', 'Mensaje', 'Puntos', 2),
-(2, '2021/1120', 1,4, '2023-10-09', '14:18:50', 'Tener un movil encendido en la mesa durante la clase.    ', '2023-10-10', 'Mensaje', 'Puntos', 2),
-(2, '2021/1120', 6,5, '2023-10-09', '14:18:50', 'Tener un movil encendido en la mesa durante la clase.    ', '2023-10-10', 'Mensaje', 'Puntos', 2),
-(2, '2021/1120', 7,6, '2023-10-09', '14:18:50', 'Tener un movil encendido en la mesa durante la clase.    ', '2023-10-10', 'Mensaje', 'Puntos', 2),
-(2, '2021/1120', 7,6, '2023-10-09', '14:18:50', 'Tener un movil encendido en la mesa durante la clase.    ', '2023-10-10', 'Mensaje', 'Puntos', 2);
+INSERT INTO Partes (cod_usuario, matricula_Alumno, incidencia, materia, fecha, hora, descripcion, fecha_Comunicacion, via_Comunicacion,  caducado) VALUES
+(2, '2021/1120', 1,1, '2023-10-09', '14:18:50', 'Tener un movil encendido en la mesa durante la clase.    ', '2023-10-10', 'Mensaje', 2),
+(2, '2021/1120', 2,1, '2024-10-09', '14:18:50', 'Tener un movil encendido en la mesa durante la clase.    ', '2023-10-10', 'Mensaje',  2),
+(2, '2021/1120', 2,2, '2023-10-09', '14:18:50', 'Tener un movil encendido en la mesa durante la clase.    ', '2023-10-10', 'Mensaje', 2),
+(2, '2021/1120', 4,2, '2023-10-09', '14:18:50', 'Tener un movil encendido en la mesa durante la clase.    ', '2023-10-10', 'Mensaje', 2),
+(2, '2021/1120', 4,2, '2023-10-09', '14:18:50', 'Tener un movil encendido en la mesa durante la clase.    ', '2023-10-10', 'Mensaje', 2),
+(2, '2021/1120', 4,3, '2023-10-09', '14:18:50', 'Tener un movil encendido en la mesa durante la clase.    ', '2023-10-10', 'Mensaje',  2),
+(2, '2021/1120', 1,4, '2023-10-09', '14:18:50', 'Tener un movil encendido en la mesa durante la clase.    ', '2023-10-10', 'Mensaje',  2),
+(2, '2021/1120', 6,5, '2023-10-09', '14:18:50', 'Tener un movil encendido en la mesa durante la clase.    ', '2023-10-10', 'Mensaje', 2),
+(2, '2021/1120', 7,6, '2023-10-09', '14:18:50', 'Tener un movil encendido en la mesa durante la clase.    ', '2023-10-10', 'Mensaje',  2),
+(2, '2021/1120', 7,6, '2023-10-09', '14:18:50', 'Tener un movil encendido en la mesa durante la clase.    ', '2023-10-10', 'Mensaje',  2);
 
 
 INSERT INTO `Horarios` (`cod_horario`, `nombre`, `apellidos`, `dia`, `inicio`, `fin`, `clase`, `cod_usuario`, `cod_delphos`) VALUES
