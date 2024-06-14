@@ -41,8 +41,6 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private int counter = 0;
     private SharedPreferences prefs;
-    //Variable para el rol del usuario
-    private String userRole;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,10 +131,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private List<Item> getAllItems() {
-        return new ArrayList<Item>() {{
-            add(new Item("Gestión de Guardias", R.drawable.guardias3, R.drawable.guardias2));
-            add(new Item("Partes de Incidencias", R.drawable.parte1, R.drawable.parte2));
-        }};
+        List<Item> items = new ArrayList<Item>();
+        //if( Util.getUserRolPrefs(prefs).equals("0")|| Util.getUserRolPrefs(prefs).equals("1")) {
+            items = new ArrayList<Item>() {{
+                add(new Item("Gestión de Guardias", R.drawable.guardias3, R.drawable.guardias2));
+                add(new Item("Partes de Incidencias", R.drawable.parte1, R.drawable.parte2));
+
+            }};
+        //}
+        return items;
     }
 
     private void removeItem(int position) {
@@ -153,14 +156,13 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-
-    //Método para el rol
+        //Método para el rol
     @Override
     protected void onResume(){
         super.onResume();
 
         //Obtiene el rol del usuario de las SharedPreferences
-        userRole = Util.getUserRolPrefs(prefs);
+        String userRole = Util.getUserRolPrefs(prefs);
 
         //Restringe la visualización de tabs según el rol del usuario
         if (!userRole.equals("0")){

@@ -2,25 +2,28 @@
 include '../conexion.php';
 
 try {
-
+    $matricula = $_GET['matricula'];
+    $encontrado = 0;
     // Preparo la consulta 
-    $sql = "SELECT * FROM Alumnos";
+    $sql = "SELECT * 
+    FROM Expulsiones
+    WHERE matricula_del_Alumno=?";
 
     $stmt = $db->prepare($sql);
 
     // Ejecuto la consulta 
-    $stmt->execute();
+    $stmt->execute([$matricula]);
 
-    // Buscar todos los alumnos
-    $alumnos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    // Preparar el response
-    $response = $alumnos;
+    if ($stmt->rowCount() > 0){
+        $encontrado=1;
+    }
+
 
     // encabezado en json
     header('Content-Type: application/json');
 
     // Preparar el response
-    echo json_encode($response);
+    echo ($encontrado);
 
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();

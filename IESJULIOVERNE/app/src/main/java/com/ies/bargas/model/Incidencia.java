@@ -15,7 +15,9 @@ public class Incidencia {
         this.puntos = puntos;
         this.descripcion = descripcion;
     }
+    public Incidencia(){
 
+    }
     public static String[] toStringNombre(List<Incidencia> incidencias) {
         String [] lista = new String[incidencias.size()];
         for(int i=0;i<incidencias.size();i++){

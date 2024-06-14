@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -67,8 +71,13 @@ private SharedPreferences prefs;
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         //Inflamos el context menu con nuestro layout
+
         getActivity().getMenuInflater().inflate(R.menu.context_menu_shifts, menu);
+
+
     }
+
+
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
@@ -82,31 +91,30 @@ private SharedPreferences prefs;
             startActivity(intent);
         } else if (item.getItemId() == R.id.delete) {
             // Llamar al archivo PHP para eliminar la guardia
-            String url = WebService.RAIZ + WebService.Delete;
-            StringRequest request = new StringRequest(Request.Method.POST, url,
-                    response -> {
-                        //Comprobar si la eliminación fue exitosa
-                        if (response.equals("Guardia eliminada correctamente")) {
-                            // Eliminar la guardia de la lista y actualizar el ListView
+            RequestQueue queue = Volley.newRequestQueue(getActivity());
+            String url = WebService.RAIZ + WebService.Delete + "?"
+                    + "cod_guardias=" + guardiaSeleccionada.getCod_guardia();
+
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+
+                                Toast.makeText(getActivity(), "Guardia eliminada correctamente", Toast.LENGTH_LONG).show();
                             guardiasList.remove(info.position);
-                            adapter.notifyDataSetChanged();
-                        } else {
-                            //Mostrar un mensaje de error
-                            Toast.makeText(getActivity(), "Error al eliminar la guardia", Toast.LENGTH_SHORT).show();
+                            adapter.notifyDataSetChanged(); 
                         }
                     },
-                    error -> {
-                        // Manejar errores
-                        error.printStackTrace();
-                    }) {
-                @Override
-                protected Map<String, String> getParams() {
-                    Map<String, String> params = new HashMap<>();
-                    params.put("id", guardiaSeleccionada.getCod_guardia()+"");
-                    return params;
-                }
-            };
-            Volley.newRequestQueue(getActivity()).add(request);
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(getActivity(), "Error al eliminar la guardia: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    });
+            queue.add(stringRequest);
+
+
+            return true;
         }
         return super.onContextItemSelected(item);
     }
@@ -134,9 +142,9 @@ private SharedPreferences prefs;
 
 
                         }
-                        adapter = new ShiftAdapter(context, R.layout.list_view_item_shifts, guardiasList);
+                        adapter = new ShiftAdapter(context, R.layout.list_view_item_shifts, guardiasList, "usuario");
                         listViewShifts.setAdapter(adapter);
-                        registerForContextMenu(listViewShifts);
+                        registerForContextMenu(this.listViewShifts);
                         adapter.notifyDataSetChanged();
                     } catch (JSONException e) {
                         e.printStackTrace();

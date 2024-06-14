@@ -51,10 +51,10 @@ public class Util {
     public static String getUsertutorPrefs(SharedPreferences preferences) {
         return preferences.getString("tutor_grupo", "");
     }
-    //Devuelve el rol del usuario guardado
     public static String getUserRolPrefs(SharedPreferences preferences) {
         return preferences.getString("rol", "");
     }
+    
     //Borra los valores guardados
     public static void removeSharedPreferences(SharedPreferences preferences) {
         SharedPreferences.Editor editor = preferences.edit();

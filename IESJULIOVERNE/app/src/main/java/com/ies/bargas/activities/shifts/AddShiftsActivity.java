@@ -336,8 +336,7 @@ public class AddShiftsActivity extends AppCompatActivity {
         queue.add(stringRequest);
 
     }
-
-
+    
     private void setCredentialsIfExist(TextView navUsername) {
         String nombre = Util.getUserNombrePrefs(prefs);
         String apellidos = Util.getUserApellidosPrefs(prefs);

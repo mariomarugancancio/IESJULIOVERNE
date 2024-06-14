@@ -1,13 +1,14 @@
 <?php
 include '../conexion.php';
+include '../usuarios.php';
 
 $cod_usuario = $_GET['cod_usuario'];
-try {
 
+try {
     // Preparo la consulta 
-    $sql = "SELECT cod_guardias,observaciones, fecha,  Guardias.cod_usuario AS cod_usuario,
-    Usuarios.nombre AS nombre, Usuarios.apellidos AS apellidos, Usuarios.cod_delphos AS delphos, Periodos.inicio AS periodoinicio, Periodos.fin AS periodofin
-    , Horarios.clase AS clase
+    $sql = "SELECT cod_guardias, observaciones, fecha,  Guardias.cod_usuario AS cod_usuario,
+    Usuarios.nombre AS nombre, Usuarios.apellidos AS apellidos, Usuarios.cod_delphos AS delphos, Periodos.inicio AS periodoinicio, Periodos.fin AS periodofin,
+    Horarios.clase AS clase
     FROM Guardias
     JOIN Periodos ON Guardias.periodo = Periodos.cod_periodo
     JOIN Usuarios ON Guardias.cod_usuario = Usuarios.cod_usuario
@@ -20,23 +21,30 @@ try {
                     WHEN DAYOFWEEK(fecha) = 5 THEN 'Jueves'
                     WHEN DAYOFWEEK(fecha) = 6 THEN 'Viernes'
                     END = Horarios.dia
-    AND Usuarios.cod_usuario = ".$cod_usuario."
+    AND Usuarios.cod_usuario = ? 
     ORDER BY fecha DESC, periodoinicio ASC;";
+
     $stmt = $db->prepare($sql);
 
     // Ejecuto la consulta 
-    $stmt->execute();
+    $stmt->execute([$cod_usuario]);
 
-    // Buscar todos los alumnos
-    $alumnos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    // Preparar el response
-    $response = $alumnos;
+    // Buscar todos los turnos del usuario
+    $turnosUsuario = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // Verificar rol del usuario
+    $rol_usuario = obtenerRolUsuario(); // Esta función debe obtener el rol del usuario
+
+    // Si el rol del usuario no es 0 (no es administrador), filtrar para excluir Sala_profesores
+    if ($rol_usuario != 0) {
+        $turnosUsuario = filtrarTurnosExcluirSalaProfesores($turnosUsuario);
+    }
 
     // encabezado en json
     header('Content-Type: application/json');
 
     // Preparar el response
-    echo json_encode($response);
+    echo json_encode($turnosUsuario);
 
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();

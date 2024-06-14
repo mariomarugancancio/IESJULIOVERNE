@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--define la apariencia del fragmento completo -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,6 +9,107 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Leyenda: "
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="left" />
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alignmentMode="alignMargins"
+            android:columnCount="4"
+            android:rowCount="2"
+            android:columnOrderPreserved="false">
+
+        <!-- Actual -->
+            <View
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@color/colorVerdeOscuro"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Actual"/>
+
+            <!-- Siguiente -->
+            <View
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@color/colorVerdeClaro"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Siguiente"/>
+
+            <!-- Primera -->
+            <View
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@color/colorAzulMarino"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Primera"/>
+
+            <!-- Segunda -->
+            <View
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@color/colorAzulIntenso"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Segunda"/>
+
+            <!-- Tercera -->
+            <View
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@color/colorAzulMedio"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tercera"/>
+
+            <!-- Cuarta -->
+            <View
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@color/colorAzulClaro1"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cuarta"/>
+
+            <!-- Quinta -->
+            <View
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@color/colorAzulClaro2"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Quinta"/>
+
+            <!-- Sexta -->
+            <View
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@color/colorAzulClaro3"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sexta"/>
+
+        </GridLayout>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

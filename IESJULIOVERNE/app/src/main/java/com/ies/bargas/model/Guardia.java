@@ -11,7 +11,6 @@ public class Guardia {
     private User usuario;
     private LocalDate fecha;
     private Periodo periodo;
-
     private String clase;
 
     public Guardia(int cod_guardia, String observaciones, User usuario, LocalDate fecha, Periodo periodo, String clase) {

@@ -3,18 +3,20 @@ include '../conexion.php';
 
 try {
 
-    // Preparo la consulta 
-    $sql = "SELECT * FROM Alumnos";
+    $grupo = $_GET['matricula'];
 
+    // Preparo la consulta 
+    $sql = "SELECT * FROM Alumnos where matricula = ?";
     $stmt = $db->prepare($sql);
 
     // Ejecuto la consulta 
-    $stmt->execute();
+    $stmt->execute(array($grupo));
 
-    // Buscar todos los alumnos
-    $alumnos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // Buscar todos los cursos
+    $Alumnos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
     // Preparar el response
-    $response = $alumnos;
+    $response = $Alumnos;
 
     // encabezado en json
     header('Content-Type: application/json');

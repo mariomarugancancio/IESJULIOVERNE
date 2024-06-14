@@ -89,24 +89,11 @@ public class GuardiasSalaProfesoresFragment extends Fragment implements Serializ
                             String clase = jsonObject.getString("clase");
                             Guardia guardia = new Guardia( jsonObject.getInt("cod_guardias"), jsonObject.getString("observaciones"), user,
                                     localDate, periodo, clase);
+                            guardiasList.add(guardia);
 
-                            //Filtrar por turno
-                            LocalTime now = LocalTime.now();
-                                //Comienzo de turno de mañana
-                                LocalTime startMorning = LocalTime.of(8, 30);
-                                //Fin del turno de mañana
-                                LocalTime endMorning = LocalTime.of(14, 30);
-                                //Comienzo del turno de tarde
-                                LocalTime startAfternoon = LocalTime.of(15, 15);
-                                //Fin del turno de tarde
-                                LocalTime endAfternoon = LocalTime.of(21, 15);
-                            //Condicion para saber en que turno se esta
-                            if ((now.isAfter(startMorning) && now.isBefore(endMorning)) || (now.isAfter(startAfternoon) && now.isBefore(endAfternoon))) {
-                                guardiasList.add(guardia);
-                            }
                         }
 
-                        adapter = new ShiftAdapter(getActivity(), R.layout.list_view_item_shifts, guardiasList);
+                        adapter = new ShiftAdapter(getActivity(), R.layout.list_view_item_shifts, guardiasList, "salaProfesores");
                         listViewShifts.setAdapter(adapter);
                         registerForContextMenu(listViewShifts);
                         adapter.notifyDataSetChanged();
