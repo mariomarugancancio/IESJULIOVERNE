@@ -6,7 +6,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <link rel="stylesheet" href="../css/selector.css">
+    <link rel="stylesheet" href="../css/principalCSS.css">
     <!-- Bootstrap CSS v5.2.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
 </head>
@@ -58,7 +58,7 @@
                     echo "<p class='card-text'>Alumno: " . $expulsion['nombreAlumno'] . "</p>";
                     echo "<p class='card-text'>Fecha de la expulsión: " . $expulsion['fecha_Insercion'] . "</p>";
                     echo "<h5 class='card-title my-3 text-decoration-underline'>Periodo de expulsión</h5>";
-                    echo "<p class='card-text'>Desde: " . $expulsion['fecha_inicio'] . "</p>";
+                    echo "<p class='card-text'>Desde: " . $expulsion['fecha_Inicio'] . "</p>";
                     echo "<p class='card-text'>Hasta: " . $expulsion['Fecha_Fin'] . "</p>";
                     echo "<p class='card-text'>Tipo de expulsión: " . $expulsion['tipo_expulsion'] . "</p>";
                     echo "<button class='btn btn-danger mt-4' onclick='eliminarExpulsion(" . $cod_expulsion . ")'>Eliminar Expulsión</button>";

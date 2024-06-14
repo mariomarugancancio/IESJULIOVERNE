@@ -73,7 +73,7 @@ require_once('archivosComunes/logueado.php');
                             <div>
                                 <p class="mb-0">¿No tiene cuenta? <a href="archivosComunes/registrar.php" class="text-white-50 fw-bold">Registrar</a></p>
                                 <p class="mb-0">¿Has olvidado tu contraseña? <a href="archivosComunes/recuperar.php" class="text-white-50 fw-bold">Recuperar</a></p>
-
+                                <p class="mb-0">¿Quieres realizar la prematrícula? <a href="./prematricula/prematricula.php" class="text-white-50 fw-bold">Prematrícula</a></p>
                             </div>
                         </div>
                     </div>  

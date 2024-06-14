@@ -117,7 +117,7 @@ public class GuardiasTotalFragment extends Fragment implements Serializable {
     private void cargarDatos() {
 
         prefs = getActivity().getSharedPreferences("Preferences", Context.MODE_PRIVATE);
-        String url = WebService.RAIZ + WebService.ObtenerGuardiasUser + "?cod_usuario=" + Util.getUserCodUsuarioPrefs(prefs);
+        String url = WebService.RAIZ + WebService.ObtenerGuardias;
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url,
                 response -> {
                     try {

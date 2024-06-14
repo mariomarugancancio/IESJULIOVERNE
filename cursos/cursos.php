@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/d7bc41fc30.js" crossorigin="anonymous"></script>
+    <script src="./js/paginacion.js"></script>
 
     <style>
       .aniadirdiv{
@@ -39,7 +40,14 @@
   <div style="  position: fixed; bottom: 20px; right: 20px;">
     <a href="#" onclick="aniadir();"><i class="fa-solid fa-address-book fa-2xl"></i></a>
   </div>
-<table class="table table-bordered table-striped table-hover text-center">
+
+  <div class="col-lg-3 col-md-6 my-2">
+                    <div class="input-group">
+                        <span class="input-group-text">Curso</span>
+                        <input type="text" id="filtro" class="form-control" placeholder="Buscador">
+                    </div>
+                </div>
+<table id="tablaCursos" class="table table-bordered table-striped table-hover text-center">
   <thead>
     <tr>
       <th scope="col">Grupo</th>
@@ -54,7 +62,15 @@ include("mostarcursos.php");
 ?>
   </tbody>
 </table>
+<div class="d-flex justify-content-center mt-5" id="tablaPaginacion">
 
+<nav aria-label="Page navigation example">
+    <ul class="pagination" id="paginacion">
+
+    </ul>
+</nav>
+
+</div>
 <script>
 function editar(grupo){
   // si ya existe uno guardandose no deje guardar otro a la vez

@@ -2,10 +2,12 @@ package com.ies.bargas.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +28,7 @@ import com.ies.bargas.controllers.WebService;
 import com.ies.bargas.model.Alumno;
 import com.ies.bargas.model.Incidencia;
 import com.ies.bargas.model.Parte;
+import com.ies.bargas.util.Util;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,6 +57,8 @@ public class PartesFragment extends Fragment {
     private ListView listViewPartes;
     private ParteAdapter adapter;
     private Context context;
+    private SharedPreferences prefs;
+    private FragmentManager childFragment;
 
     public PartesFragment() {
         // Required empty public constructor
@@ -83,6 +88,7 @@ public class PartesFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
     }
 
@@ -94,9 +100,21 @@ public class PartesFragment extends Fragment {
         floatAction= view.findViewById(R.id.floatingAddParts);
         listViewPartes= view.findViewById(R.id.listViewPartes);
         context=requireContext();
+        childFragment= getChildFragmentManager();
+
+        prefs = context.getSharedPreferences("Preferences", Context.MODE_PRIVATE);
+        int cod_usuario = Util.getUserCodUsuarioPrefs(prefs);
+        String rol = Util.getUserRolPrefs(prefs);
+
+        if (!rol.equals("0") && !rol.equals("1"))
+            floatAction.hide();
+
+
 
         RequestQueue queue = Volley.newRequestQueue(requireContext());
-        String url = WebService.RAIZ + WebService.findAllParts;
+        String url = WebService.RAIZ + WebService.findAllParts+ "?"
+                + "cod_usuario=" + cod_usuario
+                + "&rol=" + rol;
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
@@ -109,6 +127,7 @@ public class PartesFragment extends Fragment {
                         for (int i = 0; i < response.length(); i++) {
 
                             jsonObject = response.getJSONObject(i);
+
 
                             // Extraer atributos del objeto JSON para la tabla Partes
                             int cod_parte = jsonObject.getInt("cod_parte");
@@ -143,12 +162,13 @@ public class PartesFragment extends Fragment {
 
                         }
                     }
-                    adapter = new ParteAdapter(context, globalPartes);
+                    adapter = new ParteAdapter(context, globalPartes, childFragment);
                     // Establecer el adaptador en el ListView
                     listViewPartes.setAdapter(adapter);
 
 
                 } catch (JSONException e) {
+
                     Toast.makeText(context, "ERROR: No se encontro ningún parte", Toast.LENGTH_LONG).show();
                 }
             }
@@ -156,7 +176,7 @@ public class PartesFragment extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(context, "ERROR: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(requireContext(), "ERROR: " + error.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
         queue.add(jsonArrayRequest);
@@ -165,7 +185,7 @@ public class PartesFragment extends Fragment {
         floatAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, AddPartsActivity.class);
+                Intent intent = new Intent(requireContext(), AddPartsActivity.class);
                 startActivity(intent);
             }
         });

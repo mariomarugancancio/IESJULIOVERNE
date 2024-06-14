@@ -12,7 +12,7 @@ require_once('loginRequerido.php');
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aplicaciones</title>
-  <link rel="stylesheet" type="text/css" href="../css/selector.css">
+  <link rel="stylesheet" type="text/css" href="../css/principalCSS.css">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 
 </head>
@@ -94,13 +94,21 @@ require_once('loginRequerido.php');
         <img src="../images/guardias3.png" alt="Imagen Guardias">
         <img src="../images/guardias2.png" alt="Imagen Guardias">
       </a>
-
+      <a href="../prematricula/prematricula.php" id="prematricula">
+        Prematrícula
+        <img src="../images/prematricula1.webp" alt="Imagen Prematricula1">
+        <img src="../images/prematricula2.webp" alt="Imagen Prematricula2">
+      </a>
       <a href="../gestion_practicas/index.php" id="practicas">
         Gestión de Prácticas
         <img src="../images/practicas1.webp" alt="Imagen GestionPracticas1">
         <img src="../images/practicas2.webp" alt="Imagen GestionPracticas2">
       </a>
-      
+      <a href="../asignaturas/asignaturas.php" id="asignatura">
+        Gestión de Asignaturas
+        <img src="../images/asignaturas1.webp" alt="Imagen GestionAsignaturas1">
+        <img src="../images/asignaturas2.webp" alt="Imagen GestionAsignaturas2">
+      </a>
       <a href="../cursos/cursos.php" id="cursos">
         Gestión de Cursos
         <img src="../images/cursos1.jpg" alt="Imagen GestionCursos1">
@@ -138,6 +146,8 @@ require_once('loginRequerido.php');
           document.getElementById("usuarios").style.display="block";
           document.getElementById("partes").style.display="none";
           document.getElementById("cursos").style.display="none";
+          document.getElementById("asignaturas").style.display="none";
+          document.getElementById("prematricula").style.display="none";
 
           </script>';
         }
@@ -151,6 +161,8 @@ require_once('loginRequerido.php');
           document.getElementById("usuarios").style.display="block";
           document.getElementById("partes").style.display="block";
           document.getElementById("cursos").style.display="none";
+          document.getElementById("asignaturas").style.display="none";
+          document.getElementById("prematricula").style.display="block";
           </script>';
         }
         if($_SESSION["usuario_login"]["rol"] == 0){
@@ -163,6 +175,8 @@ require_once('loginRequerido.php');
           document.getElementById("usuarios").style.display="block";
           document.getElementById("partes").style.display="block";
           document.getElementById("cursos").style.display="block";
+          document.getElementById("asignaturas").style.display="block";
+          document.getElementById("prematricula").style.display="block";
           </script>';
         }
       ?>

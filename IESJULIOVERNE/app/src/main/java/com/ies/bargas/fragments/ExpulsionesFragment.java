@@ -2,6 +2,7 @@ package com.ies.bargas.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
@@ -20,6 +21,8 @@ import com.ies.bargas.adapters.ExpulsionAdapter;
 import com.ies.bargas.controllers.WebService;
 import com.ies.bargas.model.Alumno;
 import com.ies.bargas.model.Expulsion;
+import com.ies.bargas.util.Util;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,6 +45,7 @@ public class ExpulsionesFragment extends Fragment {
     private ListView listViewExpulsiones;
     private ExpulsionAdapter adapter;
     private Context context;
+    private SharedPreferences prefs;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -86,10 +90,15 @@ public class ExpulsionesFragment extends Fragment {
 
         listViewExpulsiones= view.findViewById(R.id.listViewExpulsiones);
         context= requireContext();
+        prefs= context.getSharedPreferences("Preferences", Context.MODE_PRIVATE);
 
+        String grupo= Util.getUsertutorPrefs(prefs);
+        String rol= Util.getUserRolPrefs(prefs);
 
         RequestQueue queue = Volley.newRequestQueue(requireContext());
-        String url = WebService.RAIZ + WebService.findAllExpulsiones;
+        String url = WebService.RAIZ + WebService.findAllExpulsiones+"?"
+                + "grupo=" + grupo
+                + "&rol=" + rol;
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
@@ -143,7 +152,7 @@ public class ExpulsionesFragment extends Fragment {
 
 
                 } catch (JSONException e) {
-                    Toast.makeText(context, "ERROR: No se encontro ninguna expulsiÃ³n", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "ERROR: No se encontro ninguna expulsión", Toast.LENGTH_LONG).show();
                 }
             }
         },

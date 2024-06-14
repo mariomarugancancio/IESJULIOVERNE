@@ -5,11 +5,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -19,6 +22,10 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -27,11 +34,20 @@ import com.ies.bargas.activities.LoginActivity;
 import com.ies.bargas.activities.MainActivity;
 import com.ies.bargas.activities.UserProfileActivity;
 import com.ies.bargas.activities.parts.PartsActivity;
+import com.ies.bargas.adapters.ShiftAdapter;
+import com.ies.bargas.controllers.WebService;
 import com.ies.bargas.fragments.GuardiasSalaProfesoresFragment;
 import com.ies.bargas.fragments.GuardiasSemanaFragment;
 import com.ies.bargas.fragments.GuardiasTotalFragment;
 import com.ies.bargas.fragments.GuardiasUsuarioFragment;
+import com.ies.bargas.model.Guardia;
 import com.ies.bargas.util.Util;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class ShiftsActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
@@ -39,6 +55,9 @@ public class ShiftsActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private SharedPreferences prefs;
     private BottomNavigationView bottomNavigationView;
+    private ListView listViewShifts;
+    private ShiftAdapter shiftsAdapter;
+    private ArrayList<Guardia> shiftList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,13 +157,114 @@ public class ShiftsActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_shift, new GuardiasUsuarioFragment()).commit();
             bottomNavigationView.setSelectedItemId(R.id.navigation_usuario);
         }
+       /* listViewShifts = findViewById(R.id.listViewShifts);
+        shiftList = new ArrayList<>();
+        shiftsAdapter = new ShiftAdapter(this, shiftList);
+        listViewShifts.setAdapter(shiftsAdapter);
+
+        registerForContextMenu(listViewShifts);
+        loadShifts();*/
+        // Obtener referencia al menú del BottomNavigationView y deshabilitar elementos
+        Menu bottomMenu = bottomNavigationView.getMenu();
+        MenuItem semanaItem = bottomMenu.findItem(R.id.navigation_semana);
+        MenuItem totalItem = bottomMenu.findItem(R.id.navigation_total);
+
+
+
+        String rol= Util.getUserRolPrefs(prefs);
+
+        if (!rol.equals("0")){
+            semanaItem.setEnabled(false);
+            semanaItem.setVisible(false);
+            totalItem.setEnabled(false);
+            totalItem.setVisible(false);
+
+
+        }
     }
+
 
     @Override
     protected void onResume() {
         super.onResume();
         // Actualiza la lista de guardias si es necesario
+        // loadShifts();
     }
+    /*private void loadShifts() {
+        String url = WebService.RAIZ + WebService.ObtenerGuardias;
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                response -> {
+                    try {
+                        JSONArray jsonArray = response.getJSONArray("shifts");
+                        shiftList.clear();
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                            Guardia shift = new Guardia();
+                            shift.setCodGuardias(jsonObject.getString("cod_guardias"));
+                            shift.setFecha(jsonObject.getString("fecha"));
+                            shift.setObservaciones(jsonObject.getString("observaciones"));
+                            shift.setPeriodo(jsonObject.getString("periodo"));
+                            shift.setCodUsuario(jsonObject.getString("cod_usuario"));
+                            shiftList.add(shift);
+                        }
+                        shiftsAdapter.notifyDataSetChanged();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                error -> Toast.makeText(ShiftsActivity.this, "Error al cargar guardias", Toast.LENGTH_SHORT).show());
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.context_menu_shifts, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        Guardia selectedShift = shiftList.get(info.position);
+
+        switch (item.getItemId()) {
+            case R.id.context_menu_edit:
+                editShift(selectedShift);
+                return true;
+            case R.id.context_menu_delete:
+                deleteShift(selectedShift);
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
+
+    private void editShift(Guardia shift) {
+        Intent intent = new Intent(this, EditShiftActivity.class);
+        intent.putExtra("shift", shift);
+        startActivity(intent);
+    }
+
+    private void deleteShift(Shift shift) {
+        String url = WebService.RAIZ + WebService.Delete + "?cod_guardias=" + shift.getCodGuardias();
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                response -> {
+                    Toast.makeText(ShiftsActivity.this, "Guardia eliminada correctamente", Toast.LENGTH_SHORT).show();
+                    loadShifts(); // Reload shifts after deletion
+                },
+                error -> {
+                    Toast.makeText(ShiftsActivity.this, "Error al eliminar guardia", Toast.LENGTH_SHORT).show();
+                });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(jsonObjectRequest);
+    }*/
+
     private void setCredentialsIfExist(TextView navUsername) {
         String nombre = Util.getUserNombrePrefs(prefs);
         String apellidos = Util.getUserApellidosPrefs(prefs);

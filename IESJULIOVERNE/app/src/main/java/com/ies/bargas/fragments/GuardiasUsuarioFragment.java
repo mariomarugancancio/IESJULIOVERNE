@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -70,11 +71,22 @@ private SharedPreferences prefs;
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        //Inflamos el context menu con nuestro layout
 
-        getActivity().getMenuInflater().inflate(R.menu.context_menu_shifts, menu);
+        // Crear un objeto PopupMenu
+        PopupMenu popupMenu = new PopupMenu(getActivity(), v);
+        // Inflar el archivo de menú XML
+        popupMenu.getMenuInflater().inflate(R.menu.context_menu_shifts, popupMenu.getMenu());
+        MenuItem editar= popupMenu.getMenu().findItem(R.id.edit);
+        MenuItem eliminar= popupMenu.getMenu().findItem(R.id.delete);
+        String rol= Util.getUserRolPrefs(prefs);
 
-
+        if (!rol.equals("0")){
+            eliminar.setEnabled(false);
+            eliminar.setVisible(false);
+        }
+        editar.setEnabled(true);
+        editar.setVisible(true);
+        popupMenu.show();
     }
 
 

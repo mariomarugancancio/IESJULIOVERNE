@@ -40,6 +40,7 @@ import com.ies.bargas.activities.shifts.ShiftsActivity;
 import com.ies.bargas.controllers.WebService;
 import com.ies.bargas.model.Alumno;
 import com.ies.bargas.model.Asignatura;
+
 import com.ies.bargas.model.Incidencia;
 import com.ies.bargas.model.Parte;
 import com.ies.bargas.util.Util;
@@ -67,6 +68,7 @@ public class ModifyPartActivity extends AppCompatActivity {
     private Parte globalParte = new Parte();
     private List<Alumno> globalAlumnos = new ArrayList<Alumno>();
     private Alumno globalAlumno = new Alumno();
+    private Alumno antiguoAlumno = new Alumno();
     private Spinner spinnerCurso;
     private Spinner spinnerAlumno;
     private Spinner spinnerAsignatura;
@@ -438,6 +440,7 @@ public class ModifyPartActivity extends AppCompatActivity {
                             String userDescripcion = jsonObject.getString("descripcion");
                             Incidencia incidencia = new Incidencia(codigo, nombre, puntos, userDescripcion);
                             incidencias.add(incidencia);
+
                             if (codigo==globalParte.getIncidencia().getCodigo())
                                 n=i;
                         }
@@ -481,8 +484,9 @@ public class ModifyPartActivity extends AppCompatActivity {
                             String nombre = jsonObject.getString("nombre");
                             String apellidos = jsonObject.getString("apellidos");
                             String grupo = jsonObject.getString("grupo");
-                            globalAlumno = new Alumno(globalParte.getMatriculaAlumno().getMatricula(), nombre, apellidos, grupo);
 
+                            globalAlumno = new Alumno(globalParte.getMatriculaAlumno().getMatricula(), nombre, apellidos, grupo);
+                            antiguoAlumno = globalAlumno;
                         }
                     }
 
@@ -506,23 +510,24 @@ public class ModifyPartActivity extends AppCompatActivity {
     }
 
     private void recuperarParte(){
-        int codParte;
-        int codUsuario;
-        String matriculaAlumno;
-        int incidencia;
-        int materia;
-        LocalDate fecha;
-        String hora;
-        String descripcion;
-        LocalDate fechaComunicacion;
-        String viaComunicacion;
-        String tipoParte;
-        int caducado;
+         int codParte;
+         int codUsuario;
+         String matriculaAlumno;
+         int incidencia;
+         int materia;
+         LocalDate fecha;
+         String hora;
+         String descripcion;
+         LocalDate fechaComunicacion;
+         String viaComunicacion;
+         String tipoParte;
+         int caducado;
 
         Intent intent = getIntent();
 
         codParte = intent.getIntExtra("cod_parte", 0);
         codUsuario = intent.getIntExtra("cod_usuario", 0);
+
 
         matriculaAlumno = intent.getStringExtra("matricula_Alumno");
         String grupo = intent.getStringExtra("grupo_Alumno");
@@ -542,6 +547,7 @@ public class ModifyPartActivity extends AppCompatActivity {
         viaComunicacion = intent.getStringExtra("via_Comunicacion");
         tipoParte = intent.getStringExtra("tipo_Parte");
         caducado = intent.getIntExtra("caducado", 0);
+
 
         globalParte= new Parte(codParte, codUsuario, new Alumno( matriculaAlumno, nombre, apellidos, grupo),
                 new Incidencia(incidencia, nombreInci, puntosInci, descripcionInci), materia, fecha,
@@ -574,6 +580,7 @@ public class ModifyPartActivity extends AppCompatActivity {
         } else {
             int cod_parte= globalParte.getCod_parte();
             int cod_usuario= globalParte.getCod_usuario();
+
             Alumno matricula= globalAlumno;
             Incidencia incidencia= globalIncidencia;
             int materia= globalAsignatura.getCodAsignatura();
@@ -614,6 +621,7 @@ public class ModifyPartActivity extends AppCompatActivity {
             url = WebService.RAIZ + WebService.modifyPart + "?"
                     + "cod_parte=" + newParte.getCod_parte()
                     + "&cod_usuario=" + newParte.getCod_usuario()
+
                     + "&matricula_Alumno=" + newParte.getMatriculaAlumno().getMatricula()
                     + "&incidencia=" + newParte.getIncidencia().getCodigo()
                     + "&materia=" + newParte.getMateria()
@@ -634,11 +642,11 @@ public class ModifyPartActivity extends AppCompatActivity {
                                 Toast.makeText(ModifyPartActivity.this, "No se ha podido modificar porque no existe el parte ¯\\_( ͡° ͜ʖ ͡°)_/¯", Toast.LENGTH_SHORT).show();
                             } else if (respuesta==1){
                                 Toast.makeText(ModifyPartActivity.this, "El parte con codigo "+newParte.getCod_parte()+" Ha sido modificado correctamente", Toast.LENGTH_SHORT).show();
+                                sumarPuntosAntiguo();
                             } else {
                                 Toast.makeText(ModifyPartActivity.this, "Algo ha fallado durante la modificación, no preguntes el qué ¯\\_( ͡° ͜ʖ ͡°)_/¯", Toast.LENGTH_LONG).show();
                             }
-                            Intent intent = new Intent(ModifyPartActivity.this, PartsActivity.class);
-                            startActivity(intent);
+
                         }
                     },
                     new Response.ErrorListener() {
@@ -660,6 +668,203 @@ public class ModifyPartActivity extends AppCompatActivity {
 
         }
     }
+
+
+
+    private void sumarPuntosAntiguo(){
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = WebService.RAIZ + WebService.SelectPartes + "?" +
+                "matricula=" + antiguoAlumno.getMatricula();
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONObject jsonObject = null;
+                try {
+
+                    int puntos = 0;
+
+                    if (response.length() > 0) {
+                        for (int i = 0; i < response.length(); i++) {
+
+                            jsonObject = response.getJSONObject(i);
+
+                            int punto = jsonObject.getInt("puntos");
+                            puntos += punto;
+                        }
+                    }
+
+                    Toast.makeText(getApplicationContext(), antiguoAlumno.getNombre() + " tiene " + puntos + " puntos", Toast.LENGTH_SHORT).show();
+
+                    if (puntos > 9) {
+                        sumarPuntos();
+
+                    } else {
+                        comprobarExpulsionAntiguo();
+                    }
+                } catch (JSONException e) {
+                    Toast.makeText(getApplicationContext(), "ERROR: No se encontro ningún parte", Toast.LENGTH_LONG).show();
+                }
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(ModifyPartActivity.this, "ERROR: " + error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        queue.add(jsonArrayRequest);
+    }
+    private void comprobarExpulsionAntiguo(){
+
+        //Comprueba si esta ya expulsado
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url;
+
+
+        url = WebService.RAIZ + WebService.comprobarExpulsion + "?"
+                + "matricula=" + antiguoAlumno.getMatricula();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        int respuesta= Integer.parseInt(response);
+                        if (respuesta==1)
+                            eliminarExpulsion();
+                        else
+                            sumarPuntos();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(ModifyPartActivity.this, "ERROR: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+        queue.add(stringRequest);
+    }
+
+    private void eliminarExpulsion(){
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url;
+
+
+        url = WebService.RAIZ + WebService.deleteExpulsion + "?"
+                + "matricula_del_Alumno=" + antiguoAlumno.getMatricula();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        int respuesta= Integer.parseInt(response);
+                        if (respuesta==0){
+                            Toast.makeText(ModifyPartActivity.this, "No se ha encontrado ninguna expulsion a eliminar", Toast.LENGTH_LONG).show();
+                        }else if (respuesta==1){
+                            Toast.makeText(ModifyPartActivity.this, "Eliminado la expulsion", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(ModifyPartActivity.this, "No se ha eliminado la expulsion encontrada", Toast.LENGTH_LONG).show();
+                        }
+                        sumarPuntos();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(ModifyPartActivity.this, "ERROR: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+        queue.add(stringRequest);
+    }
+
+    private void sumarPuntos(){
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = WebService.RAIZ + WebService.SelectPartes + "?" +
+                "matricula=" + globalAlumno.getMatricula();
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONObject jsonObject = null;
+                try {
+
+                    int puntos = 0;
+
+                    if (response.length() > 0) {
+                        for (int i = 0; i < response.length(); i++) {
+
+                            jsonObject = response.getJSONObject(i);
+
+                            int punto = jsonObject.getInt("puntos");
+                            puntos += punto;
+                        }
+                    }
+
+                    Toast.makeText(getApplicationContext(), globalAlumno.getNombre() + " tiene " + puntos + " puntos", Toast.LENGTH_SHORT).show();
+
+                    if (puntos > 9) {
+                        comprobarExpulsion();
+                    } else {
+                        Intent intent = new Intent(ModifyPartActivity.this, PartsActivity.class);
+                        startActivity(intent);
+                    }
+                } catch (JSONException e) {
+                    Toast.makeText(getApplicationContext(), "ERROR: No se encontro ningún parte", Toast.LENGTH_LONG).show();
+                }
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(ModifyPartActivity.this, "ERROR: " + error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        queue.add(jsonArrayRequest);
+    }
+
+    private void comprobarExpulsion(){
+
+        //Comprueba si esta ya expulsado
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url;
+
+
+        url = WebService.RAIZ + WebService.comprobarExpulsion + "?"
+                + "matricula=" + globalAlumno.getMatricula();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        int respuesta= Integer.parseInt(response);
+                        if (respuesta!=1) {
+                            FloatingFragment floatingFragment = FloatingFragment.newInstance(globalAlumno, globalParte.getCod_usuario());
+                            floatingFragment.show(getSupportFragmentManager(), "floatingFragment");
+                        }else {
+                            Intent intent = new Intent(ModifyPartActivity.this, PartsActivity.class);
+                            startActivity(intent);
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(ModifyPartActivity.this, "ERROR: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+        queue.add(stringRequest);
+
+    }
+
+
+
+
 
 
 

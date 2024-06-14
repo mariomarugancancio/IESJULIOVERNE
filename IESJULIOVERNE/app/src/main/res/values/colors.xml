@@ -9,5 +9,12 @@
     <color name="red">#FFFF0000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="link_color">#FF0000FF</color>
-
+    <color name="colorVerdeOscuro">#008f39</color>
+    <color name="colorVerdeClaro">#b8daba</color>
+    <color name="colorAzulMarino">#00008B</color>
+    <color name="colorAzulIntenso">#1E90FF</color>
+    <color name="colorAzulMedio">#00BFFF</color>
+    <color name="colorAzulClaro1">#87CEFA</color>
+    <color name="colorAzulClaro2">#ADD8E6</color>
+    <color name="colorAzulClaro3">#F0F8FF</color>
 </resources>

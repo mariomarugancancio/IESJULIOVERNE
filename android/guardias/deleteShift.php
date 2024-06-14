@@ -17,5 +17,3 @@ header ('Content-Type: application/json');
 echo "Guardia eliminada correctamente";
 
 ?>
-
-

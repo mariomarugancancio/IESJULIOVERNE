@@ -1,14 +1,7 @@
 DROP DATABASE IF EXISTS IESJULIOVERNE;
 CREATE DATABASE IESJULIOVERNE;
 USE IESJULIOVERNE;
-SELECT i.puntos
-                FROM Partes p  
-                JOIN Expulsiones e ON p.matricula_Alumno = e.matricula_del_alumno
-                JOIN Incidencias i ON p.incidencia = i.cod_incidencia
-                JOIN Usuarios u ON p.cod_usuario = u.cod_usuario
-                JOIN alumnos a ON p.matricula_Alumno = a.matricula
-                WHERE  p.cod_parte = 1
-                ORDER BY p.fecha DESC
+
                 
 -- tabla departamento
 CREATE TABLE Departamentos (
@@ -343,48 +336,64 @@ INSERT INTO Asignaturas (nombre, horas, curso, tipo) VALUES
 ('Tratamiento Informático de Datos', 5, 'PEFP2', 'Profesionales'),
 ('Aplicaciones Básicas de Ofimática', 5, 'PEFP2', 'Profesionales'),
 ('Archivo y Comunicación', 4, 'PEFP2', 'Profesionales'),
-('Formación en Centros de Trabajo', 0, 'PEFP2', 'Profesionales');
+('Formación en Centros de Trabajo', 0, 'PEFP2', 'Profesionales'),
+('Matemáticas I', 4, '1BTOCIENCIAS', 'obligatoria'),
+('Educación Física', 2, '1BTOCIENCIAS', 'comunes'),
+('Filosofía', 3, '1BTOCIENCIAS', 'comunes'),
+('Lengua Castellana y Literatura I', 4, '1BTOCIENCIAS', 'comunes'),
+('Lengua Extranjera (Inglés) I', 3, '1BTOCIENCIAS', 'comunes'),
+('Religión', 2, '1BTOCIENCIAS', NULL),
+('Biología, Geología y CC Ambiente', 4, '1BTOCIENCIAS', 'modalidad'),
+('Tecnología e Ingeniería I', 4, '1BTOCIENCIAS', 'modalidad'),
+('Dibujo Técnico I', 4, '1BTOCIENCIAS', 'modalidad'),
+('Física y Química', 4, '1BTOCIENCIAS', 'modalidad'),
+('Anatomía Aplicada', 4, 'BTO1', 'optativas'),
+('Desarrollo Digital', 4, 'BTO1', 'optativas'),
+('Latín I', 4, '1BTOHUMCSO', 'obligatoria'),
+('Matemáticas aplicadas a las CCSS I', 4, '1BTOHUMCSO', 'obligatoria'),
+('Educación Física', 2, '1BTOHUMCSO', 'comunes'),
+('Filosofía', 3, '1BTOHUMCSO', 'comunes'),
+('Lengua Castellana y Literatura I', 4, '1BTOHUMCSO', 'comunes'),
+('Lengua Extranjera (Inglés) I', 3, '1BTOHUMCSO', 'comunes'),
+('Religión', 2, '1BTOHUMCSO', NULL),
+('Griego I', 4, '1BTOHUMCSO', 'modalidad'),
+('Economía', 4, '1BTOHUMCSO', 'modalidad'),
+('H. Mundo Contemporáneo', 4, '1BTOHUMCSO', 'modalidad'),
+('Literatura Universal', 4, '1BTOHUMCSO', 'modalidad'),
+('H. Mundo Contemporáneo', 4, 'BTO1', 'optativas'),
+('Literatura Universal', 4, 'BTO1', 'optativas'),
+('2ºLengua extranjera: Francés', 4, 'BTO1', 'optativas'),
+('Lenguaje y práctica musical', 4, 'BTO1', 'optativas'),
+('Psicología', 4, 'BTO1', 'optativas'),
+('Historia de España', 3, '2BTOCIENCIAS', 'comunes'),
+('Historia de la Filosofía', 3, '2BTOCIENCIAS', 'comunes'),
+('Lengua Castellana y Literatura II', 4, '2BTOCIENCIAS', 'comunes'),
+('Lengua Extranjera (Inglés) II', 4, '2BTOCIENCIAS', 'comunes'),
+('Matemáticas II', 4, '2BTOCIENCIAS', 'obligatoria'),
+('Matemáticas Aplicadas a las Ciencias Sociales II', 4, '2BTOCIENCIAS', 'obligatoria'),
+('Biología', 4, '2BTOCIENCIAS', 'modalidad'),
+('Dibujo Técnico', 4, '2BTOCIENCIAS', 'modalidad'),
+('Física', 4, '2BTOCIENCIAS', 'modalidad'),
+('Geología y Ciencias Ambientales', 4, '2BTOCIENCIAS', 'modalidad'),
+('Química', 4, '2BTOCIENCIAS', 'modalidad'),
+('Tecnología e Ingeniería II', 4, '2BTOCIENCIAS', 'modalidad'),
+('2ºLengua Extranjera (Francés) II', 4, 'BTO2', 'optativas'),
+( 'Investigación y Desarrollo Científico ', 4, 'BTO2', 'optativas'),
+('Creación de Contenidos Artísticos y Audiovisuales', 4, 'BTO2', 'optativas'),
+('Historia de España', 3, '2BTOHUMCSO', 'comunes'),
+('Historia de la Filosofía', 3, '2BTOHUMCSO', 'comunes'),
+('Lengua Castellana y Literatura II', 4, '2BTOHUMCSO', 'comunes'),
+('Lengua Extrajera (Inglés) II', 4, '2BTOHUMCSO', 'comunes'),
+('Latín II', 4, '2BTOHUMCSO', 'obligatoria'),
+('Matemáticas Aplicadas a Ciencias Sociales', 4, '2BTOHUMCSO', 'obligatoria'),
+('Empresa y Diseño de Modelos de Negocio', 4, '2BTOHUMCSO', 'modalidad'),
+('Geografía', 4, '2BTOHUMCSO', 'modalidad'),
+('Historia del Arte', 4, '2BTOHUMCSO', 'modalidad'),
+('Historia de la Música y la Danza', 4, 'BTO2', 'optativas'),
+('Fundamentos de Administración y Gestión', 4, 'BTO2', 'optativas'),
+('Griego I', 4, 'BTO1', 'optativas'),
+('Economía', 4, 'BTO1', 'optativas');
 
-/*('Matemáticas I', 0, '1BTOCIENCIAS', ' obligatoria'),
-('Educación Física', 0, '1BTOCIENCIAS', ' comunes'),
-('Filosofía', 0, '1BTOCIENCIAS', ' comunes'),
-('Lengua Castellana y Literatura I', 0, '1BTOCIENCIAS', ' comunes'),
-('Lengua Extranjera (Inglés) I', 0, '1BTOCIENCIAS', ' comunes'),
-('Religión', 0, '1BTOCIENCIAS', null),
-('Biología, Geología y CC Ambiente', 0, '1BTOCIENCIAS', ' modalidad'),
-('Tecnología e Ingeniería I', 0, '1BTOCIENCIAS', ' modalidad'),
-('Dibujo Técnico I', 0, '1BTOCIENCIAS', ' modalidad'),
-('Física y Química', 0, '1BTOCIENCIAS', ' modalidad'),
-('Biología, Geología y CC Ambiente', 0, '1BTOCIENCIAS', ' optativas'),
-('Tecnología e Ingeniería I', 0, '1BTOCIENCIAS', ' optativas'),
-('Dibujo Técnico I', 0, '1BTOCIENCIAS', ' optativas'),
-('Física y Química', 0, '1BTOCIENCIAS', ' optativas'),
-('2 Lengua extranjera: Francés', 0, '1BTOCIENCIAS', 'optativas'),
-('Anatomía Aplicada', 0, '1BTOCIENCIAS', 'optativas'),
-('Desarrollo Digital', 0, '1BTOCIENCIAS', 'optativas'),
-('Latín I', 0, '1BTOHUMCSO', ' obligatoria'),
-('Matemáticas aplicadas a las CCSS I', 0, '1BTOHUMCSO', ' obligatoria'),
-('Educación Física', 0, '1BTOHUMCSO', ' comunes'),
-('Filosofía', 0, '1BTOHUMCSO', ' comunes'),
-('Lengua Castellana y Literatura I', 0, '1BTOHUMCSO', ' comunes'),
-('Lengua Extranjera (Inglés) I', 0, '1BTOHUMCSO', ' comunes'),
-('Religión', 0, '1BTOHUMCSO', null),
-('Griego I', 0, '1BTOHUMCSO', ' modalidad'),
-('Economía', 0, '1BTOHUMCSO', ' modalidad'),
-('H. Mundo Contemporáneo', 0, '1BTOHUMCSO', ' modalidad'),
-('Literatura Universal', 0, '1BTOHUMCSO', ' modalidad'),
-('Latín I (si no ha sido elegida entre las obligatorias)', 0, '1BTOHUMCSO', ' modalidad'),
-('Matemáticas aplicadas a las CCSS I (si no ha sido elegida entre las obligatorias', 0, '1BTOHUMCSO', ' modalidad'),
-('Griego I', 0, '1BTOHUMCSO', ' modalidad'),
-('Economía', 0, '1BTOHUMCSO', ' modalidad'),
-('H. Mundo Contemporáneo', 0, '1BTOHUMCSO', ' optativas'),
-('Literatura Universal', 0, '1BTOHUMCSO', ' optativas'),
-('Latín I (si no ha sido elegida)', 0, '1BTOHUMCSO', ' optativas'),
-('Matemáticas aplicadas a las CCSS I (si no ha sido elegida', 0, '1BTOHUMCSO', ' optativas'),
-('2 Lengua extranjera: Francés', 0, '1BTOHUMCSO', 'optativas'),
-('Lenguaje y práctica musical', 0, '1BTOHUMCSO', 'optativas'),
-('Psicología', 0, '1BTOHUMCSO', 'optativas')
-*/
 CREATE TABLE Incidencias (
   cod_incidencia INT PRIMARY KEY AUTO_INCREMENT,
   nombre varchar(100) NOT NULL,
@@ -444,7 +453,6 @@ CREATE TABLE Partes (
     FOREIGN KEY (incidencia)
         REFERENCES Incidencias (cod_incidencia)
 );
-
 
 CREATE TABLE Expulsiones (
   cod_expulsion  INTEGER NOT NULL auto_increment,
@@ -4382,5 +4390,74 @@ INSERT INTO `Horarios` (`cod_horario`, `nombre`, `apellidos`, `dia`, `inicio`, `
 (14358, ' María del Mar', 'Rodríguez Rodríguez', 'Jueves', '13:35:00', '14:30:00', 'FYQM\nB1A\n(1 A1.4)', NULL, 142236),
 (14359, ' María del Mar', 'Rodríguez Rodríguez', 'Viernes', '13:35:00', '14:30:00', 'FYQM\nB1B\n(1 A 0.4)', NULL, 142236);
 
+--
+-- Estructura de tabla para la tabla `alumnosmatriculados`
+--
+CREATE TABLE AlumnosMatriculados (
+  cod_alumnosMatriculados int(11) PRIMARY KEY AUTO_INCREMENT,
+  primer_apellido_alumno varchar(25) NOT NULL,
+  segundo_apellido_alumno varchar(25) NOT NULL,
+  nombre_alumno varchar(25) NOT NULL,
+  dni_alumno varchar(9) NOT NULL,
+  sexo_alumno varchar(1) NOT NULL,
+  email_alumno varchar(50) DEFAULT NULL,
+  telefono_alumno varchar(15) DEFAULT NULL,
+  nombre_apellidos_padre varchar(120) DEFAULT NULL,
+  dni_padre varchar(9) DEFAULT NULL,
+  telefono_padre varchar(15) DEFAULT NULL,
+  email_padre varchar(120) DEFAULT NULL,
+  nombre_apellidos_madre varchar(120) DEFAULT NULL,
+  dni_madre varchar(9) DEFAULT NULL,
+  telefono_madre varchar(15) DEFAULT NULL,
+  email_madre varchar(120) DEFAULT NULL
+);
 
-SELECT * FROM Horarios;
+
+CREATE TABLE Matriculas (
+  cod_matricula int(11) PRIMARY KEY AUTO_INCREMENT,
+  curso varchar(11) NOT NULL,
+  anio varchar(12) NOT NULL,
+  usuario int(11) NOT NULL,
+  FOREIGN KEY (cod_matricula) REFERENCES AlumnosMatriculados(cod_alumnosMatriculados)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `modalidad`
+--
+
+CREATE TABLE Modalidad (
+  matricula int(11) PRIMARY KEY,
+  asignatura int(11) NOT NULL,
+  preferencia int(11) NOT NULL,
+  FOREIGN KEY (matricula) REFERENCES Matriculas(cod_matricula)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `obligatorias`
+--
+
+CREATE TABLE Obligatorias (
+  matricula int(11) PRIMARY KEY,
+  asignatura int(11) NOT NULL,
+  FOREIGN KEY (matricula) REFERENCES Matriculas(cod_matricula)
+
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `optativas`
+--
+
+CREATE TABLE Optativas (
+  matricula int(11) ,
+  asignatura int(11),
+  preferencia int(11) NOT NULL,
+PRIMARY KEY(matricula, asignatura),
+ FOREIGN KEY (matricula) REFERENCES Matriculas(cod_matricula)
+
+);

@@ -2,7 +2,7 @@ package com.ies.bargas.controllers;
 
 public class WebService {
     //public static final String RAIZ = "https://iesbargas.es/android/"; //Hosting
-    public static final String RAIZ = "http://192.168.150.59/IESJULIOVERNE/android/"; //tener en cuenta en vez de poner localhost poner la ip
+    public static final String RAIZ = "http://192.168.150.128/IESJULIOVERNE/android/"; //tener en cuenta en vez de poner localhost poner la ip
     public static final String LOGIN = "usuarios/login.php";
     public static final String SIGNUP = "usuarios/signup.php";
     public static final String Departamentos = "usuarios/findAllDepartamentos.php";
@@ -31,6 +31,8 @@ public class WebService {
     public static final String usarPartes="partes/usarPartes.php";
     public static final String modifyExpulsion="partes/modifyExpulsion.php";
 
+
+    public static final String deleteExpulsion= "partes/deleteExpulsion.php";
     //Guardias
     public static final String AddShifts = "guardias/addShifts.php";
     public static final String Periodos = "guardias/periodos.php";

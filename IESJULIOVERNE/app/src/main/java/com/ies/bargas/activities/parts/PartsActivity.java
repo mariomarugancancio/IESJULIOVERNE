@@ -140,9 +140,12 @@ public class PartsActivity extends AppCompatActivity {
         MenuItem alumnosItem = bottomMenu.findItem(R.id.navigation_alumnos);
 
         // Desactivar ítems según sea necesario
-        if (!rol.equals("0")){
+        if (!rol.equals("0") && !rol.equals("1")){
             expulsionesItem.setEnabled(false);
             expulsionesItem.setVisible(false);
+            alumnosItem.setEnabled(false);
+            alumnosItem.setVisible(false);
+        } else if (rol.equals("1")){
             alumnosItem.setEnabled(false);
             alumnosItem.setVisible(false);
         }

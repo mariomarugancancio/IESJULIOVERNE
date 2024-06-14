@@ -8,7 +8,7 @@
     
     // Utilizamos un bucle while para recorrer todas las filas que devuelve la consulta
     while ($cursos = $resul->fetch(PDO::FETCH_ASSOC)) {
-        echo '<tr>';
+        echo '<tr class="fila-tabla">';
         // Recorremos las columnas de la fila actual
             echo '<td id="grupoA'.$cursos['grupo'].'" hidden>'.$cursos['grupo'].'</td>';
             echo '<td id="grupo'.$cursos['grupo'].'">'.$cursos['grupo'].'</td>';

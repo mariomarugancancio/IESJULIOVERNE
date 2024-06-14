@@ -7,7 +7,7 @@ try {
     // Preparo la consulta 
     $sql = "SELECT * 
     FROM Expulsiones
-    WHERE matricula_del_Alumno=?";
+    WHERE matricula_del_Alumno=? AND fecha_Inicio IS NULL";
 
     $stmt = $db->prepare($sql);
 

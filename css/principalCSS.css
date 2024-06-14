@@ -126,7 +126,25 @@
       transform: translateY(20%);
     }
     
-    
+    .fondo{
+      display: flex;
+      justify-content: center;
+    }
+
+    .matricula{
+      width: 90%;
+      background-color: white;
+      padding: 20px;
+      /* display: flex;
+      width: 50%; */
+    }
+
+    table, thead, th, tbody,tr, td {
+      border-width: 1px;
+      border: 1px solid black;
+      border-collapse: collapse;
+      width: 50%;
+    }
     /* ACTUALIZACIÓN */
     
     @media (max-width: 1023px) {
