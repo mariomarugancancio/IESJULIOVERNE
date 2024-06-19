@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>4ESO</title>
     <link rel="stylesheet" href="../../../css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../../../css/principalCSS.css">
+    <link rel="stylesheet" type="text/css" href="../../../css/app.css">
+  <link rel="stylesheet" type="text/css" href="../../../css/prematriculas.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <style>
         .error{
@@ -27,7 +28,7 @@
 
 <body>
     <?php
-    include('./../../nav.php');
+    include('./../../navESO.php');
     ?>
     <div class="fondo">
         <div class="matricula mt-4">
@@ -42,14 +43,36 @@
 
                 <div class="form-group mb-5">
                 <p>¿DESEARÁ CURSAR EL PROGRAMA BILINGÜE?  
-                    <input type="radio" id="bilingue_si" name="bilingue" value="SI"> SÍ
-                    <input type="radio" id="bilingue_no" name="bilingue" value="NO"> NO</p>
-                </div> 
+                    <?php if($bilingue == "SI"){
+                        echo '<input type="radio" id="bilingue_si" name="bilingue" value="SI" checked> SÍ';
+                        echo '<input type="radio" id="bilingue_no" name="bilingue" value="NO"> NO</p>';
+
+                    }else if($bilingue == "NO"){
+                        echo '<input type="radio" id="bilingue_si" name="bilingue" value="SI"> SÍ';
+                        echo '<input type="radio" id="bilingue_no" name="bilingue" value="NO" checked> NO</p>';
+
+                    }else{
+                        echo '<input type="radio" id="bilingue_si" name="bilingue" value="SI"> SÍ';
+                        echo '<input type="radio" id="bilingue_no" name="bilingue" value="NO"> NO</p>';
+ 
+                    }
+                    ?>
+                                    </div> 
 
                 <div class="form-group mb-2">
                 <p>¿Desea cursar Religión? (1 hora) 
-                    <input type="radio" id="religion_si" name="religion" value="SI"> SÍ
-                    <input type="radio" id="religion_no" name="religion" value="NO"> NO</p>
+                <?php if($religion == "SI"){
+                        echo '<input type="radio" id="religion_si" name="religion" value="SI" checked> SÍ';
+                        echo '<input type="radio" id="religion_no" name="religion" value="NO"> NO</p>';
+
+                    }else if($religion == "NO"){
+                            echo '<input type="radio" id="religion_si" name="religion" value="SI"> SÍ';
+                            echo '<input type="radio" id="religion_no" name="religion" value="NO" checked> NO</p>';
+                    }else{
+                        echo '<input type="radio" id="religion_si" name="religion" value="SI"> SÍ';
+                        echo '<input type="radio" id="religion_no" name="religion" value="NO"> NO</p>';
+                    }
+                    ?>
                 </div> 
 
                 <div class="form-group mb-5">
@@ -62,14 +85,18 @@
                     </thead>
                     <tbody>
                         <?php  
-                            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM asignaturas WHERE curso LIKE '4ESO' AND tipo LIKE '%comunes'";
+                            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM Asignaturas WHERE curso LIKE '4ESO' AND tipo LIKE '%comunes'";
                             $resul = $db->query($select);                            
                             // Utilizamos un bucle while para recorrer todas las filas que devuelve la consulta
                             while ($asignatura = $resul->fetch(PDO::FETCH_ASSOC)) {
                                 echo '<tr>';
                                 // Recorremos las columnas de la fila actual
                                 if($asignatura['nombre'] == "Matemáticas A" || $asignatura['nombre'] == "Matemáticas B" ){
+                                    if($codigoMates == $asignatura['cod_asignatura']){
+                                        echo '<td id="asignaturas_comumnes'.$asignatura['cod_asignatura'].'"><input class="clasescomunes" type="radio" name="comunes_mates" value="'. $asignatura["nombre"].'" checked> '.$asignatura['nombre'].'</td>';
+                                    }else{
                                     echo '<td id="asignaturas_comumnes'.$asignatura['cod_asignatura'].'"><input class="clasescomunes" type="radio" name="comunes_mates" value="'. $asignatura["nombre"].'"> '.$asignatura['nombre'].'</td>';
+                                    }
                                 }else{
                                     echo '<td id="asignaturas_comumnes'.$asignatura['cod_asignatura'].'">'.$asignatura['nombre'].'</td>';
                                 }                                    
@@ -93,16 +120,45 @@
                     </thead>
                     <tbody>
                         <?php  
-                            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM asignaturas WHERE curso LIKE '4ESO' AND tipo LIKE '%opción'";
+                            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM Asignaturas WHERE curso LIKE '4ESO' AND tipo LIKE '%opción'";
                             $resul = $db->query($select);
-                            $idClasesOpcion = 1;
+                            $idClasesOpciones = 1;
                             // Utilizamos un bucle while para recorrer todas las filas que devuelve la consulta
                             while ($asignatura = $resul->fetch(PDO::FETCH_ASSOC)) {
-                                echo '<tr>';
-                                // Recorremos las columnas de la fila actual
-                                    echo '<td id="'.$idClasesOpcion++.'_opcion"> <input class="clasesOpcion" type="number" name="materias_opcion" min="1" max="5"> '.$asignatura['nombre'].'</td>';
-                                    echo '<td id="horas_opcion'.$asignatura['cod_asignatura'].'">'.$asignatura['horas'].' horas</td>';
-                                echo "</tr>"; 
+                                if(count($asignaturasOpcionales)>0){
+                                $i=0;
+                                $encontrado=false;
+                                while($i < count($asignaturasOpcionales)){
+    
+                                    if($asignaturasOpcionales[$i] == $asignatura['cod_asignatura']){
+                                        $encontrado=true;
+                                        echo '<tr>';
+                                        // Recorremos las columnas de la fila actual
+                                            echo '<td id="'.$idClasesOpciones++.'_optativas"> <input class="clasesOptativas" type="number" name="materias_optativas" min="1" max="3" value='.$asignaturasOpcionalesPreferencias[$i].'> '.$asignatura['nombre'].'</td>';
+                                            echo '<td id="horas_optativas'.$asignatura['cod_asignatura'].'">'.$asignatura['horas'].' horas</td>';
+                                        echo "</tr>";  
+                                    }
+                                    $i = $i + 1;
+                                }
+                                if($encontrado == false){
+                                    echo '<tr>';
+                                    // Recorremos las columnas de la fila actual
+                                        echo '<td id="'.$idClasesOpciones++.'_optativas"> <input class="clasesOptativas" type="number" name="materias_optativas" min="1" max="3"> '.$asignatura['nombre'].'</td>';
+                                        echo '<td id="horas_optativas'.$asignatura['cod_asignatura'].'">'.$asignatura['horas'].' horas</td>';
+                                    echo "</tr>";  
+                                
+                                }
+                            }else{
+    
+                                        echo '<tr>';
+                                        // Recorremos las columnas de la fila actual
+                                            echo '<td id="'.$idClasesOpciones++.'_optativas"> <input class="clasesOptativas" type="number" name="materias_optativas" min="1" max="3"> '.$asignatura['nombre'].'</td>';
+                                            echo '<td id="horas_optativas'.$asignatura['cod_asignatura'].'">'.$asignatura['horas'].' horas</td>';
+                                        echo "</tr>";  
+                                    
+                                
+                            }
+                                
                             }
                         ?>
                     </tbody>
@@ -120,17 +176,36 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php  
-                            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM asignaturas WHERE curso LIKE '4ESO' AND tipo LIKE '%optativas'";
+                    <?php  
+                            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM Asignaturas WHERE curso LIKE '4ESO' AND tipo LIKE '%optativas'";
                             $resul = $db->query($select);
                             $idClasesOptativas = 1;
                             // Utilizamos un bucle while para recorrer todas las filas que devuelve la consulta
                             while ($asignatura = $resul->fetch(PDO::FETCH_ASSOC)) {
-                                echo '<tr>';
-                                // Recorremos las columnas de la fila actual
-                                    echo '<td id="'.$idClasesOptativas++.'_optativas"><input class="clasesOptativas" type="number" name="materias_optativas" min="1" max="5"> '.$asignatura['nombre'].'</td>';
-                                    echo '<td id="horas_optativas'.$asignatura['cod_asignatura'].'">'.$asignatura['horas'].' horas</td>';
-                                echo "</tr>"; 
+                                if(count($asignaturasOptativas)>0){
+                                $i=0;
+                                while($i < count($asignaturasOptativas)){
+    
+                                    if($asignaturasOptativas[$i] == $asignatura['cod_asignatura']){
+                                        echo '<tr>';
+                                        // Recorremos las columnas de la fila actual
+                                            echo '<td id="'.$idClasesOptativas++.'_optativas"> <input class="clasesOptativas" type="number" name="materias_optativas" min="1" max="3" value='.$asignaturasOptativasPreferencias[$i].'> '.$asignatura['nombre'].'</td>';
+                                            echo '<td id="horas_optativas'.$asignatura['cod_asignatura'].'">'.$asignatura['horas'].' horas</td>';
+                                        echo "</tr>";  
+                                    }
+                                    $i = $i + 1;
+                                }
+                            }else{
+    
+                                        echo '<tr>';
+                                        // Recorremos las columnas de la fila actual
+                                            echo '<td id="'.$idClasesOptativas++.'_optativas"> <input class="clasesOptativas" type="number" name="materias_optativas" min="1" max="3"> '.$asignatura['nombre'].'</td>';
+                                            echo '<td id="horas_optativas'.$asignatura['cod_asignatura'].'">'.$asignatura['horas'].' horas</td>';
+                                        echo "</tr>";  
+                                    
+                                
+                            }
+                                
                             }
                         ?>
                     </tbody>
@@ -148,6 +223,6 @@
     <?php
     include('./../../footer.php');
     ?>
-    <script src="../gg.js"></script>
+    <script src="../scriptValidacion.js"></script>
 </body>
 </html>

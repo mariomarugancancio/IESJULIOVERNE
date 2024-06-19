@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $centro = $_POST['centro'];
     $localidadCentro = $_POST['localidad_centro'];
     $provinciaCentro = $_POST['provincia_centro'];
-   
+    $curso_antiguo = $_POST['curso_antiguo'];
     
     if($curso == "4ESO"){
         $mates = $_POST['comunes_mates'];
@@ -38,12 +38,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $opcionArray = explode("/",$opcion);
     }
 
-    if($curso == "1ESO" || $curso == "2ESO" || $curso == "3ESO" || $curso == "4ESO" || $curso == "1BTO-Ciencias" || $curso == "2BTO-Ciencias" || $curso == "1BTO-Humanidades" || $curso == "2BTO-Humanidades") {
+    if($curso == "1ESO" || $curso == "2ESO" || $curso == "3ESO" || $curso == "4ESO" || $curso == "1BTOCIENCIAS" || $curso == "2BTOCIENCIAS" || $curso == "1BTOHUMCSO" || $curso == "2BTOHUMCSO") {
         $optativas = $_POST['preferenciaClasesOptativas'];
         $optativasArray = explode("/",$optativas);
     }
 
-    if($curso == "1BTO-Ciencias" || $curso == "2BTO-Ciencias" || $curso == "1BTO-Humanidades" || $curso == "2BTO-Humanidades") {
+    if($curso == "1BTOCIENCIAS" || $curso == "2BTOCIENCIAS" || $curso == "1BTOHUMCSO" || $curso == "2BTOHUMCSO") {
         $obligatoria = $_POST['preferenciaClasesObligatoria'];
         $modalidad = $_POST['preferenciaClasesModalidad'];
         $modalidadArray = explode("/",$modalidad);
@@ -53,27 +53,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $bilingue = $_POST['bilingue'];
     }
 
-    if ($curso == "1ESO" || $curso == "2ESO" || $curso == "3ESO" || $curso == "4ESO" || $curso == "1BTO-Ciencias" || $curso == "1BTO-Humanidades") {
+    if ($curso == "1ESO" || $curso == "2ESO" || $curso == "3ESO" || $curso == "4ESO" || $curso == "1BTOCIENCIAS" || $curso == "1BTOHUMCSO") {
         $religion = $_POST['religion'];
     }
 
-    if($curso == "SMR2"){
-        $miCorreo = $_POST['correoAlumno'];
-    }
-
-    if($curso == "SMR2" || $curso == "DAW1" || $curso == "DAM1" || $curso == "DAW2" || $curso == "DAM2"){
+    if($curso == "SMR1" || $curso == "SMR2" || $curso == "DAW1" || $curso == "DAM1" || $curso == "DAW2" || $curso == "DAM2"){
         $miTelefono = $_POST['telefonoAlumno'];
+        $miCorreo = $_POST['correoAlumno'];
+
     }
 
     if($curso == "SMR2" || $curso == "PEFP2" || $curso == "DAM2" || $curso == "DAW2"){
         $cambio = $_POST['cambioDT'];
     }
 
-    if($curso == "CFGB1" || $curso == "SMR1" || $curso == "DAW1" || $curso == "DAM1" || $curso == "DAW2" || $curso == "DAM2"){
+    if( $curso == "SMR1" ||  $curso == "SMR2" || $curso == "DAW1" || $curso == "DAM1" || $curso == "DAW2" || $curso == "DAM2"){
         $trabaja = $_POST['trabaja'];
     }
 
-    if($curso !== "DAM1" && $curso !== "DAM2" && $curso !== "DAW1" && $curso !== "DAW2"){
         $nombreApellidosPadre = $_POST['nombre_apellidos_padre'];
         $dniPadre = $_POST['dni_padre'];
         $telefonoPadre = $_POST['telefono_padre'];
@@ -82,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $dniMadre = $_POST['dni_madre'];
         $telefonoMadre = $_POST['telefono_madre'];
         $correoMadre = $_POST['correo_madre'];
-    }
+    
 
 
     //Crear el PDF
@@ -108,10 +105,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pdf->Cell(0, 10, mb_convert_encoding('Nombre: ', "ISO-8859-1", "UTF-8") . mb_convert_encoding($nombre, "ISO-8859-1", "UTF-8"), 0, 1);
     $pdf->Cell(0, 10, mb_convert_encoding('DNI: ', "ISO-8859-1", "UTF-8") . mb_convert_encoding($dni, "ISO-8859-1", "UTF-8"), 0, 1);
     $pdf->Cell(0, 10, mb_convert_encoding('Sexo: ', "ISO-8859-1", "UTF-8") . mb_convert_encoding($sexo, "ISO-8859-1", "UTF-8"), 0, 1);
-    if ($curso == "SMR2") {
+
+    if ($curso == "SMR1" || $curso == "SMR2" || $curso == "DAW1" || $curso == "DAM1" || $curso == "DAW2" || $curso == "DAM2") {
         $pdf->Cell(0, 10, mb_convert_encoding('Correo electrónico del alumno: ', "ISO-8859-1", "UTF-8") . mb_convert_encoding($miCorreo, "ISO-8859-1", "UTF-8"), 0, 1);
-    }
-    if ($curso == "SMR2" || $curso == "DAW1" || $curso == "DAM1" || $curso == "DAW2" || $curso == "DAM2") {
         $pdf->Cell(0, 10, mb_convert_encoding('Teléfono del alumno: ', "ISO-8859-1", "UTF-8") . mb_convert_encoding($miTelefono, "ISO-8859-1", "UTF-8"), 0, 1);
     }
 
@@ -133,7 +129,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
     //Datos de los Padres o Tutores Legales
-    if($curso !== "DAM1" && $curso !== "DAM2" && $curso !== "DAW1" && $curso !== "DAW2"){
         $pdf->Ln(5);
         $pdf->SetFont('Arial', 'B', 14);
         $pdf->Cell(0, 10, mb_convert_encoding('Datos de los Padres o Tutores Legales', "ISO-8859-1", "UTF-8"), 0, 1);
@@ -152,7 +147,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $pdf->Cell(0, 10, mb_convert_encoding('DNI: ', "ISO-8859-1", "UTF-8") . mb_convert_encoding($dniMadre, "ISO-8859-1", "UTF-8"), 0, 1);
         $pdf->Cell(0, 10, mb_convert_encoding('Teléfono de la madre: ', "ISO-8859-1", "UTF-8") . mb_convert_encoding($telefonoMadre, "ISO-8859-1", "UTF-8"), 0, 1);
         $pdf->Cell(0, 10, mb_convert_encoding('Correo electrónico madre: ', "ISO-8859-1", "UTF-8") . mb_convert_encoding($correoMadre, "ISO-8859-1", "UTF-8"), 0, 1);
-    }
+    
     
 
     //Datos del Domicilio Familiar
@@ -169,14 +164,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $pdf->Cell(0, 10, mb_convert_encoding('Piso: ', "ISO-8859-1", "UTF-8") . mb_convert_encoding($piso, "ISO-8859-1", "UTF-8"), 0, 1);
     }
     if (!empty($puerta)) {
-        $pdf->Cell(0, 10, mb_convert_encoding('Puerta: ', "ISO-8859-1", "UTF-8") . mb_convert_encoding($puerto, "ISO-8859-1", "UTF-8"), 0, 1);
+        $pdf->Cell(0, 10, mb_convert_encoding('Puerta: ', "ISO-8859-1", "UTF-8") . mb_convert_encoding($puerta, "ISO-8859-1", "UTF-8"), 0, 1);
     }
     $pdf->Cell(0, 10, mb_convert_encoding('Código Postal: ', "ISO-8859-1", "UTF-8") . mb_convert_encoding($codigoPostal, "ISO-8859-1", "UTF-8"), 0, 1);
     $pdf->Cell(0, 10, mb_convert_encoding('Municipio: ', "ISO-8859-1", "UTF-8") . mb_convert_encoding($municipio, "ISO-8859-1", "UTF-8"), 0, 1);
     $pdf->Cell(0, 10, mb_convert_encoding('Provincia: ', "ISO-8859-1", "UTF-8") . mb_convert_encoding($provincia, "ISO-8859-1", "UTF-8"), 0, 1);
     $pdf->Cell(0, 10, mb_convert_encoding('Teléfono en caso de Urgencias: ', "ISO-8859-1", "UTF-8") . mb_convert_encoding($telefonoUrgencia, "ISO-8859-1", "UTF-8"), 0, 1);
     $pdf->SetTextColor(255, 0, 0);
-    if ($curso == "CFGB1" || $curso == "SMR1" || $curso == "DAW1" || $curso == "DAM1" || $curso == "DAW2" || $curso == "DAM2") {
+    if ($curso == "SMR2" || $curso == "SMR1" || $curso == "DAW1" || $curso == "DAM1" || $curso == "DAW2" || $curso == "DAM2") {
         $pdf->Cell(0, 10, mb_convert_encoding('TRABAJA: ', "ISO-8859-1", "UTF-8") . mb_convert_encoding($trabaja, "ISO-8859-1", "UTF-8"), 0, 1);
     }
     if ($curso == "SMR2" || $curso == "PEFP2" || $curso == "DAM2" || $curso == "DAW2") {
@@ -196,7 +191,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     //Datos de las Materias
-    if ($curso == "1ESO" || $curso == "2ESO" || $curso == "3ESO" || $curso == "4ESO" || $curso == "1BTO-Ciencias" || $curso == "1BTO-Humanidades") {
+    if ($curso == "1ESO" || $curso == "2ESO" || $curso == "3ESO" || $curso == "4ESO" || $curso == "1BTOCIENCIAS" || $curso == "1BTOHUMCSO") {
         $pdf->Ln(5);
         $pdf->SetFont('Arial', 'B', 14);
         $pdf->Cell(0, 10, mb_convert_encoding('Materias', "ISO-8859-1", "UTF-8"), 0, 1); 
@@ -204,13 +199,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($curso == "1ESO" || $curso == "2ESO" || $curso == "3ESO" || $curso == "4ESO") {
             $pdf->Cell(0, 10, mb_convert_encoding('Curso Bilingüe; ', "ISO-8859-1", "UTF-8") . mb_convert_encoding($bilingue, "ISO-8859-1", "UTF-8"), 0, 1);
         }
-        if ($curso == "1ESO" || $curso == "2ESO" || $curso == "3ESO" || $curso == "4ESO" || $curso == "1BTO-Ciencias" || $curso == "1BTO-Humanidades") {
+        if ($curso == "1ESO" || $curso == "2ESO" || $curso == "3ESO" || $curso == "4ESO" || $curso == "1BTOCIENCIAS" || $curso == "1BTOHUMCSO") {
             $pdf->Cell(0, 10, mb_convert_encoding('Religión (1 hora): ', "ISO-8859-1", "UTF-8") . mb_convert_encoding($religion, "ISO-8859-1", "UTF-8"), 0, 1);
         }
     }
 
     // Agregar tabla de materias Comunes
-    if($curso == "1ESO" || $curso == "2ESO" || $curso == "3ESO" || $curso == "4ESO" || $curso == "1BTO-Ciencias" || $curso == "1BTO-Humanidades" || $curso == "2BTO-Ciencias" || $curso == "2BTO-Humanidades" || $curso == "SMR1" || $curso == "SMR2" || $curso == "DAM1" || $curso == "DAM2" || $curso == "DAW1" || $curso == "DAW2"){
+    if($curso == "1ESO" || $curso == "2ESO" || $curso == "3ESO" || $curso == "4ESO" || $curso == "1BTOCIENCIAS" || $curso == "1BTOHUMCSO" || $curso == "2BTOCIENCIAS" || $curso == "2BTOHUMCSO" || $curso == "SMR1" || $curso == "SMR2" || $curso == "DAM1" || $curso == "DAM2" || $curso == "DAW1" || $curso == "DAW2"){
         $pdf->Ln(5);
         $pdf->SetFont('Arial', 'B', 14);
         $pdf->Cell(0, 10, mb_convert_encoding('Materias Comunes', "ISO-8859-1", "UTF-8"), 0, 1);
@@ -220,46 +215,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $pdf->Ln();
     
         if($curso == "1ESO"){
-            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM asignaturas WHERE curso LIKE '1ESO' AND tipo LIKE '%comunes'";  
+            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM Asignaturas WHERE curso LIKE '1ESO' AND tipo LIKE '%comunes'";  
         }
         if($curso == "2ESO"){
-            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM asignaturas WHERE curso LIKE '2ESO' AND tipo LIKE '%comunes'";  
+            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM Asignaturas WHERE curso LIKE '2ESO' AND tipo LIKE '%comunes'";  
         }
         if($curso == "3ESO"){
-            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM asignaturas WHERE curso LIKE '3ESO' AND tipo LIKE '%comunes'";  
+            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM Asignaturas WHERE curso LIKE '3ESO' AND tipo LIKE '%comunes'";  
         }
         if($curso == "4ESO"){
-            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM asignaturas WHERE curso LIKE '4ESO' AND tipo LIKE '%comunes'";  
+            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM Asignaturas WHERE curso LIKE '4ESO' AND tipo LIKE '%comunes'";  
         }
-        if($curso == "1BTO-Ciencias"){
-            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM asignaturas WHERE curso LIKE 'BTOCIENCIAS1' AND tipo LIKE '%comunes'";  
+        if($curso == "1BTOCIENCIAS"){
+            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM Asignaturas WHERE curso LIKE '1BTOCIENCIAS' AND tipo LIKE '%comunes'";  
         }
-        if($curso == "1BTO-Humanidades"){
-            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM asignaturas WHERE curso LIKE 'BTOHUMCSO1' AND tipo LIKE '%comunes'";  
+        if($curso == "1BTOHUMCSO"){
+            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM Asignaturas WHERE curso LIKE '1BTOHUMCSO' AND tipo LIKE '%comunes'";  
         }
-        if($curso == "2BTO-Ciencias"){
-            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM asignaturas WHERE curso LIKE 'BTOCIENCIAS2' AND tipo LIKE '%comunes'";  
+        if($curso == "2BTOCIENCIAS"){
+            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM Asignaturas WHERE curso LIKE '2BTOCIENCIAS' AND tipo LIKE '%comunes'";  
         }
-        if($curso == "2BTO-Humanidades"){
-            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM asignaturas WHERE curso LIKE 'BTOHUMCSO2' AND tipo LIKE '%comunes'";  
+        if($curso == "2BTOHUMCSO"){
+            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM Asignaturas WHERE curso LIKE '2BTOHUMCSO' AND tipo LIKE '%comunes'";  
         }
         if($curso == "SMR1"){
-            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM asignaturas WHERE curso LIKE 'SMR1' AND tipo LIKE '%comunes'";  
+            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM Asignaturas WHERE curso LIKE 'SMR1' AND tipo LIKE '%comunes'";  
         }
         if($curso == "SMR2"){
-            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM asignaturas WHERE curso LIKE 'SMR2' AND tipo LIKE '%comunes'";  
+            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM Asignaturas WHERE curso LIKE 'SMR2' AND tipo LIKE '%comunes'";  
         }
         if($curso == "DAW1"){
-            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM asignaturas WHERE curso LIKE 'DAW1' AND tipo LIKE '%comunes'";  
+            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM Asignaturas WHERE curso LIKE 'DAW1' AND tipo LIKE '%comunes'";  
         }
         if($curso == "DAW2"){
-            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM asignaturas WHERE curso LIKE 'DAW2' AND tipo LIKE '%comunes'";  
+            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM Asignaturas WHERE curso LIKE 'DAW2' AND tipo LIKE '%comunes'";  
         }
         if($curso == "DAM1"){
-            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM asignaturas WHERE curso LIKE 'DAM1' AND tipo LIKE '%comunes'";  
+            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM Asignaturas WHERE curso LIKE 'DAM1' AND tipo LIKE '%comunes'";  
         }
         if($curso == "DAM2"){
-            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM asignaturas WHERE curso LIKE 'DAM2' AND tipo LIKE '%comunes'";  
+            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM Asignaturas WHERE curso LIKE 'DAM2' AND tipo LIKE '%comunes'";  
         }
 
         $resul = $db->query($select);
@@ -291,8 +286,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $pdf->SetFont('Arial', 'B', 14);
         $pdf->Cell(0, 10, mb_convert_encoding('Materias de Opción Por Orden', "ISO-8859-1", "UTF-8"), 0, 1);
         $pdf->SetFont('Arial', 'B', 12);
-        $pdf->Cell(120, 10, mb_convert_encoding('Nombre', "ISO-8859-1", "UTF-8"), 1);
-        $pdf->Cell(80, 10, mb_convert_encoding('Horas Semanales', "ISO-8859-1", "UTF-8"), 1);
+        $pdf->Cell(95, 10, mb_convert_encoding('Nombre', "ISO-8859-1", "UTF-8"), 1);
+        $pdf->Cell(95, 10, mb_convert_encoding('Horas Semanales', "ISO-8859-1", "UTF-8"), 1);
         $pdf->Ln();
         $arrayMostrar = [];
         for ($i=0; $i < count($opcionArray) ; $i++) { 
@@ -303,28 +298,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
 
     //Agregar materias Obligatorias
-    if ($curso == "1BTO-Ciencias" || $curso == "2BTO-Ciencias" || $curso == "1BTO-Humanidades" || $curso == "2BTO-Humanidades") {
+    if ($curso == "1BTOCIENCIAS" || $curso == "2BTOCIENCIAS" || $curso == "1BTOHUMCSO" || $curso == "2BTOHUMCSO") {
         $pdf->Ln(10);
         $pdf->SetFont('Arial', 'B', 14);
         $pdf->Cell(0, 10, mb_convert_encoding('Materias Obligatorias', "ISO-8859-1", "UTF-8"), 0, 1);
         $pdf->SetFont('Arial', 'B', 12);
-        $pdf->Cell(120, 10, mb_convert_encoding('Nombre', "ISO-8859-1", "UTF-8"), 1);
-        $pdf->Cell(80, 10, mb_convert_encoding('Horas Semanales', "ISO-8859-1", "UTF-8"), 1);
+        $pdf->Cell(95, 10, mb_convert_encoding('Nombre', "ISO-8859-1", "UTF-8"), 1);
+        $pdf->Cell(95, 10, mb_convert_encoding('Horas Semanales', "ISO-8859-1", "UTF-8"), 1);
         $pdf->Ln();
         $pdf->SetFont('Arial', '', 12);
-        $pdf->Cell(120, 10, mb_convert_encoding($obligatoria, "ISO-8859-1", "UTF-8"), 1);
-        $pdf->Cell(80, 10, mb_convert_encoding('4 horas', "ISO-8859-1", "UTF-8"), 1);
+        $pdf->Cell(95, 10, mb_convert_encoding($obligatoria, "ISO-8859-1", "UTF-8"), 1);
+        $pdf->Cell(95, 10, mb_convert_encoding('4 horas', "ISO-8859-1", "UTF-8"), 1);
     }    
     
 
     //Agregar materias de Modalidad
-    if ($curso == "1BTO-Ciencias" || $curso == "2BTO-Ciencias" || $curso == "1BTO-Humanidades" || $curso == "2BTO-Humanidades") {
+    if ($curso == "1BTOCIENCIAS" || $curso == "2BTOCIENCIAS" || $curso == "1BTOHUMCSO" || $curso == "2BTOHUMCSO") {
         $pdf->Ln(15);
         $pdf->SetFont('Arial', 'B', 14);
         $pdf->Cell(0, 10, mb_convert_encoding('Materias de Modalidad Por Orden', "ISO-8859-1", "UTF-8"), 0, 1);
         $pdf->SetFont('Arial', 'B', 12);
-        $pdf->Cell(120, 10, mb_convert_encoding('Nombre', "ISO-8859-1", "UTF-8"), 1);
-        $pdf->Cell(80, 10, mb_convert_encoding('Horas Semanales', "ISO-8859-1", "UTF-8"), 1);
+        $pdf->Cell(95, 10, mb_convert_encoding('Nombre', "ISO-8859-1", "UTF-8"), 1);
+        $pdf->Cell(95, 10, mb_convert_encoding('Horas Semanales', "ISO-8859-1", "UTF-8"), 1);
         $pdf->Ln();
         $arrayMostrar = [];
         for ($i=0; $i < count($modalidadArray) ; $i++) { 
@@ -335,13 +330,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
 
     //Agregar materias Optativas
-    if ($curso == "1ESO" || $curso == "2ESO" || $curso == "3ESO" || $curso == "4ESO" || $curso == "1BTO-Ciencias" || $curso == "2BTO-Ciencias" || $curso == "1BTO-Humanidades" || $curso == "2BTO-Humanidades") {
+    if ($curso == "1ESO" || $curso == "2ESO" || $curso == "3ESO" || $curso == "4ESO" || $curso == "1BTOCIENCIAS" || $curso == "2BTOCIENCIAS" || $curso == "1BTOHUMCSO" || $curso == "2BTOHUMCSO") {
         $pdf->Ln(10);
         $pdf->SetFont('Arial', 'B', 14);
         $pdf->Cell(0, 10, mb_convert_encoding('Materias Optativas Por Orden', "ISO-8859-1", "UTF-8"), 0, 1);
         $pdf->SetFont('Arial', 'B', 12);
-        $pdf->Cell(120, 10, mb_convert_encoding('Nombre', "ISO-8859-1", "UTF-8"), 1);
-        $pdf->Cell(80, 10, mb_convert_encoding('Horas Semanales', "ISO-8859-1", "UTF-8"), 1);
+        $pdf->Cell(95, 10, mb_convert_encoding('Nombre', "ISO-8859-1", "UTF-8"), 1);
+        $pdf->Cell(95, 10, mb_convert_encoding('Horas Semanales', "ISO-8859-1", "UTF-8"), 1);
         $pdf->Ln();
         $arrayMostrar = [];
         for ($i=0; $i < count($optativasArray) ; $i++) { 
@@ -356,21 +351,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $pdf->SetFont('Arial', 'B', 14);
         $pdf->Cell(0, 10, mb_convert_encoding('Módulos Formativos de Carácter General', "ISO-8859-1", "UTF-8"), 0, 1);
         $pdf->SetFont('Arial', 'B', 12);
-        $pdf->Cell(120, 10, mb_convert_encoding('Nombre', "ISO-8859-1", "UTF-8"), 1);
-        $pdf->Cell(80, 10, mb_convert_encoding('Horas Semanales', "ISO-8859-1", "UTF-8"), 1);
+        $pdf->Cell(95, 10, mb_convert_encoding('Nombre', "ISO-8859-1", "UTF-8"), 1);
+        $pdf->Cell(95, 10, mb_convert_encoding('Horas Semanales', "ISO-8859-1", "UTF-8"), 1);
         $pdf->Ln();
 
         if($curso == "CFGB1"){
-            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM asignaturas WHERE curso LIKE 'CFGB1' AND tipo LIKE '%general'";  
+            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM Asignaturas WHERE curso LIKE 'CFGB1' AND tipo LIKE '%general'";  
         }
         if($curso == "CFGB2"){
-            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM asignaturas WHERE curso LIKE 'CFGB2' AND tipo LIKE '%general'";  
+            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM Asignaturas WHERE curso LIKE 'CFGB2' AND tipo LIKE '%general'";  
         }
         if($curso == "PEFP1"){
-            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM asignaturas WHERE curso LIKE 'PEFP1' AND tipo LIKE '%general'";  
+            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM Asignaturas WHERE curso LIKE 'PEFP1' AND tipo LIKE '%general'";  
         }
         if($curso == "PEFP2"){
-            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM asignaturas WHERE curso LIKE 'PEFP2' AND tipo LIKE '%general'";  
+            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM Asignaturas WHERE curso LIKE 'PEFP2' AND tipo LIKE '%general'";  
         }
     
         $resul = $db->query($select);
@@ -389,28 +384,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $pdf->SetFont('Arial', 'B', 14);
         $pdf->Cell(0, 10, mb_convert_encoding('Módulos Profesionales ', "ISO-8859-1", "UTF-8"), 0, 1);
         $pdf->SetFont('Arial', 'B', 12);
-        $pdf->Cell(120, 10, mb_convert_encoding('Nombre', "ISO-8859-1", "UTF-8"), 1);
-        $pdf->Cell(80, 10, mb_convert_encoding('Horas Semanales', "ISO-8859-1", "UTF-8"), 1);
+        $pdf->Cell(95, 10, mb_convert_encoding('Nombre', "ISO-8859-1", "UTF-8"), 1);
+        $pdf->Cell(95, 10, mb_convert_encoding('Horas Semanales', "ISO-8859-1", "UTF-8"), 1);
         $pdf->Ln();
 
         if($curso == "CFGB1"){
-            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM asignaturas WHERE curso LIKE 'CFGB1' AND tipo LIKE '%profesionales'";  
+            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM Asignaturas WHERE curso LIKE 'CFGB1' AND tipo LIKE '%profesionales'";  
         }
         if($curso == "CFGB2"){
-            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM asignaturas WHERE curso LIKE 'CFGB2' AND tipo LIKE '%profesionales'";  
+            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM Asignaturas WHERE curso LIKE 'CFGB2' AND tipo LIKE '%profesionales'";  
         }
         if($curso == "PEFP1"){
-            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM asignaturas WHERE curso LIKE 'PEFP1' AND tipo LIKE '%profesionales'";  
+            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM Asignaturas WHERE curso LIKE 'PEFP1' AND tipo LIKE '%profesionales'";  
         }
         if($curso == "PEFP2"){
-            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM asignaturas WHERE curso LIKE 'PEFP2' AND tipo LIKE '%profesionales'";  
+            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM Asignaturas WHERE curso LIKE 'PEFP2' AND tipo LIKE '%profesionales'";  
         }
     
         $resul = $db->query($select);
         $pdf->SetFont('Arial', '', 12);
         while ($asignatura = $resul->fetch(PDO::FETCH_ASSOC)) {
-                $pdf->Cell(120, 10, mb_convert_encoding($asignatura['nombre'], "ISO-8859-1", "UTF-8"), 1);
-                $pdf->Cell(80, 10, mb_convert_encoding($asignatura['horas'] . ' horas', "ISO-8859-1", "UTF-8"), 1);
+                $pdf->Cell(95, 10, mb_convert_encoding($asignatura['nombre'], "ISO-8859-1", "UTF-8"), 1);
+                $pdf->Cell(95, 10, mb_convert_encoding($asignatura['horas'] . ' horas', "ISO-8859-1", "UTF-8"), 1);
                 $pdf->Ln();
         }
     }
@@ -425,7 +420,7 @@ function addBasicTable($pdf, $data) {
     $pdf->SetFont('Arial', '', 12);
     foreach ($data as $row) {
         foreach ($row as $col) {
-            $pdf->Cell(120, 10, $col, 1);
+            $pdf->Cell(95, 10, $col, 1);
         }
         $pdf->Ln();
     }    

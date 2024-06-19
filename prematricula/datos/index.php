@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ESO</title>
   <link rel="stylesheet" href="../../css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="../../css/principalCSS.css">
+  <link rel="stylesheet" type="text/css" href="../../css/app.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 
 </head>
@@ -39,24 +39,24 @@
         <img src="../../images/4eso.jpg" alt="4ESO">
         <img src="../../images/clase2.png" alt="4ESO">
       </a>
-      <a href="alumnos.php?curso=1BTOCiencias" id="1-bachillerato-ciencias">
+      <a href="alumnos.php?curso=1BTOCIENCIAS" id="1-bachillerato-ciencias">
         1º BTO CIENCIAS Y TECNOLOGÍA
         <img src="../../images/1eso.jpg" alt="1-bachillerato-ciencias">
         <img src="../../images/clase2.png" alt="1-bachillerato-ciencias">
       </a>
       
-      <a href="alumnos.php?curso=2BTOCiencias" id="2-bachillerato-ciencias">
+      <a href="alumnos.php?curso=2BTOCIENCIAS" id="2-bachillerato-ciencias">
       2º BTO CIENCIAS Y TECNOLOGÍA
         <img src="../../images/2eso.jpg" alt="2-bachillerato-ciencias">
         <img src="../../images/clase2.png" alt="2-bachillerato-ciencias">
       </a>
-      <a href="alumnos.php?curso=1BTOHumanidades" id="1-bachillerato-humanidades">
+      <a href="alumnos.php?curso=1BTOHUMCSO" id="1-bachillerato-humanidades">
         1º BTO HUMANIDADES
         <img src="../../images/1eso.jpg" alt="1-bachillerato-humanidades ">
         <img src="../../images/clase2.png" alt="1-bachillerato-humanidades">
       </a>
       
-      <a href="alumnos.php?curso=2BTOHumanidades" id="2-bachillerato-humanidades">
+      <a href="alumnos.php?curso=2BTOHUMCSO" id="2-bachillerato-humanidades">
       2º BTO HUMANIDADES
       <img src="../../images/2eso.jpg" alt="2-bachillerato-humanidades">
         <img src="../../images/clase2.png" alt="2-bachillerato-humanidades">
@@ -90,7 +90,7 @@
         <img src="../../images/clase2.png" alt="medio1">
       </a>
       
-      <a href="SMR2" id="medio2">
+      <a href="alumnos.php?curso=SMR2" id="medio2">
         2ºCFGM (SMR2)
         <img src="../../images/2eso.jpg" alt="medio2">
         <img src="../../images/clase2.png" alt="medio2">
@@ -106,14 +106,14 @@
         <img src="../../images/2eso.jpg" alt="dam2">
         <img src="../../images/clase2.png" alt="dam2">
       </a>
-      <a href="alumnos.php?curso=DAW2" id="daw1">
-        1ºDAM
+      <a href="alumnos.php?curso=DAW1" id="daw1">
+        1ºDAW
         <img src="../../images/1eso.jpg" alt="daw1 ">
         <img src="../../images/clase2.png" alt="daw1">
       </a>
       
       <a href="alumnos.php?curso=DAW2" id="daw2">
-        2ºDAM
+        2ºDAW
         <img src="../../images/2eso.jpg" alt="daw2">
         <img src="../../images/clase2.png" alt="daw2">
       </a>

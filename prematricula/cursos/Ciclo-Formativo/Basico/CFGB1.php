@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CFGB1</title>
     <link rel="stylesheet" href="../../../../css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../../../../css/principalCSS.css">
+    <link rel="stylesheet" type="text/css" href="../../../../css/app.css">
+  <link rel="stylesheet" type="text/css" href="../../../../css/prematriculas.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <style>
         .error{
@@ -26,7 +27,7 @@
 
 <body>
     <?php
-    include('../../../nav.php');
+    include('../../../navESO.php');
     ?>
     <div class="fondo">
         <div class="matricula mt-4">
@@ -51,15 +52,15 @@
                     </thead>
                     <tbody>
                         <?php  
-                            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM asignaturas WHERE curso LIKE 'CFGB1' AND tipo LIKE '%general'";
+                            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM Asignaturas WHERE curso LIKE 'CFGB1' AND tipo LIKE '%general'";
                             $resul = $db->query($select);                            
                             // Utilizamos un bucle while para recorrer todas las filas que devuelve la consulta
-                            /* while ($asignatura = $resul->fetch(PDO::FETCH_ASSOC)) {
+                             while ($asignatura = $resul->fetch(PDO::FETCH_ASSOC)) {
                                 echo '<tr>';
                                     echo '<td id="general'.$asignatura['cod_asignatura'].'">'.$asignatura['nombre'].'</td>';
                                     echo '<td id="horas_comumnes'.$asignatura['cod_asignatura'].'">'.$asignatura['horas'].' horas</td>';
                                 echo "</tr>"; 
-                            } */
+                            } 
                         ?>
                     </tbody>
                 </table>
@@ -75,15 +76,15 @@
                     </thead>
                     <tbody>
                         <?php  
-                            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM asignaturas WHERE curso LIKE 'CFGB1' AND tipo LIKE '%profesionales'";
+                            $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM Asignaturas WHERE curso LIKE 'CFGB1' AND tipo LIKE '%profesionales'";
                             $resul = $db->query($select);
                             // Utilizamos un bucle while para recorrer todas las filas que devuelve la consulta
-                            /* while ($asignatura = $resul->fetch(PDO::FETCH_ASSOC)) {
+                             while ($asignatura = $resul->fetch(PDO::FETCH_ASSOC)) {
                                 echo '<tr>';
                                     echo '<td id="profesionales'.$asignatura['cod_asignatura'].'">'.$asignatura['nombre'].'</td>';
                                     echo '<td id="horas_profesionales'.$asignatura['cod_asignatura'].'">'.$asignatura['horas'].' horas</td>';
                                 echo "</tr>"; 
-                            } */
+                            } 
                         ?>
                     </tbody>
                 </table>
@@ -100,6 +101,6 @@
     <?php
     include('../../../footer.php');
     ?>
-    <script src="../../gg.js"></script>
+    <script src="../../scriptValidacion.js"></script>
 </body>
 </html>

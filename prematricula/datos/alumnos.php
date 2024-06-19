@@ -14,14 +14,26 @@
  <?php
         include('./../nav.php');
     ?>
-    
+ <div class="row justify-content-between">
+   
 <div class="col-lg-3 col-md-6 my-2">
                     <div class="input-group">
                         <span class="input-group-text">Asignaturas</span>
                         <input type="text" id="filtro" class="form-control" placeholder="Buscador">
                     </div>
                 </div>
-  
+                <?php if (isset($_GET['curso'])) {
+                  $curso = $_GET['curso'];
+                  ?>
+                <div class="col-lg-3 col-md-6 my-2">
+                <form action="generarCSV.php?curso=<?php echo $curso; ?>" method="post">
+                <button type="submit" class="btn btn-success p-2">Generar CSV</button>
+                </form>
+                </div>
+                </div>
+                <?php } ?>
+
+
     <table  id="tablaAlumnos" class="table  table-bordered table-striped table-hover text-center" >
   <thead>
     <tr>
@@ -36,11 +48,13 @@
   <?php
 // Iniciamos la sesion
 require_once("../../archivosComunes/conexion.php");
-$curso = $_GET['curso'];
+if (isset($_GET['curso'])) {
+  $curso = $_GET['curso'];
 
 $select = "SELECT am.cod_alumnosMatriculados, am.nombre_alumno, am.primer_apellido_alumno, am.segundo_apellido_alumno
             FROM AlumnosMatriculados am, Matriculas m
-            WHERE m.usuario = am.cod_alumnosMatriculados AND m.curso = '".$curso."';";
+            WHERE m.cod_matricula = am.cod_alumnosMatriculados AND m.curso = '".$curso."';";
+
 $resul = $db->query($select);
 $i=0;
 // Utilizamos un bucle while para recorrer todas las filas que devuelve la consulta
@@ -51,15 +65,16 @@ while ($columna = $resul->fetch(PDO::FETCH_ASSOC)) {
     echo '<td>'.$columna['nombre_alumno'].'</td>';
     echo '<td>'.$columna['primer_apellido_alumno'].'</td>';
     echo '<td>'.$columna['segundo_apellido_alumno'].'</td>';
-    echo '<td> <a href="#"  class="btn-editar" onclick="editarMatricula('.$columna['cod_alumnosMatriculados'].')"><i class="fa-solid fa-pencil"></i></a> </td>';
-    echo '<td> <a href="#"  class="btn-borrar" onclick="eliminarMatricula('.$columna['cod_alumnosMatriculados'].')"><i class="fa-solid fa-trash"></i></a> </td>';
+    echo '<td> <a href="#"  class="btn-editar" onclick="editarMatricula(' . htmlspecialchars(json_encode($columna['cod_alumnosMatriculados']), ENT_QUOTES, 'UTF-8') . ', ' . htmlspecialchars(json_encode($curso), ENT_QUOTES, 'UTF-8') . ')"><i class="fa-solid fa-pencil"></i></a> </td>';
+    echo '<td> <a href="#" class="btn-borrar" onclick="eliminarMatricula(' . htmlspecialchars(json_encode($columna['cod_alumnosMatriculados']), ENT_QUOTES, 'UTF-8') . ', ' . htmlspecialchars(json_encode($curso), ENT_QUOTES, 'UTF-8') . ')"><i class="fa-solid fa-trash"></i></a> </td>';
     echo "</tr>";
 }
+} 
 ?>
 
-      
-  </tbody>
   
+  </tbody>
+
 </table>
 <div class="d-flex justify-content-center mt-5" id="tablaPaginacion">
 
@@ -74,5 +89,57 @@ while ($columna = $resul->fetch(PDO::FETCH_ASSOC)) {
     <?php
     include('./../footer.php');
     ?>
+    <script>
+  function editarMatricula(cod_matricula, curso) {
+    var url;
+
+    if(curso == "1ESO"){
+      url = "../cursos/ESO/1ESO.php?cod_matricula=" + cod_matricula;
+}else if(curso == "2ESO"){
+  url = "../cursos/ESO/2ESO.php?cod_matricula=" + cod_matricula;
+}else if(curso == "3ESO"){
+  url = "../cursos/ESO/3ESO.php?cod_matricula=" + cod_matricula;
+}else if(curso == "4ESO"){
+  url = "../cursos/ESO/4ESO.php?cod_matricula=" + cod_matricula;
+}else if(curso == "1BTOCIENCIAS"){
+  url = "../cursos/Bachillerato/Ciencias y Tecnologia/1BTOCiencias.php?cod_matricula=" + cod_matricula;
+}else if(curso == "2BTOCIENCIAS"){
+  url = "../cursos/Bachillerato/Ciencias y Tecnologia/2BTOCiencias.php?cod_matricula=" + cod_matricula;
+}else if(curso == "1BTOHUMCSO"){
+  url = "../cursos/Bachillerato/Humanidades-Ciencias Sociales/1BTOHumanidades.php?cod_matricula=" + cod_matricula;
+}else if(curso == "2BTOHUMCSO"){
+  url = "../cursos/Bachillerato/Humanidades-Ciencias Sociales/2BTOHumanidades.php?cod_matricula=" + cod_matricula;
+}else if(curso == "PEFP1"){
+  url = "../cursos/PEFP/PEFP1.php?cod_matricula=" + cod_matricula;
+}else if(curso == "PEFP2"){
+  url = "../cursos/PEFP/PEFP2.php?cod_matricula=" + cod_matricula;
+}else if(curso == "CFGB1"){
+  url = "../cursos/Ciclo-Formativo/Basico/CFGB1.php?cod_matricula=" + cod_matricula;
+}else if(curso == "CFGB2"){
+  url = "../cursos/Ciclo-Formativo/Basico/CFGB2.php?cod_matricula=" + cod_matricula;
+}else if(curso == "SMR1"){
+  url = "../cursos/Ciclo-Formativo/Medio/CFGM1.php?cod_matricula=" + cod_matricula;
+}else if(curso == "SMR2"){
+  url = "../cursos/Ciclo-Formativo/Medio/CFGM1.php?cod_matricula=" + cod_matricula;
+}else if(curso == "DAW1"){
+  url = "../cursos/Ciclo-Formativo/Superior/DAW/1CFGS-DAW1.php?cod_matricula=" + cod_matricula;
+}else if(curso == "DAW2"){
+  url = "../cursos/Ciclo-Formativo/Superior/DAW/2CFGS-DAW2.php?cod_matricula=" + cod_matricula;
+}else if(curso == "DAM1"){
+  url = "../cursos/Ciclo-Formativo/Superior/DAM/1CFGS-DAM1.php?cod_matricula=" + cod_matricula;
+}else if(curso == "DAM2"){
+  url = "../cursos/Ciclo-Formativo/Superior/DAM/2CFGS-DAM2.php?cod_matricula=" + cod_matricula;
+}  
+      window.location.href = url;
+  }
+  
+  function eliminarMatricula(cod_matricula, curso){
+    if (confirm("¿Está seguro de que desea borrar esta matricula?")) {
+      var url = "borrarMatriculas.php?cod_matricula=" + cod_matricula+ "&curso="+curso;
+      window.location.href = url;
+    }
+  }
+
+</script>
 </body>
 </html>

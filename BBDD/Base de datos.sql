@@ -2,7 +2,6 @@ DROP DATABASE IF EXISTS IESJULIOVERNE;
 CREATE DATABASE IESJULIOVERNE;
 USE IESJULIOVERNE;
 
-                
 -- tabla departamento
 CREATE TABLE Departamentos (
 codigo SMALLINT PRIMARY KEY AUTO_INCREMENT,
@@ -254,68 +253,67 @@ CREATE TABLE Asignaturas(
     curso VARCHAR(30) NOT NULL,
     tipo VARCHAR(40)
 );
-
 INSERT INTO Asignaturas (nombre, horas, curso, tipo) VALUES
 ('Jefatura', 0, 'Jefatura', null),
-('Lengua Castellana y Literatura', 5, '1ESO', ' comunes'),
-('Matemáticas', 4, '1ESO', ' comunes'),
-('Lengua Extranjera (Inglés)', 4, '1ESO', ' comunes'),
-('Geografía e Historia', 4, '1ESO', ' comunes'),
-('Biología y Geología', 3, '1ESO', ' comunes'),
-('Educación Física', 2, '1ESO', ' comunes'),
-('Música', 2, '1ESO', ' comunes'),
-('Tecnología y Digitalización', 2, '1ESO', ' comunes'),
+('Lengua Castellana y Literatura', 5, '1ESO', 'comunes'),
+('Matemáticas', 4, '1ESO', 'comunes'),
+('Lengua Extranjera (Inglés)', 4, '1ESO', 'comunes'),
+('Geografía e Historia', 4, '1ESO', 'comunes'),
+('Biología y Geología', 3, '1ESO', 'comunes'),
+('Educación Física', 2, '1ESO', 'comunes'),
+('Música', 2, '1ESO', 'comunes'),
+('Tecnología y Digitalización', 2, '1ESO', 'comunes'),
 ('Religión', 1, '1ESO', null),
-('Francés (obligatoria para biligües)', 2, '1ESO', ' optativas'),
-('Taller de emprendimiento y finanzas personales', 2, '1ESO', ' optativas'),
-('Proyecto de Artes Plásticas y Visuales', 2, '1ESO', ' optativas'),
-('Lengua Castellana y Literatura', 4, '2ESO', ' comunes'),
-('Matemáticas', 4, '2ESO', ' comunes'),
-('Lengua Extranjera (Inglés)', 4, '2ESO', ' comunes'),
-('Geografía e Historia', 3, '2ESO', ' comunes'),
-('Física y Química', 3, '2ESO', ' comunes'),
-('Educación Física', 2, '2ESO', ' comunes'),
-('Música', 2, '2ESO', ' comunes'),
-('Educación Plástica y Audiovisual', 2, '2ESO', ' comunes'),
-('Educación en Valores Cívicos y Éticos', 2, '2ESO', ' comunes'),
+('Francés (obligatoria para biligües)', 2, '1ESO', 'optativas'),
+('Taller de emprendimiento y finanzas personales', 2, '1ESO', 'optativas'),
+('Proyecto de Artes Plásticas y Visuales', 2, '1ESO', 'optativas'),
+('Lengua Castellana y Literatura', 4, '2ESO', 'comunes'),
+('Matemáticas', 4, '2ESO', 'comunes'),
+('Lengua Extranjera (Inglés)', 4, '2ESO', 'comunes'),
+('Geografía e Historia', 3, '2ESO', 'comunes'),
+('Física y Química', 3, '2ESO', 'comunes'),
+('Educación Física', 2, '2ESO', 'comunes'),
+('Música', 2, '2ESO', 'comunes'),
+('Educación Plástica y Audiovisual', 2, '2ESO', 'comunes'),
+('Educación en Valores Cívicos y Éticos', 2, '2ESO', 'comunes'),
 ('Religión', 1, '2ESO', null),
-('2 Lengua extranjera: Francés', 2, '2ESO', ' optativas'),
-('Cultura Clásica', 2, '2ESO', ' optativas'),
-('Desarrollo Digital', 2, '2ESO', ' optativas'),
-('Lengua Castellana y Literatura', 4, '3ESO', ' comunes'),
-('Matemáticas', 4, '3ESO', ' comunes'),
-('Lengua Extranjera (Inglés)', 3, '3ESO', ' comunes'),
-('Geografía e Historia', 3, '3ESO', ' comunes'),
-('Biología y Geología', 3, '3ESO', ' comunes'),
-('Educación Física', 2, '3ESO', ' comunes'),
-('Física y Química', 3, '3ESO', ' comunes'),
-('Educación Plástica y AudioVisual', 2, '3ESO', ' comunes'),
-('Tecnología y Digitalización', 2, '3ESO', ' comunes'),
+('2 Lengua extranjera: Francés', 2, '2ESO', 'optativas'),
+('Cultura Clásica', 2, '2ESO', 'optativas'),
+('Desarrollo Digital', 2, '2ESO', 'optativas'),
+('Lengua Castellana y Literatura', 4, '3ESO', 'comunes'),
+('Matemáticas', 4, '3ESO', 'comunes'),
+('Lengua Extranjera (Inglés)', 3, '3ESO', 'comunes'),
+('Geografía e Historia', 3, '3ESO', 'comunes'),
+('Biología y Geología', 3, '3ESO', 'comunes'),
+('Educación Física', 2, '3ESO', 'comunes'),
+('Física y Química', 3, '3ESO', 'comunes'),
+('Educación Plástica y AudioVisual', 2, '3ESO', 'comunes'),
+('Tecnología y Digitalización', 2, '3ESO', 'comunes'),
 ('Religión', 1, '3ESO', null),
-('2 Lengua extranjera: Francés', 2, '3ESO', ' optativas'),
-('Emprendimiento, sostenibilidad y consumo responsable', 2, '3ESO', ' optativas'),
-('Música Activa, Movimiento y Folclore', 2, '3ESO', ' optativas'),
-('Lengua Castellana y Literatura', 4, '4ESO', ' comunes'),
-('Matemáticas A', 4, '4ESO', ' comunes'),
-('Matemáticas B', 4, '4ESO', ' comunes'),
-('Lengua Extranjera (Inglés)', 4, '4ESO', ' comunes'),
-('Geografía e Historia', 3, '4ESO', ' comunes'),
-('Educación Física', 2, '4ESO', ' comunes'),
-('Biología y Geología', 3, '4ESO', ' opción'),
-('Digitalización', 3, '4ESO', ' opción'),
-('Economía y Emprendimiento', 3, '4ESO', ' opción'),
-('Expresión Artística', 3, '4ESO', ' opción'),
-('Física y Química', 3, '4ESO', ' opción'),
-('Formación y Orient. Personal y Profes.', 3, '4ESO', ' opción'),
-('Latín', 3, '4ESO', ' opción'),
-('Música', 1, '4ESO', null),
-('2 Lengua extranjera: Francés', 2, '4ESO', ' opción'),
-('Tecnología', 2, '4ESO', ' opción'),
-('Filosofía', 2, '4ESO', ' optativas'),
-('Cultura Clásica', 2, '4ESO', ' optativas'),
-('Cultura Científica', 2, '4ESO', ' optativas'),
-('Proyectos de Robótica', 2, '4ESO', ' optativas'),
-('Artes Escénicas, Danza y Folclore', 2, '4ESO', ' optativas'),
+('2 Lengua extranjera: Francés', 2, '3ESO', 'optativas'),
+('Emprendimiento, sostenibilidad y consumo responsable', 2, '3ESO', 'optativas'),
+('Música Activa, Movimiento y Folclore', 2, '3ESO', 'optativas'),
+('Lengua Castellana y Literatura', 4, '4ESO', 'comunes'),
+('Matemáticas A', 4, '4ESO', 'comunes'),
+('Matemáticas B', 4, '4ESO', 'comunes'),
+('Lengua Extranjera (Inglés)', 4, '4ESO', 'comunes'),
+('Geografía e Historia', 3, '4ESO', 'comunes'),
+('Educación Física', 2, '4ESO', 'comunes'),
+('Biología y Geología', 3, '4ESO', 'opción'),
+('Digitalización', 3, '4ESO', 'opción'),
+('Economía y Emprendimiento', 3, '4ESO', 'opción'),
+('Expresión Artística', 3, '4ESO', 'opción'),
+('Física y Química', 3, '4ESO', 'opción'),
+('Formación y Orient. Personal y Profes.', 3, '4ESO', 'opción'),
+('Latín', 3, '4ESO', 'opción'),
+('Música', 1, '4ESO', 'opción'),
+('2 Lengua extranjera: Francés', 2, '4ESO', 'opción'),
+('Tecnología', 2, '4ESO', 'opción'),
+('Filosofía', 2, '4ESO', 'optativas'),
+('Cultura Clásica', 2, '4ESO', 'optativas'),
+('Cultura Científica', 2, '4ESO', 'optativas'),
+('Proyectos de Robótica', 2, '4ESO', 'optativas'),
+('Artes Escénicas, Danza y Folclore', 2, '4ESO', 'optativas'),
 ('Ciencias Aplicadas Básicas I', 3, 'PEFP1', 'Formátivos de Carácter General'),
 ('Comunicación y Sociedad Básica I', 3, 'PEFP1', 'Formátivos de Carácter General'),
 ('Autonomía y Desarrollo Personal', 4, 'PEFP1', 'Formátivos de Carácter General'),
@@ -332,7 +330,7 @@ INSERT INTO Asignaturas (nombre, horas, curso, tipo) VALUES
 ('Atención Básica al Cliente', 2, 'PEFP2', 'Formátivos de Carácter General'),
 ('Iniciación a la Actividad Laboral y Emprendedora', 2, 'PEFP2', 'Formátivos de Carácter General'),
 ('Prevención de Riesgos Laborales', 1, 'PEFP2', 'Formátivos de Carácter General'),
-('Tutoría', 1, 'PEFP1', 'Formátivos de Carácter General'),
+('Tutoría', 1, 'PEFP2', 'Formátivos de Carácter General'),
 ('Tratamiento Informático de Datos', 5, 'PEFP2', 'Profesionales'),
 ('Aplicaciones Básicas de Ofimática', 5, 'PEFP2', 'Profesionales'),
 ('Archivo y Comunicación', 4, 'PEFP2', 'Profesionales'),
@@ -347,8 +345,6 @@ INSERT INTO Asignaturas (nombre, horas, curso, tipo) VALUES
 ('Tecnología e Ingeniería I', 4, '1BTOCIENCIAS', 'modalidad'),
 ('Dibujo Técnico I', 4, '1BTOCIENCIAS', 'modalidad'),
 ('Física y Química', 4, '1BTOCIENCIAS', 'modalidad'),
-('Anatomía Aplicada', 4, 'BTO1', 'optativas'),
-('Desarrollo Digital', 4, 'BTO1', 'optativas'),
 ('Latín I', 4, '1BTOHUMCSO', 'obligatoria'),
 ('Matemáticas aplicadas a las CCSS I', 4, '1BTOHUMCSO', 'obligatoria'),
 ('Educación Física', 2, '1BTOHUMCSO', 'comunes'),
@@ -360,11 +356,21 @@ INSERT INTO Asignaturas (nombre, horas, curso, tipo) VALUES
 ('Economía', 4, '1BTOHUMCSO', 'modalidad'),
 ('H. Mundo Contemporáneo', 4, '1BTOHUMCSO', 'modalidad'),
 ('Literatura Universal', 4, '1BTOHUMCSO', 'modalidad'),
-('H. Mundo Contemporáneo', 4, 'BTO1', 'optativas'),
-('Literatura Universal', 4, 'BTO1', 'optativas'),
-('2ºLengua extranjera: Francés', 4, 'BTO1', 'optativas'),
-('Lenguaje y práctica musical', 4, 'BTO1', 'optativas'),
-('Psicología', 4, 'BTO1', 'optativas'),
+('Bilogía, Geología y CC Ambientales', 4, '1BTO', 'optativas'),
+('Tecnología e Ingeniería I', 4, '1BTO', 'optativas'),
+('Dibujo Técnico I', 4, '1BTO', 'optativas'),
+('Física y Química', 4, '1BTO', 'optativas'),
+('Griego I', 4, '1BTO', 'optativas'),
+('Economía', 4, '1BTO', 'optativas'),
+('H. Mundo Contemporáneo', 4, '1BTO', 'optativas'),
+('Literatura Universal', 4, '1BTO', 'optativas'),
+('Latín I', 4, '1BTO', 'optativas'),
+('2ºLengua extranjera: Francés', 4, '1BTO', 'optativas'),
+('Anatomía Aplicada', 4, '1BTO', 'optativas'),
+('Desarrollo Digital', 4, '1BTO', 'optativas'),
+('Psicología', 4, '1BTO', 'optativas'),
+('Unión Europea', 4, '1BTO', 'optativas'),
+('Lenguaje y Práctica Musical', 4, '1BTO', 'optativas'),
 ('Historia de España', 3, '2BTOCIENCIAS', 'comunes'),
 ('Historia de la Filosofía', 3, '2BTOCIENCIAS', 'comunes'),
 ('Lengua Castellana y Literatura II', 4, '2BTOCIENCIAS', 'comunes'),
@@ -377,9 +383,9 @@ INSERT INTO Asignaturas (nombre, horas, curso, tipo) VALUES
 ('Geología y Ciencias Ambientales', 4, '2BTOCIENCIAS', 'modalidad'),
 ('Química', 4, '2BTOCIENCIAS', 'modalidad'),
 ('Tecnología e Ingeniería II', 4, '2BTOCIENCIAS', 'modalidad'),
-('2ºLengua Extranjera (Francés) II', 4, 'BTO2', 'optativas'),
-( 'Investigación y Desarrollo Científico ', 4, 'BTO2', 'optativas'),
-('Creación de Contenidos Artísticos y Audiovisuales', 4, 'BTO2', 'optativas'),
+('2ºLengua Extranjera (Francés) II', 4, 'BTO', 'optativas'),
+( 'Investigación y Desarrollo Científico ', 4, 'BTO', 'optativas'),
+('Creación de Contenidos Artísticos y Audiovisuales', 4, 'BTO', 'optativas'),
 ('Historia de España', 3, '2BTOHUMCSO', 'comunes'),
 ('Historia de la Filosofía', 3, '2BTOHUMCSO', 'comunes'),
 ('Lengua Castellana y Literatura II', 4, '2BTOHUMCSO', 'comunes'),
@@ -389,10 +395,85 @@ INSERT INTO Asignaturas (nombre, horas, curso, tipo) VALUES
 ('Empresa y Diseño de Modelos de Negocio', 4, '2BTOHUMCSO', 'modalidad'),
 ('Geografía', 4, '2BTOHUMCSO', 'modalidad'),
 ('Historia del Arte', 4, '2BTOHUMCSO', 'modalidad'),
-('Historia de la Música y la Danza', 4, 'BTO2', 'optativas'),
-('Fundamentos de Administración y Gestión', 4, 'BTO2', 'optativas'),
-('Griego I', 4, 'BTO1', 'optativas'),
-('Economía', 4, 'BTO1', 'optativas');
+('Griego II', 4, '2BTOHUMCSO', 'modalidad'),
+('2ºLengua extranjera: Francés', 4, '2BTO', 'optativas'),
+('Investigación y Desarrollo Científico', 4, '2BTO', 'optativas'),
+('Creación de Contenidos Artísticos y Audiovisuales', 4, '2BTO', 'optativas'),
+('Biología', 4, '2BTO', 'optativas'),
+('Dibujo Técnico', 4, '2BTO', 'optativas'),
+('Física', 4, '2BTO', 'optativas'),
+('Geología y Ciencias Ambientales', 4, '2BTO', 'optativas'),
+('Química', 4, '2BTO', 'optativas'),
+('Tecnología e Ingeniería II', 4, '2BTO', 'optativas'),
+('Historia de la Música y la Danza', 4, '2BTO', 'optativas'),
+('Fundamentos de Administración y Gestión', 4, '2BTO', 'optativas'),
+('Empresa y Diseño de Modelos de Negocio', 4, '2BTO', 'optativas'),
+('Geografía', 4, '2BTO', 'optativas'),
+('Historia del Arte', 4, '2BTO', 'optativas'),
+('Equipos eléctricos y electrónicos', 8, 'CFGB1', 'Profesionales'),
+('Montaje y mantenimiento de sistemas y componentes informáticos', 10, 'CFGB1', 'Profesionales'),
+('Itirenario personal para la empleabilidad', 2, 'CFGB1', 'Formátivos de Carácter General'),
+('Ciencias aplicadas I', 4, 'CFGB1', 'Formátivos de Carácter General'),
+('Comunicación y Ciencias Sociales I', 4, 'CFGB1', 'Formátivos de Carácter General'),
+('Proyecto intermodular de aprendizaje colaborativo', 1, 'CFGB1', 'Profesionales'),
+('Tutoría', 1, 'CFGB1', 'Formátivos de Carácter General'),
+('Instalación y mantenimiento de edes para transmisión de datos', 8, 'CFGB2', 'Profesionales'),
+('Operaciones auxiliares para la configuración y la explotación', 8, 'CFGB2', 'Profesionales'),
+('Ciencias aplicadas II', 6, 'CFGB2', 'Formátivos de Carácter General'),
+('Comunicación y Ciencias Sociales II', 6, 'CFGB2', 'Formátivos de Carácter General'),
+('Proyecto intermodular de aprendizaje colaborativo', 1, 'CFGB2', 'Profesionales'),
+('Tutoría', 1, 'CFGB2', 'Formátivos de Carácter General'),
+('Lenguajes de marcas y sistemas de información', 3, 'DAW1', 'Comunes'),
+('Sistemas informáticos', 5, 'DAW1', 'Comunes'),
+('Bases de datos', 5, 'DAW1', 'Comunes'),
+('Programación', 6, 'DAW1', 'Comunes'),
+('Entornos de desarrollo', 2, 'DAW1', 'Comunes'),
+('Inglés técnico para los ciclos formativos de Grado Superior', 2, 'DAW1', 'Comunes'),
+('Digitalización aplicada al sector productivo (GS)', 2, 'DAW1', 'Comunes'),
+('Sostenibilidad aplicada al sector productivo', 1, 'DAW1', 'Comunes'),
+('Itirenario personal para la empleabilidad I', 3, 'DAW1', 'Comunes'),
+('Proyecto intermodular de desarrollo de aplicaciones web', 1, 'DAW1', 'Comunes'),
+('Desarrollo web en entorno cliente', 6, 'DAW2', 'Comunes'),
+('Desarrollo web en entorno servidor', 7, 'DAW2', 'Comunes'),
+('Despliegue de aplicaciones web', 3, 'DAW2', 'Comunes'),
+('Diseño de interfaces web', 5, 'DAW2', 'Comunes'),
+('Itirenario personal para la empleabilidad II', 3, 'DAW2', 'Comunes'),
+('Optatividad', 4, 'DAW2', 'Comunes'),
+('Lenguajes de marcas y sistemas de información', 3, 'DAM1', 'Comunes'),
+('Sistemas informáticos', 5, 'DAM1', 'Comunes'),
+('Bases de datos', 5, 'DAM1', 'Comunes'),
+('Programación', 6, 'DAM1', 'Comunes'),
+('Entornos de desarrollo', 2, 'DAM1', 'Comunes'),
+('Inglés técnico para los ciclos formativos de Grado Superior', 2, 'DAM1', 'Comunes'),
+('Digitalización aplicada al sector productivo (GS)', 2, 'DAM1', 'Comunes'),
+('Sostenibilidad aplicada al sector productivo', 1, 'DAM1', 'Comunes'),
+('Itirenario personal para la empleabilidad I', 3, 'DAM1', 'Comunes'),
+('Proyecto intermodular de desarrollo de aplicaciones web', 1, 'DAM1', 'Comunes'),
+('Acceso a datos', 6, 'DAM2', 'Comunes'),
+('Desarrollo de interfaces', 6, 'DAM2', 'Comunes'),
+('Programación multimedia y dispositivos móviles', 4, 'DAM2', 'Comunes'),
+('Programación de servicios y procesos', 5, 'DAM2', 'Comunes'),
+('Sistemas de gestión empresarial', 2, 'DAM2', 'Comunes'),
+('Itirenario personal para la empleabilidad II', 3, 'DAM2', 'Comunes'),
+('Optatividad', 4, 'DAM2', 'Comunes'),
+('Proyecto intermodular de desarrollo de aplicaciones multiplataforma', 1, 'DAM2', 'Comunes'),
+('Proyecto intermodular de desarrollo de aplicaciones web', 1, 'DAW2', 'Comunes'),
+('Montaje y mantenimiento de equipo', 6, 'SMR1', 'Comunes'),
+('Sistemas operativos monopuesto', 5, 'SMR1', 'Comunes'),
+('Redes locales', 5, 'SMR1', 'Comunes'),
+('Aplicaciones Web', 6, 'SMR1', 'Comunes'),
+('Inglés técnico para los ciclos formativos de Grado Superior', 2, 'SMR1', 'Comunes'),
+('Digitalización aplicada al sector productivo (GM)', 2, 'SMR1', 'Comunes'),
+('Sostenibilidad aplicada al sector productivo', 1, 'SMR1', 'Comunes'),
+('Itirenario personal para la empleabilidad I', 3, 'SMR1', 'Comunes'),
+('Proyecto intermodular de sistemas microinformáticos y redes', 1, 'SMR1', 'Comunes'),
+('Aplicaciones ofimáticas', 7, 'SMR2', 'Comunes'),
+('Sistemas operativos en red', 6, 'SMR2', 'Comunes'),
+('Servicios en red', 5, 'SMR2', 'Comunes'),
+('Seguridad informática', 4, 'SMR2', 'Comunes'),
+('Itirenario personal para la empleabilidad II', 3, 'SMR2', 'Comunes'),
+('Optatividad', 4, 'SMR', 'Comunes'),
+('Proyecto intermodular de sistemas microinformáticos y redes', 1, 'SMR2', 'Comunes');
 
 CREATE TABLE Incidencias (
   cod_incidencia INT PRIMARY KEY AUTO_INCREMENT,
@@ -4402,6 +4483,11 @@ CREATE TABLE AlumnosMatriculados (
   sexo_alumno varchar(1) NOT NULL,
   email_alumno varchar(50) DEFAULT NULL,
   telefono_alumno varchar(15) DEFAULT NULL,
+  fecha_nacimiento DATE NOT NULL,
+  municipio_nacimiento varchar(120) NOT NULL,
+  provincia_nacimiento varchar(120) NOT NULL,
+  pais_nacimiento varchar(120),
+  familia_numerosa varchar(2) NOT NULL,
   nombre_apellidos_padre varchar(120) DEFAULT NULL,
   dni_padre varchar(9) DEFAULT NULL,
   telefono_padre varchar(15) DEFAULT NULL,
@@ -4409,29 +4495,72 @@ CREATE TABLE AlumnosMatriculados (
   nombre_apellidos_madre varchar(120) DEFAULT NULL,
   dni_madre varchar(9) DEFAULT NULL,
   telefono_madre varchar(15) DEFAULT NULL,
-  email_madre varchar(120) DEFAULT NULL
-);
+  email_madre varchar(120) DEFAULT NULL,
+  calle varchar(120) DEFAULT NULL,
+  numero varchar(120) DEFAULT NULL,
+  portal varchar(120) DEFAULT NULL,
+  piso varchar(120) DEFAULT NULL,
+  puerta varchar(120) DEFAULT NULL,
+  codigoPostal varchar(120) DEFAULT NULL,
+  municipio varchar(120) DEFAULT NULL,
+  provincia varchar(120) DEFAULT NULL,
+  telefonoUrgencia varchar(120) DEFAULT NULL,
+  centro varchar(120) DEFAULT NULL,
+  localidad_centro varchar(120) DEFAULT NULL,
+  provincia_centro varchar(120) DEFAULT NULL,
+  curso_antiguo varchar(120) DEFAULT NULL,
+  cambio varchar(120) DEFAULT NULL,
+  trabaja varchar(120) DEFAULT NULL,
+  religion varchar(2) DEFAULT NULL,
+  bilingue varchar(2) DEFAULT NULL
 
+);
 
 CREATE TABLE Matriculas (
   cod_matricula int(11) PRIMARY KEY AUTO_INCREMENT,
-  curso varchar(11) NOT NULL,
+  curso varchar(20) NOT NULL,
   anio varchar(12) NOT NULL,
-  usuario int(11) NOT NULL,
+  usuario int(11),
   FOREIGN KEY (cod_matricula) REFERENCES AlumnosMatriculados(cod_alumnosMatriculados)
 );
 
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `comunes`
+--
+CREATE TABLE Comunes (
+  matricula int(11),
+  asignatura int(11) NOT NULL,
+  PRIMARY KEY (matricula, asignatura),
+  FOREIGN KEY (matricula) REFERENCES Matriculas(cod_matricula),
+ FOREIGN KEY (asignatura) REFERENCES Asignaturas(cod_asignatura)
+
+);
+
+--
+-- Estructura de tabla para la tabla `opcion`
+--
+
+CREATE TABLE Opciones (
+  matricula int(11),
+  asignatura int(11) NOT NULL,
+  preferencia int(11) NOT NULL,
+  PRIMARY KEY(asignatura, preferencia),
+  FOREIGN KEY (matricula) REFERENCES Matriculas(cod_matricula),
+ FOREIGN KEY (asignatura) REFERENCES Asignaturas(cod_asignatura)
+);
+--
 -- Estructura de tabla para la tabla `modalidad`
 --
 
 CREATE TABLE Modalidad (
-  matricula int(11) PRIMARY KEY,
+  matricula int(11),
   asignatura int(11) NOT NULL,
   preferencia int(11) NOT NULL,
-  FOREIGN KEY (matricula) REFERENCES Matriculas(cod_matricula)
+   PRIMARY KEY(matricula, asignatura),
+  FOREIGN KEY (matricula) REFERENCES Matriculas(cod_matricula),
+ FOREIGN KEY (asignatura) REFERENCES Asignaturas(cod_asignatura)
 );
 
 -- --------------------------------------------------------
@@ -4441,9 +4570,11 @@ CREATE TABLE Modalidad (
 --
 
 CREATE TABLE Obligatorias (
-  matricula int(11) PRIMARY KEY,
+  matricula int(11),
   asignatura int(11) NOT NULL,
-  FOREIGN KEY (matricula) REFERENCES Matriculas(cod_matricula)
+  PRIMARY KEY (matricula, asignatura),
+  FOREIGN KEY (matricula) REFERENCES Matriculas(cod_matricula),
+ FOREIGN KEY (asignatura) REFERENCES Asignaturas(cod_asignatura)
 
 );
 
@@ -4452,12 +4583,42 @@ CREATE TABLE Obligatorias (
 --
 -- Estructura de tabla para la tabla `optativas`
 --
-
 CREATE TABLE Optativas (
   matricula int(11) ,
   asignatura int(11),
   preferencia int(11) NOT NULL,
 PRIMARY KEY(matricula, asignatura),
- FOREIGN KEY (matricula) REFERENCES Matriculas(cod_matricula)
+ FOREIGN KEY (matricula) REFERENCES Matriculas(cod_matricula),
+ FOREIGN KEY (asignatura) REFERENCES Asignaturas(cod_asignatura)
 
 );
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `optativas`
+--
+CREATE TABLE FormativosCaracterGeneral (
+  matricula int(11) ,
+  asignatura int(11),
+PRIMARY KEY(matricula, asignatura),
+ FOREIGN KEY (matricula) REFERENCES Matriculas(cod_matricula),
+ FOREIGN KEY (asignatura) REFERENCES Asignaturas(cod_asignatura)
+
+);
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `optativas`
+--
+
+CREATE TABLE Profesionales (
+  matricula int(11) ,
+  asignatura int(11),
+PRIMARY KEY(matricula, asignatura),
+ FOREIGN KEY (matricula) REFERENCES Matriculas(cod_matricula),
+ FOREIGN KEY (asignatura) REFERENCES Asignaturas(cod_asignatura)
+
+);
+
+

@@ -6,7 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ESO</title>
   <link rel="stylesheet" href="../../../../css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="../../../../css/principalCSS.css">
+  <link rel="stylesheet" type="text/css" href="../../../../css/app.css">
+  <link rel="stylesheet" type="text/css" href="../../../../css/prematriculas.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 
 </head>
@@ -17,14 +18,14 @@
     <section style="font-size: 16px;">
 
     <a href="1BTOHumanidades.php" id="1-bachillerato-humanidades">
-        1ºESO
+    1º BTO CIENCIAS SOCIALES Y HUMANIDADES
         <img src="../../../../images/1eso.jpg" alt="1-bachillerato-humanidades ">
         <img src="../../../../images/clase2.png" alt="1-bachillerato-humanidades">
       </a>
       
       <a href="2BTOHumanidades.php" id="2-bachillerato-humanidades">
-        2ºESO
-        <img src="../../../../images/2eso.jpg" alt="2-bachillerato-humanidades">
+      2º BTO CIENCIAS SOCIALES Y HUMANIDADES
+      <img src="../../../../images/2eso.jpg" alt="2-bachillerato-humanidades">
         <img src="../../../../images/clase2.png" alt="2-bachillerato-humanidades">
       </a>
 

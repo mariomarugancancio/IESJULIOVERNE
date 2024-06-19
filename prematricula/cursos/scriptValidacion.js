@@ -119,13 +119,13 @@ if(miCurso == "CFGB2" || miCurso == "SMR2" || miCurso == "PEFP2" || miCurso == "
 }
 
 
-if(miCurso == "1BTO-Ciencias" || miCurso == "1BTO-Humanidades" || miCurso == "2BTO-Ciencias" || miCurso == "2BTO-Humanidades"){
+if(miCurso == "1BTOCIENCIAS" || miCurso == "1BTOHUMCSO" || miCurso == "2BTOCIENCIAS" || miCurso == "2BTOHUMCSO"){
     var listaOptativas = document.querySelectorAll('td[id$="_optativas"]').length;
-    if(miCurso == "1BTO-Humanidades" || miCurso == "2BTO-Ciencias" || miCurso == "2BTO-Humanidades"){
+    if(miCurso == "1BTOHUMCSO" || miCurso == "2BTOCIENCIAS" || miCurso == "2BTOHUMCSO"){
         var listaModalidades = document.querySelectorAll('td[id$="_modalidad"]').length;
     }
     let listaMateriasModalidad = document.querySelectorAll('td[id$="_modalidad"] input');
-    if(miCurso == "1BTO-Humanidades" || miCurso == "2BTO-Humanidades" || miCurso == "2BTO-Ciencias"){
+    if(miCurso == "1BTOHUMCSO" || miCurso == "2BTOHUMCSO" || miCurso == "2BTOCIENCIAS"){
         let radios = document.querySelectorAll("input[type='radio'][name='obligatorias']");
         radios.forEach(element => element.addEventListener('change',()=>{
             trasladarObligatoriaAModalidad();
@@ -167,7 +167,7 @@ function trasladarObligatoriaAModalidad(){
 }
 
 function trasladarUltimosAListaOptativas(){
-    if(miCurso == "2BTO-Ciencias"){
+    if(miCurso == "2BTOCIENCIAS"){
         let listaMateriasModalidad = document.querySelectorAll('td[id$="_modalidad"] input');        
         let listaM = [];
         listaMateriasModalidad.forEach(element=>{
@@ -467,16 +467,16 @@ function validarmateriasOptativas(){
         case "4ESO":
             asignaturas = "1,2,3,4,5"
         break;
-        case "1BTO-Ciencias":
+        case "1BTOCIENCIAS":
             asignaturas = "1,2,3,4"
         break;
-        case "2BTO-Ciencias":
+        case "2BTOCIENCIAS":
             asignaturas = "1,2,3"
         break;
-        case "1BTO-Humanidades":
+        case "1BTOHUMCSO":
             asignaturas = "1,2,3,4"
         break;
-        case "2BTO-Humanidades":
+        case "2BTOHUMCSO":
             asignaturas = "1,2,3"
         break;
     }
@@ -559,18 +559,19 @@ function validarmateriasOpcion(){
 function validarmateriasModalidad(){
     /*A crear funcion y añadir en validar */
     let miCurso = document.forms.matriculas['curso'].value;
+
     let asignaturas = "";
     switch(miCurso){
-        case "1BTO-Ciencias":
+        case "1BTOCIENCIAS":
             asignaturas = "1,2,3,4"
         break;
-        case "2BTO-Ciencias":
+        case "2BTOCIENCIAS":
             asignaturas = "1,2,3,4,5"
         break;
-        case "1BTO-Humanidades":
+        case "1BTOHUMCSO":
             asignaturas = "1,2,3,4"
         break;
-        case "2BTO-Humanidades":
+        case "2BTOHUMCSO":
             asignaturas = "1,2,3,4"
         break;
     } 
@@ -734,7 +735,7 @@ function validarDatos() {
             }
         }
     
-        if(miCurso == "1ESO" || miCurso == "2ESO" || miCurso == "3ESO" || miCurso == "4ESO" || miCurso == "1BTO-Ciencias" || miCurso == "1BTO-Humanidades"){
+        if(miCurso == "1ESO" || miCurso == "2ESO" || miCurso == "3ESO" || miCurso == "4ESO" || miCurso == "1BTOCIENCIAS" || miCurso == "1BTOHUMCSO"){
         let religion = document.forms.matriculas['religion'].value;
             if(!religion){
                 alert("Por favor, rellene si desea cursar Religión");
@@ -754,7 +755,7 @@ function validarDatos() {
             }
         }
 
-        if(miCurso == "1BTO-Humanidades" || miCurso == "2BTO-Humanidades" || miCurso == "2BTO-Ciencias"){
+        if(miCurso == "1BTOHUMCSO" || miCurso == "2BTOHUMCSO" || miCurso == "2BTOCIENCIAS"){
             let obligatoria = document.forms.matriculas['obligatorias'].value;
             if(!obligatoria){
             alert("Por favor, elija una Materia Obligatoria");
@@ -762,7 +763,7 @@ function validarDatos() {
         }
         }
 
-        if(miCurso == "1BTO-Ciencias" || miCurso == "1BTO-Humanidades" || miCurso == "2BTO-Ciencias" || miCurso == "2BTO-Humanidades"){
+        if(miCurso == "1BTOCIENCIAS" || miCurso == "1BTOHUMCSO" || miCurso == "2BTOCIENCIAS" || miCurso == "2BTOHUMCSO"){
             if(!validarmateriasModalidad()){
                 alert("Por favor, elija las Materias de Modalidad");
                 return;
