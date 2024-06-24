@@ -24,17 +24,13 @@
 <body>
 
     <?php
-    include ('./archivosComunes/navPartes.php');
+    include ('./archivosComunes/nav.php');
     require_once ("../archivosComunes/conexion.php");
     require_once ('../archivosComunes/loginRequerido.php');
-    if ($_SESSION['usuario_login']['rol'] != "0") {
-        print "
-        <script>
-          window.location = 'partes.php';
-        </script>";}
+   
     // Para acceder a esta pagina hay que iniciar sesion previamente.
     if (isset($_GET['matricula'])) {
-        $select = "SELECT matricula, nombre, apellidos, grupo
+        $select = "SELECT matricula, nombre, apellidos, grupo, saldo
     FROM Alumnos
     WHERE matricula = '" . $_GET['matricula'] . "';";
         $resul = $db->query($select);
@@ -42,7 +38,7 @@
     }
     ?>
 
-    <div id="formulario" class="mx-auto mt-3 mb-5" style="width:400px; height:300px;">
+    <div id="formulario" class="mx-auto mt-3 mb-5" style="width:400px; height:400px;">
         <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
             <?php if ($_SESSION["usuario_login"]["rol"] == 0) {
                 if (isset($columna['matricula'])) {
@@ -83,16 +79,15 @@
 
                     echo "<label for='apellidos'>Apellidos:</label>";
                     echo "</div>";
-                    echo "<div class='form-group form-floating mb-3'>";
                 } else {
                     echo "<div class='form-group form-floating mb-3'>";
                     echo "<input type='text' class='form-control' name='apellidos' id='apellidos'  >";
 
                     echo "<label for='apellidos'>Apellidos:</label>";
                     echo "</div>";
-                    echo "<div class='form-group form-floating mb-3'>";
                 }
                 if (isset($columna['grupo'])) {
+                    echo "<div class='form-group form-floating mb-3'>";
 
                     echo "<select class='form-control' name='grupo' id='grupo' >";
                     $select = "SELECT grupo FROM Cursos";
@@ -116,6 +111,20 @@
                     <?php echo "</div>";
                 } else {
                 }
+                if (isset($columna['saldo'])) {
+
+                    echo "<div class='form-group form-floating mb-3'>";
+                    echo "<input type='text' class='form-control' name='saldo' id='saldo'   value='" . $columna['saldo'] . "'>";
+
+                    echo "<label for='saldo'>Saldo:</label>";
+                    echo "</div>";
+                } else {
+                    echo "<div class='form-group form-floating mb-3'>";
+                    echo "<input type='text' class='form-control' name='saldo' id='saldo'  >";
+
+                    echo "<label for='saldo'>Saldo:</label>";
+                    echo "</div>";
+                }
             } ?>
 
             <input type="submit" name="guardar" class="btn btn-primary mt-2" value="Guardar cambios">
@@ -129,19 +138,38 @@
         $nombre = $_POST['nombre'];
         $apellidos = $_POST['apellidos'];
         $grupo = $_POST['grupo'];
+        $saldo = $_POST['saldo'];
         $matriculaAntigua = $_POST['matriculaAntigua'];
+        $fecha_actual = date('Y-m-d H:i:s');
+        $saldoAntiguo=0;
+        $select = "SELECT saldo
+        FROM Alumnos
+        WHERE matricula = '".$matricula."';";
+        $resul = $db->query($select);
 
+        // Utilizamos un bucle while para recorrer todas las filas que devuelve la consulta
+        if ($columna = $resul->fetch(PDO::FETCH_ASSOC)) {
+            $saldoAntiguo = $columna['saldo'];
+        }
 
+        $insert = "INSERT INTO Transacciones (matricula, fecha, saldoNuevo, saldoAntiguo)
+        VALUES (:matricula, :fecha, :saldoNuevo,  :saldoAntiguo)";
+        $stmt = $db->prepare($insert);
+        $stmt->bindParam(':matricula', $matricula);
+        $stmt->bindParam(':fecha', $fecha_actual);
+        $stmt->bindParam(':saldoNuevo', $saldo);
+        $stmt->bindParam(':saldoAntiguo', $saldoAntiguo);
+        $lastID = $stmt->execute();
 
         // Actualizar la tabla guardias con la información obtenida
-        $stmt = $db->prepare("UPDATE Alumnos SET matricula=?, nombre=?, apellidos=?, grupo=? WHERE matricula = ?");
-        $stmt->execute([$matricula, $nombre, $apellidos, $grupo, $matriculaAntigua]);
+        $stmt = $db->prepare("UPDATE Alumnos SET matricula=?, nombre=?, apellidos=?, grupo=?, saldo=? WHERE matricula = ?");
+        $stmt->execute([$matricula, $nombre, $apellidos, $grupo, $saldo, $matriculaAntigua]);
         print "
         <script>
-          window.location = 'gestionaralumnos.php';
+          window.location = 'gestionarAlumnos.php';
         </script>";}
     
     ?>
     <?php
-    include ('./archivosComunes/footerPartes.php');
+    include ('./archivosComunes/footer.php');
     ?>

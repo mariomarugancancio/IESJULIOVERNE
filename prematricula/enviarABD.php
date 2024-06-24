@@ -24,14 +24,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $provincia_nacimiento =  $_POST['provincia_nacimiento'];
     $pais_nacimiento_extranjeros =  $_POST['pais_nacimiento_extranjeros'];
     $familia_numerosa =  $_POST['familia_numerosa'];
-    $nombreApellidosPadre = $_POST['nombre_apellidos_padre'];
-    $dniPadre = $_POST['dni_padre'];
-    $telefonoPadre = $_POST['telefono_padre'];
-    $correoPadre = $_POST['correo_padre'];
-    $nombreApellidosMadre = $_POST['nombre_apellidos_madre'];
-    $dniMadre = $_POST['dni_madre'];
-    $telefonoMadre = $_POST['telefono_madre'];
-    $correoMadre = $_POST['correo_madre'];
+    $nombreApellidosProgenitor1 = $_POST['nombre_apellidos_progenitor1'];
+    $dniProgenitor1 = $_POST['dni_progenitor1'];
+    $telefonoProgenitor1 = $_POST['telefono_progenitor1'];
+    $correoProgenitor1 = $_POST['correo_progenitor1'];
+    $nombreApellidosProgenitor2 = $_POST['nombre_apellidos_progenitor2'];
+    $dniProgenitor2 = $_POST['dni_progenitor2'];
+    $telefonoProgenitor2 = $_POST['telefono_progenitor2'];
+    $correoProgenitor2 = $_POST['correo_progenitor2'];
 
     $anioActual = date('Y');
     $anioSiguiente = date('Y')+1;
@@ -49,6 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $localidadCentro = $_POST['localidad_centro'];
     $provinciaCentro = $_POST['provincia_centro'];
     $curso_antiguo = $_POST['curso_antiguo'];
+    $ampa = $_POST['ampa'];
 
 
     if($curso == "1ESO" || $curso == "2ESO" || $curso == "3ESO" || $curso == "4ESO" || $curso == "1BTOCIENCIAS" || $curso == "2BTOCIENCIAS" || $curso == "1BTOHUMCSO" || $curso == "2BTOHUMCSO") {
@@ -86,12 +87,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($curso == "1ESO" || $curso == "2ESO" || $curso == "3ESO" || $curso == "4ESO" || $curso == "1BTOCIENCIAS" || $curso == "1BTOHUMCSO") {
         $religion = $_POST['religion'];
     }
-
+    if ($curso == "1ESO" || $curso == "2ESO" || $curso == "3ESO" || $curso == "4ESO" || $curso == "CFGB1" || $curso == "CFGB2") {
+        $pueblo_transporte = $_POST['pueblo_transporte'];
+        $urbanizacion_transporte = $_POST['urbanizacion_transporte'];    }
     
 
         // alumnosMatriculados
-        $insert = "INSERT INTO alumnosmatriculados (primer_apellido_alumno, segundo_apellido_alumno, nombre_alumno, dni_alumno, sexo_alumno, email_alumno, telefono_alumno, fecha_nacimiento, municipio_nacimiento, provincia_nacimiento, pais_nacimiento, familia_numerosa, nombre_apellidos_padre, dni_padre, telefono_padre, email_padre, nombre_apellidos_madre, dni_madre, telefono_madre, email_madre, calle, numero, portal, piso, puerta, codigoPostal, municipio, provincia, telefonoUrgencia, centro, localidad_centro, provincia_centro, curso_antiguo, cambio, trabaja, religion, bilingue)
-         VALUES (:primer_apellido_alumno, :segundo_apellido_alumno, :nombre_alumno, :dni_alumno, :sexo_alumno, :email_alumno, :telefono_alumno, :fecha_nacimiento, :municipio_nacimiento, :provincia_nacimiento, :pais_nacimiento_extranjeros, :familia_numerosa, :nombre_apellidos_padre, :dni_padre, :telefono_padre, :email_padre, :nombre_apellidos_madre, :dni_madre, :telefono_madre, :email_madre, :calle, :numero, :portal, :piso, :puerta, :codigo_postal, :municipio, :provincia, :telefono_urgencia, :centro, :localidad_centro, :provincia_centro, :curso_antiguo, :cambio, :trabaja, :religion, :bilingue)";
+        $insert = "INSERT INTO Alumnosmatriculados (primer_apellido_alumno, segundo_apellido_alumno, nombre_alumno, dni_alumno, sexo_alumno, email_alumno, telefono_alumno, fecha_nacimiento, municipio_nacimiento, provincia_nacimiento, pais_nacimiento, familia_numerosa, nombre_apellidos_progenitor1, dni_progenitor1, telefono_progenitor1, email_progenitor1, nombre_apellidos_progenitor2, dni_progenitor2, telefono_progenitor2, email_progenitor2, calle, numero, portal, piso, puerta, codigoPostal, municipio, provincia, telefonoUrgencia, centro, localidad_centro, provincia_centro, curso_antiguo, cambio, trabaja, religion, bilingue, ampa, pueblo_transporte, urbanizacion_transporte, fecha)
+         VALUES (:primer_apellido_alumno, :segundo_apellido_alumno, :nombre_alumno, :dni_alumno, :sexo_alumno, :email_alumno, :telefono_alumno, :fecha_nacimiento, :municipio_nacimiento, :provincia_nacimiento, :pais_nacimiento_extranjeros, :familia_numerosa, :nombre_apellidos_progenitor1, :dni_progenitor1, :telefono_progenitor1, :email_progenitor1, :nombre_apellidos_progenitor2, :dni_progenitor2, :telefono_progenitor2, :email_progenitor2, :calle, :numero, :portal, :piso, :puerta, :codigo_postal, :municipio, :provincia, :telefono_urgencia, :centro, :localidad_centro, :provincia_centro, :curso_antiguo, :cambio, :trabaja, :religion, :bilingue, :ampa, :pueblo_transporte, :urbanizacion_transporte, :fecha)";
         $stmt = $db->prepare($insert);
         $stmt->bindParam(':primer_apellido_alumno', $primerApellido);
         $stmt->bindParam(':segundo_apellido_alumno', $segundoApellido);
@@ -105,14 +108,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bindParam(':provincia_nacimiento', $provincia_nacimiento);
         $stmt->bindParam(':pais_nacimiento_extranjeros', $pais_nacimiento_extranjeros);
         $stmt->bindParam(':familia_numerosa', $familia_numerosa);
-        $stmt->bindParam(':nombre_apellidos_padre', $nombreApellidosPadre);
-        $stmt->bindParam(':dni_padre', $dniPadre);
-        $stmt->bindParam(':telefono_padre', $telefonoPadre);
-        $stmt->bindParam(':email_padre', $correoPadre);
-        $stmt->bindParam(':nombre_apellidos_madre', $nombreApellidosMadre);
-        $stmt->bindParam(':dni_madre', $dniMadre);
-        $stmt->bindParam(':telefono_madre', $telefonoMadre);
-        $stmt->bindParam(':email_madre', $correoMadre);
+        $stmt->bindParam(':nombre_apellidos_progenitor1', $nombreApellidosProgenitor1);
+        $stmt->bindParam(':dni_progenitor1', $dniProgenitor1);
+        $stmt->bindParam(':telefono_progenitor1', $telefonoProgenitor1);
+        $stmt->bindParam(':email_progenitor1', $correoProgenitor1);
+        $stmt->bindParam(':nombre_apellidos_progenitor2', $nombreApellidosProgenitor2);
+        $stmt->bindParam(':dni_progenitor2', $dniProgenitor2);
+        $stmt->bindParam(':telefono_progenitor2', $telefonoProgenitor2);
+        $stmt->bindParam(':email_progenitor2', $correoProgenitor2);
         $stmt->bindParam(':calle', $calle);
         $stmt->bindParam(':numero', $numero);
         $stmt->bindParam(':portal', $portal);
@@ -130,7 +133,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bindParam(':trabaja', $trabaja);
         $stmt->bindParam(':religion', $religion);
         $stmt->bindParam(':bilingue', $bilingue);
-
+        $stmt->bindParam(':ampa', $ampa);
+        $stmt->bindParam(':pueblo_transporte', $pueblo_transporte);
+        $stmt->bindParam(':urbanizacion_transporte', $urbanizacion_transporte);
+        $fecha = date("Y-m-d");
+        $stmt->bindParam(':fecha', $fecha);
 
         $stmt->execute();
 

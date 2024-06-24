@@ -1,6 +1,9 @@
 <?php
   session_start();
-    
+  if(!isset($_SESSION["usuario_login"])){
+    require_once('../index.php');
+  }
+ 
     echo'<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
     <a class="navbar-brand ms-xl-5" href="cursos.php">Cursos</a>

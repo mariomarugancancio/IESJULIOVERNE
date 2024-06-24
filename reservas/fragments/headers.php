@@ -94,15 +94,9 @@
                     </div>
                     </li>            
                                 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle"  id="submenu" role="button" data-bs-toggle="dropdown" href="#" style="margin: 0 20px;"><span class="material-symbols-outlined">
-                    Opciones
-                    </span></a>
-                        <ul class="dropdown-menu" style="background-color: #ECEFF1">
-                        <li><a class="dropdown-item" href="../archivosComunes/selector.php">Página Principal</a></li>
-                        <hr>
-                        <li><a class="dropdown-item" href="../archivosComunes/logout.php">Cerrar Sesión</a></li>
-                        </ul>
+                    
+                        <li class="nav-item"><a class="nav-link" href="../archivosComunes/selector.php">Página Principal</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../archivosComunes/logout.php">Cerrar Sesión</a></li>
                     </li>
                
             </div>

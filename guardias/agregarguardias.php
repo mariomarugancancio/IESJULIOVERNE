@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guardias</title>
     <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="shortcut icon" href="../images/logoJulioVerneNuevo.png">
+
     <script src="../js/bootstrap.bundle.min.js"></script>
       <script src="../js/multiselect-dropdown.js"></script>
       <script src="https://kit.fontawesome.com/d7bc41fc30.js" crossorigin="anonymous"></script>
@@ -25,7 +27,7 @@
     require_once('../correo/correo.php');
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
+        try {
         $fecha = $_POST['fecha'];
         $periodo = $_POST['periodo'];
         $usuario = $_POST['usuario'];
@@ -163,6 +165,12 @@
         // Redirigir a la página de guardias
         header('Location: guardias.php');
         exit();
+    } catch (PDOException $e) {
+        // Mostrar el error en la pantalla
+        echo '<div class="alert alert-danger" role="alert">';
+        echo ' Guardia duplicada. Error: ' . $e->getMessage();
+        echo '</div>';
+    }
     }
 
 

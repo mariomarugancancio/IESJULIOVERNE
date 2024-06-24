@@ -14,6 +14,7 @@ require_once('loginRequerido.php');
   <title>Aplicaciones</title>
   <link rel="stylesheet" type="text/css" href="../css/app.css">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+  <link rel="shortcut icon" href="../images/logoJulioVerneNuevo.png">
 
 </head>
 <body>
@@ -99,12 +100,7 @@ require_once('loginRequerido.php');
         <img src="../images/prematricula1.webp" alt="Imagen Prematricula1">
         <img src="../images/prematricula2.webp" alt="Imagen Prematricula2">
       </a>
-      <a href="../gestion_practicas/index.php" id="practicas">
-        Gestión de Prácticas
-        <img src="../images/practicas1.webp" alt="Imagen GestionPracticas1">
-        <img src="../images/practicas2.webp" alt="Imagen GestionPracticas2">
-      </a>
-      <a href="../asignaturas/asignaturas.php" id="asignatura">
+      <a href="../asignaturas/asignaturas.php" id="asignaturas">
         Gestión de Asignaturas
         <img src="../images/asignaturas1.webp" alt="Imagen GestionAsignaturas1">
         <img src="../images/asignaturas2.webp" alt="Imagen GestionAsignaturas2">
@@ -113,6 +109,16 @@ require_once('loginRequerido.php');
         Gestión de Cursos
         <img src="../images/cursos1.jpg" alt="Imagen GestionCursos1">
         <img src="../images/clase2.png" alt="Imagen GestionCursos2">
+      </a>
+      <a href="../alumnos/gestionarAlumnos.php" id="alumnos">
+        Gestión de Alumnos
+        <img src="../images/alumnos1.jpg" alt="Imagen GestionAlumnos1">
+        <img src="../images/usuario2.webp" alt="Imagen GestionAlumnos2">
+      </a>
+      <a href="../fotocopias/gestionarFotocopias.php" id="fotocopias">
+        Gestión de Fotocopias
+        <img src="../images/fotocopias1.jpg" alt="Imagen GestionFotocopias1">
+        <img src="../images/fotocopias2.png" alt="Imagen GestionFotocopias2">
       </a>
       <?php
         if ($_SESSION['usuario_login']['rol'] == "0") {
@@ -134,20 +140,36 @@ require_once('loginRequerido.php');
     </section>
     <?php
         include("footer.php");
-      ?>
-    <?php
-         if($_SESSION["usuario_login"]["rol"] == 2 || $_SESSION["usuario_login"]["rol"] == 3){
+ 
+         if($_SESSION["usuario_login"]["rol"] == 3){
           print '<script>
           document.getElementById("mantenimiento").style.display="block";
           document.getElementById("inventario").style.display="none";
           document.getElementById("guardias").style.display="none";
           document.getElementById("clases").style.display="none";
-          document.getElementById("practicas").style.display="none";
+          document.getElementById("usuarios").style.display="block";
+          document.getElementById("partes").style.display="none";
+          document.getElementById("cursos").style.display="none";
+          document.getElementById("asignaturas").style.display="none";
+          document.getElementById("prematricula").style.display="block";
+          document.getElementById("alumnos").style.display="none";
+          document.getElementById("fotocopias").style.display="block";
+
+          </script>';
+        }
+        if($_SESSION["usuario_login"]["rol"] == 2 ){
+          print '<script>
+          document.getElementById("mantenimiento").style.display="block";
+          document.getElementById("inventario").style.display="none";
+          document.getElementById("guardias").style.display="none";
+          document.getElementById("clases").style.display="none";
           document.getElementById("usuarios").style.display="block";
           document.getElementById("partes").style.display="none";
           document.getElementById("cursos").style.display="none";
           document.getElementById("asignaturas").style.display="none";
           document.getElementById("prematricula").style.display="none";
+          document.getElementById("alumnos").style.display="none";
+          document.getElementById("fotocopias").style.display="none";
 
           </script>';
         }
@@ -157,12 +179,14 @@ require_once('loginRequerido.php');
           document.getElementById("inventario").style.display="block";
           document.getElementById("guardias").style.display="block";
           document.getElementById("clases").style.display="block";
-          document.getElementById("practicas").style.display="block";
           document.getElementById("usuarios").style.display="block";
           document.getElementById("partes").style.display="block";
           document.getElementById("cursos").style.display="none";
           document.getElementById("asignaturas").style.display="none";
           document.getElementById("prematricula").style.display="block";
+          document.getElementById("alumnos").style.display="none";
+          document.getElementById("fotocopias").style.display="none";
+
           </script>';
         }
         if($_SESSION["usuario_login"]["rol"] == 0){
@@ -171,12 +195,14 @@ require_once('loginRequerido.php');
           document.getElementById("inventario").style.display="block";
           document.getElementById("guardias").style.display="block";
           document.getElementById("clases").style.display="block";
-          document.getElementById("practicas").style.display="block";
           document.getElementById("usuarios").style.display="block";
           document.getElementById("partes").style.display="block";
           document.getElementById("cursos").style.display="block";
           document.getElementById("asignaturas").style.display="block";
           document.getElementById("prematricula").style.display="block";
+          document.getElementById("alumnos").style.display="block";
+          document.getElementById("fotocopias").style.display="block";
+
           </script>';
         }
       ?>

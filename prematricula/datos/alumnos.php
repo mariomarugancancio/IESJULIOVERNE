@@ -9,6 +9,8 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
   <script src="https://kit.fontawesome.com/d7bc41fc30.js" crossorigin="anonymous"></script>
   <script src="../js/paginacion.js"></script>
+  <link rel="shortcut icon" href="../../images/logoJulioVerneNuevo.png">
+
 </head>
 <body >
  <?php
@@ -18,7 +20,7 @@
    
 <div class="col-lg-3 col-md-6 my-2">
                     <div class="input-group">
-                        <span class="input-group-text">Asignaturas</span>
+                        <span class="input-group-text">Buscador</span>
                         <input type="text" id="filtro" class="form-control" placeholder="Buscador">
                     </div>
                 </div>
@@ -53,7 +55,8 @@ if (isset($_GET['curso'])) {
 
 $select = "SELECT am.cod_alumnosMatriculados, am.nombre_alumno, am.primer_apellido_alumno, am.segundo_apellido_alumno
             FROM AlumnosMatriculados am, Matriculas m
-            WHERE m.cod_matricula = am.cod_alumnosMatriculados AND m.curso = '".$curso."';";
+            WHERE m.cod_matricula = am.cod_alumnosMatriculados AND m.curso = '".$curso."'
+            ORDER BY am.nombre_alumno, am.primer_apellido_alumno, am.segundo_apellido_alumno;";
 
 $resul = $db->query($select);
 $i=0;

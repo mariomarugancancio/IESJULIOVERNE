@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="../css/app.css">
     <!-- Bootstrap CSS v5.2.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <link rel="shortcut icon" href="../images/logoJulioVerneNuevo.png">
+
     <style>
         .card-rounded {
             border-radius: 10px;
@@ -62,8 +64,12 @@
             echo "<p class='card-text'>Materia: " . $parte['Materia'] . "</p>";
             echo "<p class='card-text'>Detalle: " . $parte['descripcion'] . "</p>";
             echo "<p class='card-text ".($parte['caducado'] == 1 ? 'text-danger' : '')."'>".($parte['caducado'] == 1 ? 'Caducado' : '')."</p>";
+            if($_SESSION['usuario_login']['rol'] == 0){
+
+           
             echo "<button class='btn btn-danger mt-4' onclick='eliminarParte(" . $parte['cod_parte'] . ")' " . ($parte['caducado'] == 2 ? "disabled" : "") . ">Eliminar Parte</button>";
             echo '<button class="btn ' . ($parte['caducado'] == 0 ? 'btn-warning' : 'btn-danger') . ' mt-4 ms-4" onclick="caducarParte(' . $parte['cod_parte'] . ')" ' . ($parte['caducado'] == 0 ? '' : 'disabled') . '>Caducar Parte</button>';
+        }
             echo "</div>";
             echo "</div>";
         } else {

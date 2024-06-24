@@ -1,10 +1,9 @@
 <?php
-// Iniciamos la sesion
 session_start();
-// Para acceder a esta pagina hay que iniciar sesion previamente.
-require_once('archivosComunes/logueado.php');
-?>
+if(isset($_SESSION["usuario_login"])){
+    header("Location: archivosComunes/selector.php");
 
+}?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +11,7 @@ require_once('archivosComunes/logueado.php');
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- ICONO DE LA PESTAÑA DEL NAVEGADOR -->
-    <link rel="shortcut icon" href="/img/icono.png">
+    <link rel="shortcut icon" href="images/logoJulioVerneNuevo.png">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <title>Login</title>
     <style>
@@ -180,4 +179,5 @@ require_once('archivosComunes/logueado.php');
         }
     }
 
+    
       ?>

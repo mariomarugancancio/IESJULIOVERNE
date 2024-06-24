@@ -1,3 +1,6 @@
+<?php
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +12,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/d7bc41fc30.js" crossorigin="anonymous"></script>
     <script src="./js/paginacion.js"></script>
+    <link rel="shortcut icon" href="../images/logoJulioVerneNuevo.png">
 
     <style>
       .aniadirdiv{
@@ -36,8 +40,11 @@
 <body >
   <?php
       include('nav.php');
+      if(!isset($_SESSION["usuario_login"])){
+        require_once('../archivosComunes/loginRequerido.php');
+      }
   ?>
-  <div style="  position: fixed; bottom: 20px; right: 20px;">
+  <div style="  position: fixed; bottom: 70px; right: 20px;">
     <a href="#" onclick="aniadir();"><i class="fa-solid fa-address-book fa-2xl"></i></a>
   </div>
     <div class="col-lg-3 col-md-6 my-2">
@@ -165,10 +172,34 @@ function editar(cod_asignatura){
   <input class="nuevonombre" type="text">
   <label for="">Introducir horas</label>
   <input class="nuevohoras" type="number">
-  <label for="">Introducir curso</label>
-  <input class="nuevocurso" type="text">
-  <label for="">Introducir tipo</label>
-  <input class="nuevotipo" type="text"><br><br>
+  <label for="curso">Seleccionar curso</label>
+<select id="curso" class="nuevocurso">
+  <option value="1ESO">1º ESO</option>
+  <option value="2ESO">2º ESO</option>
+  <option value="3ESO">3º ESO</option>
+  <option value="4ESO">4º ESO</option>
+  <option value="1BTOCIENCIAS">1º BTO CIENCIAS</option>
+  <option value="2BTOCIENCIAS">2º BTO CIENCIAS</option>
+  <option value="1BTOHUMCSO">1º BTO HUMCSO</option>
+  <option value="2BTOHUMCSO">2º BTO HUMCSO</option>
+  <option value="1BTO">1º BTO</option>
+  <option value="2BTO">2º BTO</option>
+  <option value="PEFP1">1º PEFP</option>
+  <option value="PEFP2">2º PEFP</option>
+  <option value="CFGB1">1º CFGB</option>
+  <option value="CFGB2">2º CFGB</option>
+  <option value="SMR1">1º SMR</option>
+  <option value="SMR2">2º SMR</option>
+  <option value="DAM1">1º DAM</option>
+  <option value="DAM2">2º DAM</option>
+  <option value="DAW1">1º DAW</option>
+  <option value="DAW2">2º DAW</option>
+</select>
+  <label for="tipo">Introducir tipo</label><br>
+  <select id="tipo" class="nuevotipo">
+  <option value="comunes">comunes</option>
+  <option value="optativas">optativas</option>
+  </select><br><br>
   <input type="button" value="Guardar" onclick="insertar()">
 </div>
 
@@ -180,16 +211,69 @@ function editar(cod_asignatura){
     <div id="footerCredits" class="text-center my-2 p-2">
             <h6 class="fw-bold">Desarrollado por:</h6>
             <div class="row container mx-auto justify-content-center">
+                <div class="col-12 col-md-6">Mario Marugán Cancio</div>
                 <div class="col-12 col-md-6">Nerea Espigares Nieto</div>
             </div>
         </div>
       <!-- Copyright -->
       <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
-      Copyright &copy; 2023
+      Copyright &copy; 2024
       </div>
       <!-- Copyright -->
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<script>
+    function actualizarTipo() {
+      const cursoSelect = document.getElementById('curso');
+      const tipoSelect = document.getElementById('tipo');
+      const cursoSeleccionado = cursoSelect.value;
 
+      // Limpia las opciones anteriores
+      tipoSelect.innerHTML = '';
+      // Opciones correspondientes a cada curso
+      const opciones = {
+        '1ESO': ['comunes', 'optativas'],
+        '2ESO': ['comunes', 'optativas'],
+        '3ESO': ['comunes', 'optativas'],
+        '4ESO': ['comunes', 'opción', 'optativas'],
+        '1BTOCIENCIAS': ['Comunes', 'obligatorias', 'modalidad'],
+        '2BTOCIENCIAS': ['Comunes', 'obligatorias', 'modalidad'],
+        '1BTOHUMCSO': ['Comunes', 'obligatorias', 'modalidad'],
+        '2BTOHUMCSO': ['Comunes', 'obligatorias', 'modalidad'],
+        '1BTO': ['optativas'],
+        '1BTO': ['optativas'],
+
+        'PEFP1': ['Formátivos de Carácter General', 'Profesionales'],
+        'PEFP2': ['Formátivos de Carácter General', 'Profesionales'],
+        'CFGB1': ['comunes'],
+        'CFGB2': ['comunes'],
+        'SMR1': ['comunes'],
+        'SMR2': ['comunes'],
+        'DAM1': ['comunes'],
+        'DAM2': ['comunes'],
+        'DAW1': ['comunes'],
+        'DAW2': ['comunes']
+      };
+
+      // Añade las nuevas opciones según el curso seleccionado
+      if (opciones[cursoSeleccionado]) {
+        opciones[cursoSeleccionado].forEach(opcion => {
+          const nuevaOpcion = document.createElement('option');
+          nuevaOpcion.value = opcion;
+          nuevaOpcion.text = opcion;
+          tipoSelect.add(nuevaOpcion);
+        });
+      } else {
+        // Si no hay opciones, añade la opción por defecto
+        const opcionDefault = document.createElement('option');
+        opcionDefault.value = '';
+        opcionDefault.text = 'Ninguno';
+        tipoSelect.add(opcionDefault);
+      }
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('curso').addEventListener('change', actualizarTipo);
+    });
+  </script>
 </body>
 </html>

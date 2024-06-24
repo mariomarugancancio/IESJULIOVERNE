@@ -1,6 +1,10 @@
 <?php
 session_start();
 
+if(!isset($_SESSION["usuario_login"])){
+  require_once('../archivosComunes/loginRequerido.php');
+}
+
 echo '<nav class="col-12 navbar navbar-expand-lg navbar-dark bg-dark p-3">
     <div class="container-fluid">
     <a class="navbar-brand ms-xl-5" href="partes.php">Partes</a>
@@ -20,10 +24,6 @@ if ($_SESSION['usuario_login']['rol'] == "0") {
 
   echo '<li class="nav-item">' ?>
   <a class="nav-link   <?php if (str_contains($_SERVER['SCRIPT_NAME'], 'verExpulsiones.php')) echo 'active' ?>" href="verExpulsiones.php">Ver Expulsiones</a>
-  <?php echo '</li>';
-
-  echo '<li class="nav-item">' ?>
-  <a class="nav-link   <?php if (str_contains($_SERVER['SCRIPT_NAME'], 'gestionarAlumnos.php')) echo 'active' ?>" href="gestionarAlumnos.php">Gestionar Alumnos</a>
   <?php echo '</li>';
 
   echo '<li class="nav-item">' ?>

@@ -176,19 +176,19 @@ while ($row = $consulta->fetch(PDO::FETCH_ASSOC)) {
 
         $pdf->renderTitle('Realización de tareas educativas en su domicilio, con suspensión temporal de la asistencia al propio centro docente desde el día '.$fechaInicio.' al día '.$fechaFin.' (ambos incluidos). Durante el periodo citado la alumna no podrá utilizar el servicio de transporte escolar y únicamente podrá asistir a los exámenes oficialmente convocados.');
         $pdf->renderText('Para la realización del preceptivo trámite de audiencia a las partes interesadas, deben ustedes solicitar cita a través de EducamosCLM en un plazo de 2 días dirigiéndose a los miembros del Equipo Directivo. Contra esta medida cabe presentar un recurso motivado ante el Consejo Escolar del centro en el plazo de 2 días.');
-
-        $pdf->SetXY(30, 220); // Ajustar x e y según sea necesario
+        $y = $pdf->GetY()+10;
+        $pdf->SetXY(30, $y); // Ajustar x e y según sea necesario
 
         $pdf->renderText('LA DIRECTORA');
         $pdf->Image($image_path_firma, 30, 225, 40); // (ruta, x, y, ancho)
-        $pdf->SetXY(20, 265); // Ajustar x e y según sea necesario
+        $pdf->SetXY(20, $y+45); // Ajustar x e y según sea necesario
         $pdf->renderText('Fdo.: Alicia de Álvaro Martín');
-        $pdf->Image($image_path_sello, 70, 220, 40); // (ruta, x, y, ancho)
-        $pdf->SetXY(120, 210); // Ajustar x e y según sea necesario
+        $pdf->Image($image_path_sello, 70, $y, 40); // (ruta, x, y, ancho)
+        $pdf->SetXY(120, $y-10); // Ajustar x e y según sea necesario
         $pdf->renderText('En Bargas, a '.$fechaInicio.'');
-        $pdf->SetXY(131, 220); // Ajustar x e y según sea necesario
+        $pdf->SetXY(131, $y); // Ajustar x e y según sea necesario
         $pdf->renderText('EL ALUMNO');
-        $pdf->SetXY(120, 265); // Ajustar x e y según sea necesario
+        $pdf->SetXY(120, $y+45); // Ajustar x e y según sea necesario
         $pdf->renderText('Fdo.: '.$alumno);
 
         

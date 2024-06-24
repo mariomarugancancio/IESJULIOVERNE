@@ -23,7 +23,8 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 	<!-- <link rel="stylesheet" type="text/css" href="../inventario/css/index.css"> -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-	
+	<link rel="shortcut icon" href="../../images/logoJulioVerneNuevo.png">
+
 	<style>
         
         .form-label {
@@ -168,16 +169,15 @@
       </span>                 
   </a>
   </li> 
-				<li class="nav-item dropdown"><i id="iniciar_sesion" class="bi bi-person
-								nav-link dropdown text-light" role="button" data-bs-toggle="dropdown" style="text-align: right;"> Mi
-						cuenta</i>
-					<ul class="dropdown-menu dropdown-menu-end">
+  <li class="nav-item">
 
-						<a class="dropdown-item" href="../../archivosComunes/selector.php">Página Principal</a>
-						<a class="dropdown-item" href="../../archivosComunes/logout.php">Cerrar
-							sesión</a>
-					</ul>
-				</li>
+<a class="nav-link text-white" href="../../archivosComunes/selector.php">Página Principal</a>
+</li>
+<li class="nav-item">
+
+<a class="nav-link  text-white" href="../../archivosComunes/logout.php">Cerrar
+	sesión</a>
+</li>
 			</ul>
 		</nav>
 	</header>

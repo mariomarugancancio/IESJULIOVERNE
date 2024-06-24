@@ -11,6 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
     <script src="./js/paginacionFiltroPartes.js"></script>
+    <link rel="shortcut icon" href="../images/logoJulioVerneNuevo.png">
 
     <style>
         .rounded {
@@ -136,7 +137,7 @@
                         if ($rol_usuario == 1) {
                             // Si el rol del usuario es 1, mostrar todas las partes
                             $id_usuario = $_SESSION['usuario_login']['cod_usuario']; // Asegúrate de ajustar esto según tu sistema de autenticación
-                            $query = "WHERE u.cod_usuario = $id_usuario";
+                            $query = "WHERE u.cod_usuario = $id_usuario OR u.tutor_grupo = a.grupo";
                         }
 
                         $consulta = $db->prepare("SELECT p.cod_parte, CONCAT(u.nombre, ' ', u.apellidos) AS nombreProfesorCompleto, p.fecha, i.puntos, CONCAT(a.nombre, ' ', a.apellidos) AS nombreAlumnoCompleto, p.materia, p.descripcion, p.caducado, a.grupo

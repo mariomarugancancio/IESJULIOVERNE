@@ -97,57 +97,57 @@
         </div>
     </div>
 </div>
-<h2 class="text-center">Datos de los padres o tutores legales</h2>
+<h2 class="text-center">Datos de los progenitores o tutores legales</h2>
 
 <div class="row">
     <div class="col-md-6">
-        <h4>Padre o Tutor/a 1</h4>
+        <h4>Progenitor 1 o Tutor/a 1</h4>
         <div class="form-group mb-2">
-            <label for="nombre_apellidos_padre">Nombre y Apellidos del padre:</label>
-            <input class="form-control" type="text" id="nombre_apellidos_padre" name="nombre_apellidos_padre"
-                value="<?php echo $nombre_apellidos_padre; ?>" required>
-            <div class="error nombreapepadreerr novalido"></div>
+            <label for="nombre_apellidos_progenitor1">Nombre y Apellidos del progenitor 1:</label>
+            <input class="form-control" type="text" id="nombre_apellidos_progenitor1" name="nombre_apellidos_progenitor1"
+                value="<?php echo $nombre_apellidos_progenitor1; ?>" required>
+            <div class="error nombreapeprogenitor1err novalido"></div>
         </div>
         <div class="form-group mb-2">
-            <label for="dni_padre">DNI:</label>
-            <input class="form-control" type="text" id="dni_padre" name="dni_padre" value="<?php echo $dni_padre; ?>"
+            <label for="dni_progenitor1">DNI:</label>
+            <input class="form-control" type="text" id="dni_progenitor1" name="dni_progenitor1" value="<?php echo $dni_progenitor1; ?>"
                 required>
-            <div class="error dnipadreerr novalido"></div>
+            <div class="error dniprogenitor1err novalido"></div>
         </div>
         <div class="form-group mb-2">
-            <label for="telefono_padre">Teléfono del padre:</label>
-            <input class="form-control" type="text" id="telefono_padre" name="telefono_padre" value="<?php echo $telefono_padre; ?>" required>
-            <div class="error telefonopadreerr novalido"></div>
+            <label for="telefono_progenitor1">Teléfono del progenitor 1:</label>
+            <input class="form-control" type="text" id="telefono_progenitor1" name="telefono_progenitor1" value="<?php echo $telefono_progenitor1; ?>" required>
+            <div class="error telefonoprogenitor1err novalido"></div>
         </div>
         <div class="form-group mb-2">
-            <label for="correo_padre">Correo electrónico padre:</label>
-            <input class="form-control" type="email" id="correo_padre" name="correo_padre" value="<?php echo $email_padre; ?>" required>
-            <div class="error correopadreerr novalido"></div>
+            <label for="correo_progenitor1">Correo electrónico progenitor 1:</label>
+            <input class="form-control" type="email" id="correo_progenitor1" name="correo_progenitor1" value="<?php echo $email_progenitor1; ?>" required>
+            <div class="error correoprogenitor1err novalido"></div>
         </div>
     </div>
     <div class="col-md-6">
-        <h4>Madre o Tutor/a 2</h4>
+        <h4>Progenitor 2 o Tutor/a 2</h4>
         <div class="form-group mb-2">
-            <label for="nombre_apellidos_madre">Nombre y Apellidos de la madre:</label>
-            <input class="form-control" type="text" id="nombre_apellidos_madre" name="nombre_apellidos_madre"
-                value="<?php echo $nombre_apellidos_madre; ?>" required>
-            <div class="error nombreapemadreerr novalido"></div>
+            <label for="nombre_apellidos_progenitor2">Nombre y Apellidos del progenitor 2:</label>
+            <input class="form-control" type="text" id="nombre_apellidos_progenitor2" name="nombre_apellidos_progenitor2"
+                value="<?php echo $nombre_apellidos_progenitor2; ?>" required>
+            <div class="error nombreapeprogenitor2err novalido"></div>
         </div>
         <div class="form-group mb-2">
-            <label for="dni_madre">DNI:</label>
-            <input class="form-control" type="text" id="dni_madre" name="dni_madre" value="<?php echo $dni_madre; ?>"
+            <label for="dni_progenitor2">DNI:</label>
+            <input class="form-control" type="text" id="dni_progenitor2" name="dni_progenitor2" value="<?php echo $dni_progenitor2; ?>"
                 required>
-            <div class="error dnimadreerr novalido"></div>
+            <div class="error dniprogenitor2err novalido"></div>
         </div>
         <div class="form-group mb-2">
-            <label for="telefono_madre">Teléfono de la madre:</label>
-            <input class="form-control" type="text" id="telefono_madre" name="telefono_madre" value="<?php echo $telefono_madre; ?>" required>
-            <div class="error telefonomadreerr novalido"></div>
+            <label for="telefono_progenitor2">Teléfono del progenitor 2:</label>
+            <input class="form-control" type="text" id="telefono_progenitor2" name="telefono_progenitor2" value="<?php echo $telefono_progenitor2; ?>" required>
+            <div class="error telefonoprogenitor2err novalido"></div>
         </div>
         <div class="form-group mb-2">
-            <label for="correo_madre">Correo electrónico madre:</label>
-            <input class="form-control" type="email" id="correo_madre" name="correo_madre" value="<?php echo $email_madre; ?>" required>
-            <div class="error correomadreerr novalido"></div>
+            <label for="correo_progenitor2">Correo electrónico progenitor 2:</label>
+            <input class="form-control" type="email" id="correo_progenitor2" name="correo_progenitor2" value="<?php echo $email_progenitor2; ?>" required>
+            <div class="error correoprogenitor2err novalido"></div>
         </div>
     </div>
 </div>
@@ -556,3 +556,18 @@
 
         </select>
 </div>
+<div class="form-group mb-2">
+                <p>¿Desea pertenecer al AMPA? 
+                <?php if($ampa == "SI"){
+                        echo '<input type="radio" id="ampa_si" name="ampa" value="SI" checked> SÍ ';
+                        echo '<input type="radio" id="ampa_no" name="ampa" value="NO"> NO</p>';
+
+                    }else if($ampa == "NO"){
+                            echo '<input type="radio" id="ampa_si" name="ampa" value="SI"> SÍ ';
+                            echo '<input type="radio" id="ampa_no" name="ampa" value="NO" checked> NO</p>';
+                    }else{
+                        echo '<input type="radio" id="ampa_si" name="ampa" value="SI"> SÍ ';
+                        echo '<input type="radio" id="ampa_no" name="ampa" value="NO"> NO</p>';
+                    }
+                    ?>
+                </div> 

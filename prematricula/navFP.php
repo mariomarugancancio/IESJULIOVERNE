@@ -12,14 +12,14 @@ $municipioNacimiento = "";
 $provinciaNacimiento = "";
 $paisNacimiento = "";
 $familiaNumerosa = "";
-$nombre_apellidos_padre = "";
-$dni_padre = "";
-$telefono_padre = "";
-$email_padre = "";
-$nombre_apellidos_madre = "";
-$dni_madre = "";
-$telefono_madre = "";
-$email_madre = "";
+$nombre_apellidos_progenitor1 = "";
+$dni_progenitor1 = "";
+$telefono_progenitor1 = "";
+$email_progenitor1 = "";
+$nombre_apellidos_progenitor2 = "";
+$dni_progenitor2 = "";
+$telefono_progenitor2 = "";
+$email_progenitor2 = "";
 $calle = "";
 $numero = "";
 $portal = "";
@@ -39,14 +39,15 @@ $trabaja = "";
 $cambio = "";
 $email_alumno="";
 $telefono_alumno = "";
+$ampa = "";
 if (isset($_GET['cod_matricula'])) {
   $cod_matricula = $_GET['cod_matricula'];
   $select = "SELECT cod_alumnosMatriculados, nombre_alumno, primer_apellido_alumno, segundo_apellido_alumno,
             dni_alumno, sexo_alumno, email_alumno, telefono_alumno, 
-            fecha_nacimiento, municipio_nacimiento, provincia_nacimiento, pais_nacimiento, familia_numerosa, nombre_apellidos_padre, dni_padre, telefono_padre,
-            email_padre, nombre_apellidos_madre, dni_madre, telefono_madre, email_madre,
+            fecha_nacimiento, municipio_nacimiento, provincia_nacimiento, pais_nacimiento, familia_numerosa, nombre_apellidos_progenitor1, dni_progenitor1, telefono_progenitor1,
+            email_progenitor1, nombre_apellidos_progenitor2, dni_progenitor2, telefono_progenitor2, email_progenitor2,
             calle, numero, portal, piso, puerta, codigoPostal, municipio, provincia, telefonoUrgencia,
-            centro, localidad_centro, provincia_centro, curso_antiguo, bilingue, religion, trabaja, cambio, email_alumno, telefono_alumno
+            centro, localidad_centro, provincia_centro, curso_antiguo, bilingue, religion, trabaja, cambio, email_alumno, telefono_alumno, ampa
             FROM AlumnosMatriculados
             WHERE cod_alumnosMatriculados = '" . $cod_matricula . "';";
 
@@ -66,14 +67,14 @@ if (isset($_GET['cod_matricula'])) {
     $provinciaNacimiento = $columna['provincia_nacimiento'];
     $paisNacimiento = $columna['pais_nacimiento'];
     $familiaNumerosa = $columna['familia_numerosa'];
-    $nombre_apellidos_padre = $columna['nombre_apellidos_padre'];
-    $dni_padre = $columna['dni_padre'];
-    $telefono_padre = $columna['telefono_padre'];
-    $email_padre = $columna['email_padre'];
-    $nombre_apellidos_madre = $columna['nombre_apellidos_madre'];
-    $dni_madre = $columna['dni_madre'];
-    $telefono_madre = $columna['telefono_madre'];
-    $email_madre = $columna['email_madre'];
+    $nombre_apellidos_progenitor1 = $columna['nombre_apellidos_progenitor1'];
+    $dni_progenitor1 = $columna['dni_progenitor1'];
+    $telefono_progenitor1 = $columna['telefono_progenitor1'];
+    $email_progenitor1 = $columna['email_progenitor1'];
+    $nombre_apellidos_progenitor2 = $columna['nombre_apellidos_progenitor2'];
+    $dni_progenitor2 = $columna['dni_progenitor2'];
+    $telefono_progenitor2 = $columna['telefono_progenitor2'];
+    $email_progenitor2 = $columna['email_progenitor2'];
     $calle = $columna['calle'];
     $numero = $columna['numero'];
     $portal = $columna['portal'];
@@ -93,6 +94,7 @@ if (isset($_GET['cod_matricula'])) {
     $cambio = $columna['cambio'];
     $email_alumno = $columna['email_alumno'];
     $telefono_alumno = $columna['telefono_alumno'];
+    $ampa = $columna['ampa'];
 
   }
 }

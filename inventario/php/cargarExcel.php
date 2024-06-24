@@ -20,6 +20,8 @@ require_once('../../archivosComunes/conexion.php');
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boot20:35 12/05/2023strap-icons@1.10.3/font/bootstrap-icons.css">
 
     <link rel="stylesheet" type="text/css" href="../inventario/css/index.css">
+    <link rel="shortcut icon" href="../../images/logoJulioVerneNuevo.png">
+
     <style>
         .row {
             padding: 15px;
@@ -123,15 +125,15 @@ require_once('../../archivosComunes/conexion.php');
       </span>                 
   </a>
   </li> 
-            <li class="nav-item dropdown"><i id="iniciar_sesion" class="bi bi-person
-								nav-link dropdown text-light" role="button" data-bs-toggle="dropdown" style="text-align: right;"> Mi
-						cuenta</i>
-					<ul class="dropdown-menu dropdown-menu-end">
-						<a class="dropdown-item" href="../../archivosComunes/selector.php">Página Principal</a>
-						<a class="dropdown-item" href="../../archivosComunes/logout.php">Cerrar
-							sesión</a>
-					</ul>
-				</li>
+  <li class="nav-item">
+
+<a class="nav-link text-white" href="../../archivosComunes/selector.php">Página Principal</a>
+</li>
+<li class="nav-item">
+
+<a class="nav-link  text-white" href="../../archivosComunes/logout.php">Cerrar
+    sesión</a>
+</li>
 			</ul>
 		</nav>
 	</header>

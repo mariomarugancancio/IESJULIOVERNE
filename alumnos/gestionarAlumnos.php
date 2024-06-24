@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Title</title>
+    <title>Alumnos</title>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -12,6 +12,7 @@
     <script src="https://kit.fontawesome.com/d7bc41fc30.js" crossorigin="anonymous"></script>
     <script src="./js/paginacionFiltroAlumnos.js"></script>
 
+    <link rel="shortcut icon" href="../images/logoJulioVerneNuevo.png">
 
 </head>
 
@@ -19,15 +20,9 @@
     <header>
         <?php
 
-        require_once "archivosComunes/navPartes.php";
+        require_once "archivosComunes/nav.php";
         require_once("../archivosComunes/conexion.php");
         require_once('../archivosComunes/loginRequerido.php');
-        if ($_SESSION['usuario_login']['rol'] != "0") {
-            print "
-            <script>
-              window.location = 'partes.php';
-            </script>";
-        }
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -173,8 +168,9 @@
                             echo '<td>' . $columna['nombre'] . '</td>';
                             echo '<td>' . $columna['apellidos'] . '</td>';
                             echo '<td>' . $columna['grupo'] . '</td>';
-                            echo '<td> <a href="#"  class="btn-editar" onclick="editarAlumno(' . $columna['matricula'] . ')"><i class="fa-solid fa-pencil"></i></a> </td>';
-                            echo '<td> <a href="#"  class="btn-borrar" onclick="eliminarAlumno(' . $columna['matricula'] . ')"><i class="fa-solid fa-trash"></i></a> </td>';
+                            
+                            echo '<td> <a href="#" class="btn-editar" onclick="editarAlumno(\'' . $columna['matricula'] . '\')"><i class="fa-solid fa-pencil"></i></a> </td>';
+                            echo '<td> <a href="#"  class="btn-borrar" onclick="eliminarAlumno(\'' . $columna['matricula'] . '\')"><i class="fa-solid fa-trash"></i></a> </td>';
                             echo "</tr>";
                         }
                         ?>
@@ -197,7 +193,7 @@
     </main>
     <footer>
         <?php
-        require_once "./archivosComunes/footerPartes.php";
+        require_once "./archivosComunes/footer.php";
         ?>
     </footer>
 
@@ -207,13 +203,13 @@
 </body>
 <script type="text/javascript">
     function editarAlumno(matricula) {
-        var url = "editarAlumno.php?matricula=" + matricula;
+        var url = "editarAlumno.php?matricula=" + encodeURIComponent(matricula);
         window.location.href = url;
     }
 
     function eliminarAlumno(matricula) {
         if (confirm("¿Está seguro de que desea borrar este alumno?")) {
-            var url = "./funcionalidad/eliminarAlumno.php?matricula=" + matricula;
+            var url = "./funcionalidad/eliminarAlumno.php?matricula=" + encodeURIComponent(matricula);
             window.location.href = url;
         }
     }

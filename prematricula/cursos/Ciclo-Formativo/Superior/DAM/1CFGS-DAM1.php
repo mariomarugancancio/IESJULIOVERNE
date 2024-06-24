@@ -10,7 +10,9 @@
     <link rel="stylesheet" type="text/css" href="../../../../../css/app.css">
   <link rel="stylesheet" type="text/css" href="../../../../../css/prematriculas.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <style>
+    <link rel="shortcut icon" href="../../../../../images/logoJulioVerneNuevo.png">
+
+   <style>
         .error{
             color: red;
         }
@@ -80,6 +82,6 @@
     <?php
     include('../../../../footer.php');
     ?>
-    <script src="../../../scriptValidacion.js"></script>
+    <script src="../../../script.js"></script>
 </body>
 </html>

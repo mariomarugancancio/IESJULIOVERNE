@@ -57,17 +57,13 @@
          </span>                 
      </a>
      </li> 
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-dark" id="submenu" role="button" data-bs-toggle="dropdown" href="#" style="margin-right: 100px;"><span class="material-symbols-outlined">
-          account_circle
-          </span></a>
-            <ul class="dropdown-menu" style="background-color: #ECEFF1">
-          
-              <li><a class="dropdown-item" href="../../archivosComunes/selector.php">Página Principal</a></li>
-              <hr>
-              <li><a class="dropdown-item" href="../../archivosComunes/logout.php">Cerrar Sesión</a></li>
-            </ul>
-          </li>
+     <li class="nav-item">
+        <a class="nav-link"  href="../../archivosComunes/selector.php"><span class="salir">Página Principal</span> <i class="bi bi-back"></i></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link"  href="../../archivosComunes/logout.php">Cerrar Sesion</a>
+            </li>
         </ul>
         <hr class="text-white-50">
       </div>

@@ -10,6 +10,7 @@
     <script src="../js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/d7bc41fc30.js" crossorigin="anonymous"></script>
     <script src="../js/multiselect-dropdown.js"></script>
+    <link rel="shortcut icon" href="../images/logoJulioVerneNuevo.png">
 
 </head>
 

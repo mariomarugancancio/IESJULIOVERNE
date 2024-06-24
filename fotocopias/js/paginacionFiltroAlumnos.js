@@ -1,7 +1,7 @@
 function mostrarPagina(pagina, filasPorPagina) {
-  var tablaCompleta = document.getElementById("tablaGuardias");
-
+  var tablaCompleta = document.getElementById("lista");
   var filas = tablaCompleta.getElementsByTagName("tr");
+
   // Calcula el índice inicial y final de las filas que se mostrarán en la página actual
   var indiceFin = filasPorPagina * pagina;
   var indiceInicio = indiceFin - filasPorPagina - 1;
@@ -10,7 +10,6 @@ function mostrarPagina(pagina, filasPorPagina) {
   for (var i = 1; i < filas.length; i++) {
     filas[i].style.display = "none";
   }
-
   // Muestra solo las filas correspondientes a la página actual
   for (var j = indiceInicio + 1; j < indiceFin && j < filas.length; j++) {
     filas[j].style.display = "";
@@ -25,11 +24,7 @@ function mostrarPagina(pagina, filasPorPagina) {
   var inicio;
   if(pagina <= 5){
     inicio = 1;
-    if(totalPaginas>=11){
-    fin = 11;
-    }else{
-      fin=totalPaginas;
-    }
+    fin = 10;
   }else{
     inicio = pagina - 5;
     fin = pagina + 5;
@@ -38,7 +33,6 @@ function mostrarPagina(pagina, filasPorPagina) {
     }
   }
   for (var k = inicio; k <= fin/*totalPaginas*/; k++) {
-
     var li = document.createElement("li");
     li.classList.add("page-item");
     var a = document.createElement("a");
@@ -55,7 +49,7 @@ function mostrarPagina(pagina, filasPorPagina) {
 }
 // Filtro de busqueda
 document.addEventListener("DOMContentLoaded", function () {
-  var filtroInput = document.getElementById("filtroFecha");
+  var filtroInput = document.getElementById("buscador");
   filtroInput.addEventListener("input", function () {
     var filtro = filtroInput.value.toLowerCase();
     var filas = document.getElementsByClassName("fila-tabla");
@@ -78,8 +72,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
-
-
 
 // Llama a la función para mostrar la primera página al cargar la página con el numero de items
 window.onload = function () {

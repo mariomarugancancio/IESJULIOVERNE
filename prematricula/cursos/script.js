@@ -17,17 +17,17 @@ let miMunicipioNac = fmatriculas.elements['municipio_nacimiento'];
 let miProvinciaNac = fmatriculas.elements['provincia_nacimiento'];
 let familiaNum = fmatriculas.elements['familia_numerosa'];
 
-//Datos de los Padres
-    //Padre
-let nombreApePadre = fmatriculas.elements['nombre_apellidos_padre'];
-let dniPadre = fmatriculas.elements['dni_padre'];
-let telefonoPadre = fmatriculas.elements['telefono_padre'];
-let correoPadre = fmatriculas.elements['correo_padre'];
-    //Madre
-let nombreApeMadre = fmatriculas.elements['nombre_apellidos_madre'];
-let dniMadre = fmatriculas.elements['dni_madre'];
-let telefonoMadre = fmatriculas.elements['telefono_madre'];
-let correoMadre = fmatriculas.elements['correo_madre'];
+//Datos de los Progenitores
+    //Progenitor1
+let nombreApeProgenitor1 = fmatriculas.elements['nombre_apellidos_progenitor1'];
+let dniProgenitor1 = fmatriculas.elements['dni_progenitor1'];
+let telefonoProgenitor1 = fmatriculas.elements['telefono_progenitor1'];
+let correoProgenitor1 = fmatriculas.elements['correo_progenitor1'];
+    //Progenitor2
+let nombreApeProgenitor2 = fmatriculas.elements['nombre_apellidos_progenitor2'];
+let dniProgenitor2 = fmatriculas.elements['dni_progenitor2'];
+let telefonoProgenitor2 = fmatriculas.elements['telefono_progenitor2'];
+let correoProgenitor2 = fmatriculas.elements['correo_progenitor2'];
 
 //Datos Domicilio Familiar
 let miCodigoPostal = fmatriculas.elements['codigo_postal'];
@@ -53,17 +53,17 @@ let miErrorMunicipioNac = document.querySelector(".municipionacerr");
 let miErrorProvinciaNac = document.querySelector(".provincianacerr");
 let miErrorFamiliaNum = document.querySelector(".familianumerr");
 
-//Errores de los Padres
-    //Padre
-let miErrornombreApePadre = document.querySelector(".nombreapepadreerr");
-let miErrordniPadre = document.querySelector(".dnipadreerr");
-let miErrortelefonoPadre = document.querySelector(".telefonopadreerr");
-let miErrorcorreoPadre = document.querySelector(".correopadreerr");
-    //Madre
-let miErrornombreApeMadre = document.querySelector(".nombreapemadreerr");
-let miErrordniMadre = document.querySelector(".dnimadreerr");
-let miErrortelefonoMadre = document.querySelector(".telefonomadreerr");
-let miErrorcorreoMadre = document.querySelector(".correomadreerr");
+//Errores de los Progenitores
+    //Progenitor1
+let miErrornombreApeProgenitor1 = document.querySelector(".nombreapeprogenitor1err");
+let miErrordniProgenitor1 = document.querySelector(".dniprogenitor1err");
+let miErrortelefonoProgenitor1 = document.querySelector(".telefonoprogenitor1err");
+let miErrorcorreoProgenitor1 = document.querySelector(".correoprogenitor1err");
+    //Progenitor2
+let miErrornombreApeProgenitor2 = document.querySelector(".nombreapeprogenitor2err");
+let miErrordniProgenitor2 = document.querySelector(".dniprogenitor2err");
+let miErrortelefonoProgenitor2 = document.querySelector(".telefonoprogenitor2err");
+let miErrorcorreoProgenitor2 = document.querySelector(".correoprogenitor2err");
 
 //Errores del Domicilio Familiar
 let miErrorCodigoPostal = document.querySelector(".codigopostarlerr");
@@ -87,14 +87,14 @@ miMunicipio.addEventListener("blur", validarNombres);
 miProvincia.addEventListener("blur", validarNombres);
 telefonoUrgencia.addEventListener("blur", validarTelefonosUrgencia);
 
-nombreApePadre.addEventListener("blur", validarNombres);
-dniPadre.addEventListener("blur", validarDNI);
-telefonoPadre.addEventListener("blur", validarTelefono);
-correoPadre.addEventListener("blur", validarCorreo);
-nombreApeMadre.addEventListener("blur", validarNombres);
-dniMadre.addEventListener("blur", validarDNI);
-telefonoMadre.addEventListener("blur", validarTelefono);
-correoMadre.addEventListener("blur", validarCorreo);
+nombreApeProgenitor1.addEventListener("blur", validarNombres);
+dniProgenitor1.addEventListener("blur", validarDNI);
+telefonoProgenitor1.addEventListener("blur", validarTelefono);
+correoProgenitor1.addEventListener("blur", validarCorreo);
+nombreApeProgenitor2.addEventListener("blur", validarNombres);
+dniProgenitor2.addEventListener("blur", validarDNI);
+telefonoProgenitor2.addEventListener("blur", validarTelefono);
+correoProgenitor2.addEventListener("blur", validarCorreo);
 
 
 if(miCurso == "SMR2" || miCurso == "SMR1" || miCurso == "DAM1" || miCurso == "DAM2" || miCurso == "DAW1" || miCurso == "DAW2"){
@@ -255,13 +255,13 @@ function validarNombres(event) {
             elementoError = miErrorProvincia;
             claseNovalido = 'provincia';
             break;
-        case 'nombre_apellidos_padre':
-            elementoError = miErrornombreApePadre   ;
-            claseNovalido = 'nombre_apellidos_padre';
+        case 'nombre_apellidos_progenitor1':
+            elementoError = miErrornombreApeProgenitor1   ;
+            claseNovalido = 'nombre_apellidos_progenitor1';
             break;
-        case 'nombre_apellidos_madre':
-                elementoError = miErrornombreApeMadre   ;
-                claseNovalido = 'nombre_apellidos_madre';
+        case 'nombre_apellidos_progenitor2':
+                elementoError = miErrornombreApeProgenitor2   ;
+                claseNovalido = 'nombre_apellidos_progenitor2';
                 break;
         default:
             return false;
@@ -287,12 +287,12 @@ function validarDNI(event) {
     if (event.target.id === 'dni') {
         elementoError = miErrorDNI;
         claseNovalido = 'dni';
-    } else if (event.target.id === 'dni_padre') {
-        elementoError = miErrordniPadre;
-        claseNovalido = 'dni_padre';
-    } else if (event.target.id === 'dni_madre') {
-        elementoError = miErrordniMadre;
-        claseNovalido = 'dni_madre';
+    } else if (event.target.id === 'dni_progenitor1') {
+        elementoError = miErrordniProgenitor1;
+        claseNovalido = 'dni_progenitor1';
+    } else if (event.target.id === 'dni_progenitor2') {
+        elementoError = miErrordniProgenitor2;
+        claseNovalido = 'dni_progenitor2';
     }
 
     if (!valorDNI.match(patron)) {
@@ -368,10 +368,10 @@ function validarTelefono(event) {
     let valor = event.target.value;
     let elementoError;
 
-    if (event.target.id === 'telefono_padre') {
-        elementoError = miErrortelefonoPadre;
-    } else if (event.target.id === 'telefono_madre') {
-        elementoError = miErrortelefonoMadre;
+    if (event.target.id === 'telefono_progenitor1') {
+        elementoError = miErrortelefonoProgenitor1;
+    } else if (event.target.id === 'telefono_progenitor2') {
+        elementoError = miErrortelefonoProgenitor2;
     }else if (event.target.id === 'telefonoAlumno') {
         elementoError = miErrorTelefono;
     }
@@ -398,11 +398,11 @@ function validarCorreo(event) {
         case 'correoAlumno':
             elementoError = miErrorCorreo;
             break;
-        case 'correo_padre':
-            elementoError = miErrorcorreoPadre;
+        case 'correo_progenitor1':
+            elementoError = miErrorcorreoProgenitor1;
             break;
-        case 'correo_madre':
-            elementoError = miErrorcorreoMadre;
+        case 'correo_progenitor2':
+            elementoError = miErrorcorreoProgenitor2;
             break;
         default:
             return false;
@@ -639,15 +639,14 @@ function validarDatos() {
     let provinciacentroAnteriorValido = document.forms.matriculas['provincia_centro'].value;
     let cursoAnteriorValido = document.forms.matriculas['curso_antiguo'].value;
 
-    let nombreApePadreValido = document.forms.matriculas['nombre_apellidos_padre'].value;
-    let dnipadreValido = document.forms.matriculas['dni_padre'].value;
-    let telefonoPadreValido = document.forms.matriculas['telefono_padre'].value;
-    let correoPadreValido = document.forms.matriculas['correo_padre'].value;
-    let nombreApeMadreValido = document.forms.matriculas['nombre_apellidos_madre'].value;
-    let dnimadreValido = document.forms.matriculas['dni_madre'].value; 
-    let telefonoMadreValido = document.forms.matriculas['telefono_madre'].value;
-    let correoMadreValido = document.forms.matriculas['correo_madre'].value;
-
+    let nombreApeProgenitor1Valido = document.forms.matriculas['nombre_apellidos_progenitor1'].value;
+    let dniprogenitor1Valido = document.forms.matriculas['dni_progenitor1'].value;
+    let telefonoProgenitor1Valido = document.forms.matriculas['telefono_progenitor1'].value;
+    let correoProgenitor1Valido = document.forms.matriculas['correo_progenitor1'].value;
+    let nombreApeProgenitor2Valido = document.forms.matriculas['nombre_apellidos_progenitor2'].value;
+    let dniprogenitor2Valido = document.forms.matriculas['dni_progenitor2'].value; 
+    let telefonoProgenitor2Valido = document.forms.matriculas['telefono_progenitor2'].value;
+    let correoProgenitor2Valido = document.forms.matriculas['correo_progenitor2'].value;
 
     if(miCurso == "SMR1" || miCurso == "SMR2" || miCurso == "DAM1" || miCurso == "DAM2" || miCurso == "DAW1" || miCurso == "DAW2"){
         let miCorreoValido = document.forms.matriculas['correoAlumno'].value;
@@ -677,14 +676,14 @@ function validarDatos() {
                                   validarNombres({ target: document.getElementById('municipio') }) && 
                                   validarNombres({ target: document.getElementById('provincia') }) && 
                                   validarTelefonosUrgencia({ target: document.getElementById('telefono_urgencia')})
-                && validarNombres({ target: document.getElementById('nombre_apellidos_padre') }) 
-                && validarDNI({ target: document.getElementById('dni_padre') })
-                && validarTelefono({ target: document.getElementById('telefono_padre') }) 
-               && validarCorreo({ target: document.getElementById('correo_padre') })
-                 && validarNombres({ target: document.getElementById('nombre_apellidos_madre') })
-                 && validarDNI({ target: document.getElementById('dni_madre') })
-                 && validarTelefono({ target: document.getElementById('telefono_madre') })
-                 && validarCorreo({ target: document.getElementById('correo_madre') });
+                && validarNombres({ target: document.getElementById('nombre_apellidos_progenitor1') }) 
+                && validarDNI({ target: document.getElementById('dni_progenitor1') })
+                && validarTelefono({ target: document.getElementById('telefono_progenitor1') }) 
+               && validarCorreo({ target: document.getElementById('correo_progenitor1') })
+                /* && validarNombres({ target: document.getElementById('nombre_apellidos_progenitor2') })
+                 && validarDNI({ target: document.getElementById('dni_progenitor2') })
+                 && validarTelefono({ target: document.getElementById('telefono_progenitor2') })
+                 && validarCorreo({ target: document.getElementById('correo_progenitor2') })*/;
             
 
             if(miCurso == "SMR2"){
@@ -741,6 +740,11 @@ function validarDatos() {
                 alert("Por favor, rellene si desea cursar Religión");
                 return;
             }
+        }
+        let ampa = document.forms.matriculas['ampa'].value;
+        if(!ampa){
+            alert("Por favor, rellene si desea pertenecer al ampa");
+            return;
         }
     
         if(miCurso == "4ESO"){
