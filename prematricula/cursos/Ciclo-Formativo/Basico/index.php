@@ -14,7 +14,7 @@
 </head>
 <body >
  <?php
-        include('../../../nav.php');
+        include('navCFGB.php');
     ?>
     <section style="font-size: 16px;">
 

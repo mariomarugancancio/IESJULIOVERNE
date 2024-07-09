@@ -1,9 +1,32 @@
 <?php
-session_start();
-if(isset($_SESSION["usuario_login"])){
-    header("Location: archivosComunes/selector.php");
 
-}?>
+session_start();
+if (isset($_SESSION["usuario_login"])) {
+    header("Location: archivosComunes/selector.php");
+    exit();
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $usu = comprobar_usuario($_POST["typeEmailX"], $_POST["typePasswordX"]);
+    if ($usu == FALSE) {
+       
+        $usuario = $_POST["typeEmailX"];
+        echo '<div class="alert alert-danger" role="alert">';
+        echo 'Correo electrónico o contraseña incorrectos';
+        echo '</div>';
+    } else if ($usu['validar'] == 'no') {
+         // Mostrar el error en la pantalla
+         echo '<div class="alert alert-danger" role="alert">';
+         echo 'Usuario pendiente de validación por parte de administración';
+         echo '</div>';
+    } else {
+        session_start();
+        $_SESSION["usuario_login"] = $usu;
+        header("Location: archivosComunes/selector.php");
+        exit();
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,24 +37,17 @@ if(isset($_SESSION["usuario_login"])){
     <link rel="shortcut icon" href="images/logoJulioVerneNuevo.png">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <title>Login</title>
+    <link rel="shortcut icon" href="images/logoJulioVerneNuevo.png">
     <style>
         .gradient-custom {
-            /* fallback for old browsers */
-            background: #6a11cb;
-
-            /* Chrome 10-25, Safari 5.1-6 */
-            background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
-
-            /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-            background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
+            background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
         }
-        .error{
-             color:red;
+        .error {
+            color: red;
         }
     </style>
 </head>
 <body class="gradient-custom">
-    
     <section class="vh-100">
         <div class="container h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
@@ -42,31 +58,20 @@ if(isset($_SESSION["usuario_login"])){
                                 <h2 class="fw-bold mb-2 text-uppercase">Iniciar Sesión</h2>
                                 <p class="text-white-50 mb-5">Por favor, inserte su usuario y contraseña</p>
                                 <form method="POST" class="form-group">
-                                    
                                     <div class="form-floating form-white mb-4 text-dark">
                                         <input type="email" name="typeEmailX" class="form-control" placeholder="EMAIL" required/>
                                         <label class="form-label" for="typeEmailX">Email</label>
                                     </div>
-                    
                                     <div class="form-floating form-white mb-4 text-dark">
                                         <input type="password" name="typePasswordX" class="form-control" placeholder="CONTRASEÑA" required/>
                                         <label class="form-label" for="typePasswordX">Contraseña</label>
                                     </div>
                                     <button name="enviar" id="enviar" class="btn btn-outline-light btn-lg px-5" type="submit">Iniciar Sesión</button>
-                                    <p id="usuarioParrafo" hidden>Revise usuario y contraseña</p>
-                                    <p id="permisosParrafo" hidden >El usuario no tiene permisos para iniciar sesión</p>
-
-                                   <?php
-                                        /*Si se intenta acceder a principal.php directamente,
-                                        ese script te redirigirá a este mediante metodo GET y dando a la clave
-                                        "rederigido" el valor true. Si esto ocurre, el siguiente if se cumpliria
-                                        y pondría el mensaje "Haga login para continuar" */
-                                        if(isset($_GET["redirigido"])){
-                                            echo "<p style='padding-top: 10px;'>Haga login para continuar</p>";
-                                        }
+                                                                       <?php
+                                    if (isset($_GET["redirigido"])) {
+                                        echo "<p style='padding-top: 10px;'>Haga login para continuar</p>";
+                                    }
                                     ?>
-
-
                                 </form>
                             </div>
                             <div>
@@ -79,105 +84,37 @@ if(isset($_SESSION["usuario_login"])){
                 </div>
             </div>
         </div>
-      </section>
+    </section>
 
-    <!-- Libreria bootstrap -->
     <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
     
     <?php
-
-    // Funcion para comprobar si el usuario esta en la base de datos
-    function comprobar_usuario($email, $clave){   
-
-                try {
-            //Hago la conexion a la base de datos
-            $db = require_once('archivosComunes/conexion.php');
-            //Consulta seleccionando todo de la base de datos donde el email y la clave son los que se ingresa en el formulario
-            $sql = "SELECT * FROM Usuarios where email=?;";
-            //Preparo la consulta
+    function comprobar_usuario($email, $clave) {
+        try {
+            $db = require('archivosComunes/conexion.php');
+            $sql = "SELECT * FROM Usuarios WHERE email = ?";
             $consulta = $db->prepare($sql);
-            //Pasar a traves de un array los valores escritos en el formulario
-            //Los valores se recogen por parametros en la función
-            $consulta->execute(array($email));
+            $consulta->execute([$email]);
 
-            //si la consulta devuelve algo, es que todo va bien
-            if ($consulta->rowCount() > 0){
-         
-                // Como solo va a devolver una linea la consulta ya que el email es unique usamos fetch
+            if ($consulta->rowCount() > 0) {
                 $us = $consulta->fetch();
-           
-                if (password_verify($clave, $us[5])) {
-                    //Retornar a traves de un array todos los valores del usuario que hizo login
-                    return $us;    
-             }
-                else {
-                    // contraseña incorrecta
+                if (password_verify($clave, $us['clave'])) {
+                    return $us;
+                } else {
                     return FALSE;
                 }
-                
-            //Si no me devuelve nada al hacer la consulta retornar FALSE
-            } else return FALSE;
+            } else {
+                return FALSE;
+            }
         } catch (PDOException $e) {
-            echo "<p class='error'><br>Error en la base de datos ".$e->getMessage()."</p>";
-        }
-    }
-    //Si el formulario envia los datos en metodo POST
-    if ($_SERVER["REQUEST_METHOD"] == "POST"){
-        //Guardar en una variable el valor que retorna la funcion al comprobar el usuario
-        $usu = comprobar_usuario($_POST["typeEmailX"], $_POST["typePasswordX"]);
-        //Si retorna la funcion un false es que hay algun error por lo tanto se inicializa
-        // la variable err a true que se usara despues para mostrar un mensaje de error
-        if ($usu == FALSE){
-            $err = TRUE;
-            //Guardar en una variable el email que puso para que se le mantenga escrito y no tenga que volver a escribirlo
-            $usuario = $_POST["typeEmailX"];
-        //Si todo esta bien, se inicia una sesion
-        } else if ($usu['validar'] == 'no') {
-            $errValidar = true;
-        } else {
-            //Inicio de la sesion
-            session_start();
-            //Se crea una session nueva con los datos del usuario
-            $_SESSION["usuario_login"] = $usu;
-            print "
-            <script>
-            const usuario = document.getElementById('usuarioParrafo');
-            const permisos = document.getElementById('permisosParrafo');
- 
-            </script>";
-            header("Location: archivosComunes/selector.php");
-        }
-        //Si la variable err esta inicializada y a parte esta en true 
-        // se enviara un mensaje para que revise el usuario y la contraseña
-
-
-        if(isset($err) and $err == true){
-            print "
-            <script>
-            const usuario = document.getElementById('usuarioParrafo');
-            const permisos = document.getElementById('permisosParrafo');
-            usuario.removeAttribute('hidden');
-            permisos.removeAttribute('hidden');
-            usuario.style.visibility = 'visible' ;
-            usuario.classList.add('error');
-            permisos.style.visibility = 'hidden';
-            permisos.classList.remove('error');
-
-            </script>";
-        } else if (isset($errValidar) and $errValidar == true){
-            print "
-            <script>
-            const usuario = document.getElementById('usuarioParrafo');
-            const permisos = document.getElementById('permisosParrafo');
-            usuario.removeAttribute('hidden');
-            permisos.removeAttribute('hidden');
-            permisos.style.visibility = 'visible' ;
-            permisos.classList.add('error');
-            usuario.style.visibility = 'hidden';
-            usuario.classList.remove('error');
-            </script>";
+            echo '<div class="alert alert-danger" role="alert">';
+            echo 'Error en la base de datos: ' . $e->getMessage();
+            echo '</div>';
         }
     }
 
-    
-      ?>
+
+   
+    ?>
+</body>
+</html>

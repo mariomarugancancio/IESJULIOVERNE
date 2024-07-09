@@ -19,20 +19,20 @@
     <section style="font-size: 16px;">
 
     <a href="Basico/index.php" id="basico">
-        FP Grado Basico
-        <img src="../../../images/1eso.jpg" alt="basico ">
+        Ciclo Formativo Grado Basico
+        <img src="../../../images/fpgb.jpg" alt="basico ">
         <img src="../../../images/clase2.png" alt="basico">
       </a>
       
       <a href="Medio/index.php" id="medio">
-      FP Grado Medio
-        <img src="../../../images/2eso.jpg" alt="medio">
+      Ciclo Formativo Grado Medio
+        <img src="../../../images/fpgm.jpg" alt="medio">
         <img src="../../../images/clase2.png" alt="medio">
       </a>
 
       <a href="Superior/index.php" id="superior">
-      FP Grado Superior
-        <img src="../../../images/3eso.jpg" alt="superior" style="height: 190px">
+      Ciclo Formativo Grado Superior
+        <img src="../../../images/fpgs.jpg" alt="superior">
         <img src="../../../images/clase2.png" alt="superior">
       </a>
 

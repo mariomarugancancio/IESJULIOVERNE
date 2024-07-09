@@ -14,19 +14,19 @@
 </head>
 <body >
  <?php
-        include('../../../nav.php');
+        include('navBAC.php');
     ?>
     <section style="font-size: 16px;">
 
     <a href="1BTOHumanidades.php" id="1-bachillerato-humanidades">
     1º BTO CIENCIAS SOCIALES Y HUMANIDADES
-        <img src="../../../../images/1eso.jpg" alt="1-bachillerato-humanidades ">
+        <img src="../../../../images/1bto.jpg" alt="1-bachillerato-humanidades ">
         <img src="../../../../images/clase2.png" alt="1-bachillerato-humanidades">
       </a>
       
       <a href="2BTOHumanidades.php" id="2-bachillerato-humanidades">
       2º BTO CIENCIAS SOCIALES Y HUMANIDADES
-      <img src="../../../../images/2eso.jpg" alt="2-bachillerato-humanidades">
+      <img src="../../../../images/2bto.jpg" alt="2-bachillerato-humanidades">
         <img src="../../../../images/clase2.png" alt="2-bachillerato-humanidades">
       </a>
 

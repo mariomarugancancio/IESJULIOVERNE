@@ -247,7 +247,7 @@ CREATE TABLE Alumnos (
   apellidos varchar(50),
   grupo varchar(20),
   saldo DECIMAL(10,2) DEFAULT 0,
-  FOREIGN KEY (grupo) REFERENCES cursos(grupo)
+  FOREIGN KEY (grupo) REFERENCES Cursos(grupo)
 );
 
 CREATE TABLE Transacciones (
@@ -566,8 +566,8 @@ CREATE TABLE Expulsiones (
   tipo_expulsion  varchar(40),
   fecha_Insercion timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (cod_expulsion),
-  FOREIGN KEY (cod_usuario) REFERENCES usuarios(cod_usuario),
-  FOREIGN KEY (matricula_del_Alumno) REFERENCES alumnos(matricula)
+  FOREIGN KEY (cod_usuario) REFERENCES Usuarios(cod_usuario),
+  FOREIGN KEY (matricula_del_Alumno) REFERENCES Alumnos(matricula)
 );
 
 CREATE TABLE PartesExpulsiones (
@@ -844,5 +844,6 @@ PRIMARY KEY(matricula, asignatura),
  FOREIGN KEY (asignatura) REFERENCES Asignaturas(cod_asignatura)
 
 );
+
 
 

@@ -30,7 +30,7 @@
 
 <body>
     <?php
-    include('../../../navESO.php');
+    include('navCFGB.php');
     ?>
     <div class="fondo">
         <div class="matricula mt-4">

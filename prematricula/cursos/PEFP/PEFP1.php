@@ -30,7 +30,7 @@
 
 <body>
     <?php
-    include('../../navPEFP.php');
+    include('navPEFP.php');
     ?>
     <div class="fondo">
         <div class="matricula mt-4">

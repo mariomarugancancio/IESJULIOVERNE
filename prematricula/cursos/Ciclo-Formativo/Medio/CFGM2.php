@@ -30,8 +30,8 @@
 
 <body>
     <?php
-    include('../../../navFP.php');
-    ?>
+        include('navFP.php');
+        ?>
     <div class="fondo">
         <div class="matricula mt-4">
             <h1 style="text-align: right; color: green; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">SMR2</h1>

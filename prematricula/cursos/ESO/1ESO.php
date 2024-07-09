@@ -31,7 +31,7 @@
 <body>
     <?php
     
-    include('./../../navESO.php');
+    include('navESO.php');
     ?>
     <div class="fondo">
         <div class="matricula mt-4">

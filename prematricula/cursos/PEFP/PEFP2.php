@@ -31,7 +31,7 @@
 <body>
     <?php
     $curso='PEFP2';
-    include('../../navPEFP.php');
+    include('navPEFP.php');
     ?>
     <div class="fondo">
         <div class="matricula mt-4">
