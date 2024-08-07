@@ -144,7 +144,7 @@
                         FROM Incidencias i
                         JOIN Partes p ON i.cod_incidencia = p.incidencia
                         JOIN Usuarios u ON p.cod_usuario = u.cod_usuario
-                        JOIN alumnos a ON p.matricula_Alumno = a.matricula
+                        JOIN Alumnos a ON p.matricula_Alumno = a.matricula
                         $query
                         ORDER BY p.fecha DESC
                     ");
