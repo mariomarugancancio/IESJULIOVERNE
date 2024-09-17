@@ -499,7 +499,7 @@ INSERT INTO Asignaturas (nombre, horas, curso, tipo) VALUES
 
 CREATE TABLE Incidencias (
   cod_incidencia INT PRIMARY KEY AUTO_INCREMENT,
-  nombre varchar(100) NOT NULL,
+  nombre varchar(150) NOT NULL,
   puntos int(11) NOT NULL,
   descripcion text
   );
@@ -532,8 +532,8 @@ INSERT INTO Incidencias (nombre, puntos, descripcion) VALUES
 ('Suplantación de identidad, falsificación de documentos que estén bajo responsabilidad del prof.', 10, 'Suplantación de identidad, falsificación o sustitución de documentos que estén bajo responsabilidad del profesorado.'),
 ('Suplantación de personalidad, la falsificación o sustracción de documentos y material académico.', 10, 'Suplantación de personalidad, la falsificación o sustracción de documentos y material académico.'),
 ('Utilizar símbolos e ideologías que menoscaben de la autoridad y dignidad del prof.', 10, 'Utilizar y exhibir símbolos o manifestar ideologías que supongan un menoscabo de la autoridad y dignidad del profesorado.'),
-('Vejaciones o humillaciones a miembros de la C.E', 10, 'Vejaciones o humillaciones a miembros de la C.E, particularmente las de género, sexual o racial, o contra alumnado vulnerable.');
-
+('Vejaciones o humillaciones a miembros de la C.E', 10, 'Vejaciones o humillaciones a miembros de la C.E, particularmente las de género, sexual o racial, o contra alumnado vulnerable.'),
+('Uso no autorizado de teléfono móvil (art. 7 de la Orden 140/2024, de 28 de agosto, de la Consejería de Educación, Cultura y Deportes)',10.'Uso no autorizado de teléfono móvil (art. 7 de la Orden 140/2024, de 28 de agosto, de la Consejería de Educación, Cultura y Deportes)');
 -- --------------------------------------------------------
 
 CREATE TABLE Partes (

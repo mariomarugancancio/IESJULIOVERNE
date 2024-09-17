@@ -4,7 +4,7 @@
     // Para acceder a esta pagina hay que iniciar sesion previamente.
     require_once('../archivosComunes/loginRequerido.php');
 
-    $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM asignaturas ORDER BY curso, Tipo";
+    $select = "SELECT cod_asignatura, nombre, horas, curso, tipo FROM Asignaturas ORDER BY curso, Tipo";
     $resul = $db->query($select);
     
     // Utilizamos un bucle while para recorrer todas las filas que devuelve la consulta
