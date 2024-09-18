@@ -37,7 +37,7 @@
                                                           JOIN Expulsiones e ON p.matricula_Alumno = e.matricula_del_alumno
                                                           JOIN Incidencias i ON p.incidencia = i.cod_incidencia
                                                           JOIN Usuarios u ON p.cod_usuario = u.cod_usuario
-                                                          JOIN alumnos a ON p.matricula_Alumno = a.matricula
+                                                          JOIN Alumnos a ON p.matricula_Alumno = a.matricula
                                                           WHERE  e.cod_expulsion = ? AND p.caducado = 0
                                                           ORDER BY p.fecha DESC");
                                 $consulta->execute(array($cod_expulsion));
@@ -185,7 +185,7 @@
                     $partes = $_POST["partes"];
            
                     foreach ($partes as $parte) {
-                        $Añadir_Parte_Expulsion = $db->prepare("INSERT INTO partesexpulsiones(cod_parte, cod_expulsion) VALUES (?, ?)");
+                        $Añadir_Parte_Expulsion = $db->prepare("INSERT INTO Partesexpulsiones(cod_parte, cod_expulsion) VALUES (?, ?)");
                         $result = $Añadir_Parte_Expulsion->execute(array($parte, $cod_expulsion));
                 
                         if (!$result) {

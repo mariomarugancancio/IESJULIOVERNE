@@ -6,17 +6,19 @@
     require_once('../archivosComunes/loginRequerido.php');
 
     // Verificar si se recibió el parámetro "grupo"
-if (isset($_GET['grupo']) && $_GET['aula'] && $_GET['grupoA']){
+if (isset($_GET['grupo']) && $_GET['aula'] && $_GET['curso'] && $_GET['grupoA']){
         // Obtener el valor del parámetro "grupo"
         $grupo = $_GET['grupo'];
         $aula = $_GET['aula'];
+        $curso = $_GET['curso'];
         $grupoA = $_GET['grupoA'];
 
         // Construir la consulta para actualizar la clase correspondiente
-        $update = "UPDATE Cursos SET aula = :aula, grupo = :grupo WHERE grupo = :grupoA";
+        $update = "UPDATE Cursos SET aula = :aula, grupo = :grupo, curso = :curso WHERE grupo = :grupoA";
         $stmt = $db->prepare($update);
         $stmt->bindParam(':aula', $aula);
         $stmt->bindParam(':grupo', $grupo);
+        $stmt->bindParam(':curso', $curso);
         $stmt->bindParam(':grupoA', $grupoA);
         $stmt->execute();
 

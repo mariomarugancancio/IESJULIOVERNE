@@ -21,7 +21,7 @@
         right: 0;
         margin: auto;
         width: 200px;
-        height: 200px;
+        height: 250px;
         border: 1px solid black;
         text-align:center;
         background-color: black;
@@ -54,6 +54,7 @@
     <tr>
       <th scope="col">Grupo</th>
       <th scope="col">Aula</th>
+      <th scope="col">Curso</th>
       <th scope="col">Editar</th>
       <th scope="col">Borrar</th>
     </tr>
@@ -79,6 +80,7 @@ function editar(grupo){
   if(document.querySelector('.fa-solid.fa-floppy-disk') == null){
     var tdaula=document.getElementById("aula"+grupo);
     var tdgrupo=document.getElementById("grupo"+grupo);
+    var tdcurso=document.getElementById("curso"+grupo);
     var tdgrupoA=document.getElementById("grupoA"+grupo);
     var grupoA = tdgrupoA.textContent;
     const inputaula = document.createElement('input');
@@ -89,10 +91,16 @@ function editar(grupo){
 
     const inputgrupo = document.createElement('input');
     inputgrupo.value = tdgrupo.textContent;
-    inputgrupo.className="guardarcurso";
+    inputgrupo.className="guardargrupo";
     tdgrupo.innerHTML = '';
     tdgrupo.appendChild(inputgrupo);
 
+    const inputcurso = document.createElement('input');
+    inputcurso.value = tdcurso.textContent;
+    inputcurso.className="guardarcurso";
+    tdcurso.innerHTML = '';
+    tdcurso.appendChild(inputcurso);
+    
     // agregar un botón "Guardar" al lado del nuevo input
     var tdeditar=document.getElementById("editar"+grupo);
   
@@ -102,9 +110,10 @@ function editar(grupo){
       
       guardarconf.addEventListener("click", function() {
         var guardaraula = document.querySelector(".guardaraula").value;
+        var guardargrupo = document.querySelector(".guardargrupo").value;
         var guardarcurso = document.querySelector(".guardarcurso").value;
         if(guardaraula != "" && guardarcurso != ""){
-          var url = "editarcursos.php?grupo=" + guardarcurso+"&aula=" + guardaraula+"&grupoA=" + grupoA;
+          var url = "editarcursos.php?grupo=" + guardargrupo+"&aula=" + guardaraula+"&curso=" + guardarcurso+"&grupoA=" + grupoA;
           window.location.href = url;
         }
       })
@@ -136,9 +145,10 @@ function editar(grupo){
 
   function insertar(){
     var nuevoaula = document.querySelector(".nuevoaula").value;
+    var nuevogrupo = document.querySelector(".nuevogrupo").value;
     var nuevocurso = document.querySelector(".nuevocurso").value;
     if (nuevoaula != "" && nuevocurso != "") {
-      var url = "aniadircursos.php?aula=" + nuevoaula+"&grupo=" + nuevocurso;
+      var url = "aniadircursos.php?aula=" + nuevoaula+"&grupo=" + nuevogrupo+"&curso=" + nuevocurso;
       window.location.href = url;
       }
   }
@@ -147,6 +157,8 @@ function editar(grupo){
 <div class="aniadirdiv">
   <label for="">Introducir aula</label>
   <input class="nuevoaula" type="text">
+  <label for="">Introducir grupo</label>
+  <input class="nuevogrupo" type="text">
   <label for="">Introducir curso</label>
   <input class="nuevocurso" type="text"><br><br>
   <input type="button" value="Guardar" onclick="insertar()">

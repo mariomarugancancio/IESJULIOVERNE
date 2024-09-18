@@ -40,7 +40,7 @@
         e.Fecha_Fin,
         e.tipo_expulsion
         FROM Expulsiones e
-        JOIN alumnos a ON e.matricula_del_Alumno = a.matricula 
+        JOIN Alumnos a ON e.matricula_del_Alumno = a.matricula 
         JOIN Usuarios u ON e.cod_usuario = u.cod_usuario
         WHERE cod_expulsion = :cod_expulsion"
                 );
@@ -76,8 +76,8 @@
                     // Consulta para obtener las partes asociadas a esta expulsión
                     $consultaPartes = $db->prepare(
                         "SELECT p.cod_parte , i.puntos, i.descripcion
-            FROM partes p
-            JOIN partesexpulsiones pe ON p.cod_parte = pe.cod_parte
+            FROM Partes p
+            JOIN Partesexpulsiones pe ON p.cod_parte = pe.cod_parte
             JOIN Incidencias i ON i.cod_incidencia = p.incidencia
             WHERE pe.cod_expulsion = :cod_expulsion"
                     );

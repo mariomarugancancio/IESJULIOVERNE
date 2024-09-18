@@ -217,6 +217,7 @@ INSERT INTO Cursos (grupo, aula, curso) VALUES
 ('E1D', NULL, '1ESO'),
 ('E1E', NULL, '1ESO'),
 ('E1F', NULL, '1ESO'),
+('E1G', NULL, '1ESO'),
 ('E2A', NULL, '2ESO'),
 ('E2B', NULL, '2ESO'),
 ('E2C', NULL, '2ESO'),

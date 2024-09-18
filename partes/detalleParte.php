@@ -41,8 +41,8 @@
                                 FROM Incidencias i
                                 JOIN Partes p ON i.cod_incidencia = p.incidencia
                                 JOIN Usuarios u ON p.cod_usuario = u.cod_usuario
-                                JOIN alumnos a ON p.matricula_Alumno = a.matricula
-                                JOIN asignaturas asi ON p.materia = asi.cod_Asignatura
+                                JOIN Alumnos a ON p.matricula_Alumno = a.matricula
+                                JOIN Asignaturas asi ON p.materia = asi.cod_Asignatura
                                 WHERE p.cod_parte = :cod_parte
         ");
         $consulta->bindParam(":cod_parte", $cod_parte, PDO::PARAM_INT);

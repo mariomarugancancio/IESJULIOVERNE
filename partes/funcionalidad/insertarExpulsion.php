@@ -18,7 +18,7 @@ try {
 
     // Preparar la consulta SQL para insertar la expulsión
     $consulta = $db->prepare(
-        "INSERT INTO expulsiones (cod_Usuario, matricula_del_Alumno, tipo_expulsion, fecha_Insercion) 
+        "INSERT INTO Expulsiones (cod_Usuario, matricula_del_Alumno, tipo_expulsion, fecha_Insercion) 
         VALUES (:cod_Usuario, :matricula_Alumno, :tipo_expulsion, :fecha)"
     );
 
