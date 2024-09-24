@@ -16,7 +16,10 @@ require_once('../../archivosComunes/conexion.php');
 // Si se ha pulsado crear una incidencia
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["crearInci"])) {
   if ($imagen === NULL) {
-    print "<script>alert('Para crear una incidencia debes subir una imagen');</script>";
+     // Mostrar el error en la pantalla
+     echo '<div class="alert alert-danger" role="alert">';
+     echo 'Para crear una incidencia debes subir una imagen';
+     echo '</div>';
   } else {
     // Se insertan los datos en la tabla tareas
     try {
@@ -48,11 +51,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["crearInci"])) {
           ";
           
         enviarcorreo($SESSION['usuario_login']['email'], "Nueva tarea de mantenimiento asignada", "$cuerpo");
-        print "
-        <script>
-            alert('Incidencia añadida correctamente. {$usuario['nombre']}');
-            window.location = 'admin.php';
-        </script>";
+       // Mostrar el error en la pantalla
+       echo '<div class="alert alert-success" role="alert">';
+       echo 'Incidencia creada correctamente';
+       echo '</div>';
         require_once("emailCrearTarea.php");
 
     } catch (PDOException $e) {

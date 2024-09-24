@@ -12,12 +12,12 @@ try {
         $cod_expulsion = $_GET['cod_expulsion'];
 
         // Actualizar el estado de los partes asociados a esta expulsión
-        $actualizarEstadoPartes = $db->prepare("UPDATE partes SET caducado = 0 WHERE cod_parte IN (SELECT cod_parte FROM partesexpulsiones WHERE cod_expulsion = :cod_expulsion)");
+        $actualizarEstadoPartes = $db->prepare("UPDATE partes SET caducado = 0 WHERE cod_parte IN (SELECT cod_parte FROM PartesExpulsiones WHERE cod_expulsion = :cod_expulsion)");
         $actualizarEstadoPartes->bindParam(":cod_expulsion", $cod_expulsion, PDO::PARAM_INT);
         $actualizarEstadoPartes->execute();
         
-        // Eliminar las filas de partesexpulsiones asociadas a esta expulsión
-        $eliminarPartesExpulsiones = $db->prepare("DELETE FROM partesexpulsiones WHERE cod_expulsion = :cod_expulsion");
+        // Eliminar las filas de PartesExpulsiones asociadas a esta expulsión
+        $eliminarPartesExpulsiones = $db->prepare("DELETE FROM PartesExpulsiones WHERE cod_expulsion = :cod_expulsion");
         $eliminarPartesExpulsiones->bindParam(":cod_expulsion", $cod_expulsion, PDO::PARAM_INT);
         $eliminarPartesExpulsiones->execute();
 

@@ -32,7 +32,7 @@ try {
     $mail->addAttachment("F:/borrar.txt");  */
 
     // Consulta para sacar los emails de los administradores:
-    $sql = $db->query("SELECT EMAIL FROM Usuarios WHERE rol = '0'");
+    $sql = $db->query("SELECT email FROM Usuarios WHERE rol = '0'");
 
         // Bucle que enviará el correo a cada administrador:
         foreach($sql as $email){

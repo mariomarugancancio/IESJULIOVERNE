@@ -185,7 +185,7 @@
                     $partes = $_POST["partes"];
            
                     foreach ($partes as $parte) {
-                        $Añadir_Parte_Expulsion = $db->prepare("INSERT INTO Partesexpulsiones(cod_parte, cod_expulsion) VALUES (?, ?)");
+                        $Añadir_Parte_Expulsion = $db->prepare("INSERT INTO PartesExpulsiones(cod_parte, cod_expulsion) VALUES (?, ?)");
                         $result = $Añadir_Parte_Expulsion->execute(array($parte, $cod_expulsion));
                 
                         if (!$result) {

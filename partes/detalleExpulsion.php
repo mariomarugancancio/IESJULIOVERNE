@@ -77,7 +77,7 @@
                     $consultaPartes = $db->prepare(
                         "SELECT p.cod_parte , i.puntos, i.descripcion
             FROM Partes p
-            JOIN Partesexpulsiones pe ON p.cod_parte = pe.cod_parte
+            JOIN PartesExpulsiones pe ON p.cod_parte = pe.cod_parte
             JOIN Incidencias i ON i.cod_incidencia = p.incidencia
             WHERE pe.cod_expulsion = :cod_expulsion"
                     );

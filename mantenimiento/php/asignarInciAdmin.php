@@ -158,12 +158,15 @@ require_once('../php/funciones/loginRequerido.php');
                       ";
                     
                   enviarcorreo($emailA, "Nueva tarea de mantenimiento asignada", "$cuerpo");
-                  print "
-                    <script>
-                      alert('Incidencia asignada correctamente');
-                      window.location = 'admin.php';
-                    </script>";
-
+                       // Mostrar el error en la pantalla
+     echo '<div class="alert alert-success" role="alert">';
+     echo 'Incidencia asignada correctamente';
+     echo '</div>';
+     print "
+     <script>
+       window.location = 'admin.php';
+     </script>";
+ 
                 
                 // si se selecciona informatica, se selecciona a los profesores de informatica
               } else{
@@ -210,16 +213,18 @@ require_once('../php/funciones/loginRequerido.php');
                       ";
                     
                   enviarcorreo($email, "Nueva tarea de mantenimiento asignada", "$cuerpo");
+                  echo '<div class="alert alert-success" role="alert">';
+                  echo 'Incidencia asignada correctamente';
+                  echo '</div>';
                   print "
                     <script>
-                      alert('Incidencia asignada correctamente');
                       window.location = 'admin.php';
                     </script>";
                 }
 
               }
             } catch (PDOException $e) {
-              echo "Error en la base de datos " . $e->getMessage();
+              //echo "Error en la base de datos " . $e->getMessage();
             }
           }
         }

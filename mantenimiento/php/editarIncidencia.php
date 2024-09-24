@@ -145,12 +145,14 @@
                   enviarcorreo($emailCreador, "Tarea de mantenimiento rechazada", "$cuerpo");
 
                 }
-        
+                echo '<div class="alert alert-success" role="alert">';
+                echo 'Incidencia editada con Éxito';
+                echo '</div>';
                 print "
-                  <script>
-                    alert('Incidencia editada con Éxito')
-                      window.location = 'funciones/rolApp.php';
-                  </script>";
+                <script>
+                  window.location = 'funciones/rolApp.php';
+                </script>";
+             
                }
             } catch (PDOException $e) {
               echo "Error en la base de datos " . $e->getMessage();

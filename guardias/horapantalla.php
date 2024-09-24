@@ -4,7 +4,7 @@ require_once("../archivosComunes/conexion.php");
 require_once('../archivosComunes/loginRequerido.php');
 
 $hora_actual = date("H:i:s");
-$select = "SELECT cod_guardias, observaciones, fecha, Guardias.cod_usuario AS cod_usuario,
+$select = "SELECT DISTINCT cod_guardias, observaciones, fecha, Guardias.cod_usuario AS cod_usuario,
 Usuarios.nombre AS nombre, Usuarios.apellidos AS apellidos, Usuarios.cod_delphos AS delphos, Periodos.inicio AS periodoinicio, Periodos.fin AS periodofin,
 Periodos.cod_periodo AS cod_periodo
 , Horarios.clase AS clase

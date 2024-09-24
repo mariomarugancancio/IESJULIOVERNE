@@ -30,7 +30,7 @@ use PHPMailer\PHPMailer\PHPMailer;
         if(!$resul){//si el envido da falso salta un error
             echo "<br><br><br>Error". $mail->ErrorInfo . "<br><br><br>";
         }else{//si el envido da true salta el mensaje enviado 
-            echo "Enviado";
+            //echo "Enviado";
         }
     }
     //recogemos los inputs y validamos que no esten vacios 

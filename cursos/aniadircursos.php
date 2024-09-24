@@ -6,7 +6,7 @@
     require_once('../archivosComunes/loginRequerido.php');
 
     // Verificar si se recibió los parámetros "aula" y "grupo"
-    if (isset($_GET['aula']) && isset($_GET['grupo']) && isset($_GET['curso'])) {
+    if ( isset($_GET['grupo']) && isset($_GET['curso'])) {
         // Obtener los valores de los parámetros "aula" y "grupo"
         $aula = $_GET['aula'];
         $grupo = $_GET['grupo'];

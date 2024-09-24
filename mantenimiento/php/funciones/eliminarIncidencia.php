@@ -8,17 +8,74 @@
       require_once('../../archivosComunes/conexion.php');
       try {
         // Mostramos el cuadro de diálogo de confirmación antes de eliminar la incidencia
+        // Escapamos la variable para mayor seguridad
+        $codTareaEscaped = htmlspecialchars($codTarea, ENT_QUOTES, 'UTF-8');
+        
         echo "
-          <script>
-            var result = window.confirm('¿Seguro que quieres finalizar esta incidencia?');
-            if (result) {
-              // Si el usuario hace clic en 'Sí', se elimina la incidencia
-              window.location = 'funciones/eliminar_incidencia.php?codTarea=$codTarea';
-            } else {
-              // Si el usuario hace clic en 'No', se redirige a la página admin.php sin eliminar la incidencia
-              window.location = 'admin.php';
-            }
-          </script>";
+            <div id='customConfirm' class='modal'>
+                <div class='modal-content'>
+                    <p>¿Seguro que quieres finalizar esta incidencia?</p>
+                    <button id='confirmBtn' class='btn btn-success'>Sí, finalizar</button>
+                    <button id='cancelBtn' class='btn btn-danger'>No, cancelar</button>
+                </div>
+            </div>
+        
+            <style>
+                /* Estilo para el modal */
+                .modal {
+                    display: block; /* Mostrar el modal */
+                    position: fixed;
+                    z-index: 1000;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+                }
+                .modal-content {
+                    background-color: #fff;
+                    margin: 15% auto;
+                    padding: 20px;
+                    border: 1px solid #888;
+                    width: 30%;
+                    border-radius: 10px;
+                    text-align: center;
+                }
+                .btn {
+                    padding: 10px 20px;
+                    margin: 10px;
+                    border: none;
+                    cursor: pointer;
+                    font-size: 16px;
+                    border-radius: 5px;
+                }
+                .btn-success {
+                    background-color: #28a745;
+                    color: white;
+                }
+                .btn-danger {
+                    background-color: #dc3545;
+                    color: white;
+                }
+            </style>
+        
+            <script>
+                // Obtener los elementos del modal y los botones
+                var confirmBtn = document.getElementById('confirmBtn');
+                var cancelBtn = document.getElementById('cancelBtn');
+        
+                // Si el usuario hace clic en Sí, finalizar
+                confirmBtn.onclick = function() {
+                    window.location = 'funciones/eliminar_incidencia.php?codTarea={$codTareaEscaped}';
+                };
+        
+                // Si el usuario hace clic en No, cancelar
+                cancelBtn.onclick = function() {
+                    window.location = 'admin.php';
+                };
+            </script>";
+     
+        
         exit;
       } catch (Exception $e) {
         echo "Error: " . $e->getMessage();

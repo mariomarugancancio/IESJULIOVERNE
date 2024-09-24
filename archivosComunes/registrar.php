@@ -72,7 +72,7 @@
                                         <label class="form-label" id="delphosLabel" for="delphos">CÓDIGO DELPHOS</label>
                                     </div>   
 
-                                    <div class="selectPersonal form-floating form-white mb-2 text-dark" >
+                                    <div class="selectPersonal form-floating form-white mb-4 text-dark" >
                                         <select name="selectPersonal" id="selectPersonal" class="selectPersonal form-control form-control-lg">
                                             <option name="dpto_no_valido" id="dpto_no_valido">- Seleccione su departamento -</option>
                                             
@@ -167,11 +167,20 @@
                                                          }
                                                      }
                                                            } else {
-                                                   
+                                                   if(isset($_GET['cod_delphos'])){
                                                     $insert = 'insert into Usuarios(dni,nombre, apellidos, email, clave, cod_delphos, rol, validar, departamento, tutor_grupo)
                                                             values(?,?,?,?,?,?,?,?,?,?);';
                                                     $insert2 = $db->prepare($insert);
                                                     $insert2->execute(array($_POST['dni'], $_POST['nombre'], $_POST['apellidos'], $_POST['email'], password_hash($_POST['clave'], PASSWORD_DEFAULT),$_POST['delphos'], $rol, 'no', $_POST['selectPersonal'], $_POST['tutor']));
+                                                 
+                                                }else{
+                                              
+                                                    $insert = 'insert into Usuarios(dni,nombre, apellidos, email, clave,cod_delphos, rol, validar, departamento, tutor_grupo)
+                                                    values(?,?,?,?,?,?,?,?,?,?);';
+                                            $insert2 = $db->prepare($insert);
+                                            $insert2->execute(array($_POST['dni'], $_POST['nombre'], $_POST['apellidos'], $_POST['email'], password_hash($_POST['clave'], PASSWORD_DEFAULT), null, $rol, 'no', $_POST['selectPersonal'], $_POST['tutor']));
+                                   
+                                                   }
                                                 }
 
                                             

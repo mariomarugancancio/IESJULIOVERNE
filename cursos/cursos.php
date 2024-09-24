@@ -112,10 +112,23 @@ function editar(grupo){
         var guardaraula = document.querySelector(".guardaraula").value;
         var guardargrupo = document.querySelector(".guardargrupo").value;
         var guardarcurso = document.querySelector(".guardarcurso").value;
-        if(guardaraula != "" && guardarcurso != ""){
+        if(guardargrupo != "" && guardarcurso != ""){
           var url = "editarcursos.php?grupo=" + guardargrupo+"&aula=" + guardaraula+"&curso=" + guardarcurso+"&grupoA=" + grupoA;
           window.location.href = url;
-        }
+        }else{
+        // Crear un nuevo div para la alerta
+    var alertaDiv = document.createElement('div');
+
+      // Asignar clases de Bootstrap al div
+      alertaDiv.className = 'alert alert-danger';
+      alertaDiv.setAttribute('role', 'alert');
+
+      // Establecer el mensaje de alerta
+      alertaDiv.innerHTML = 'Se debe rellenar el grupo y el curso';
+
+      // Agregar la alerta al cuerpo del documento o en algún contenedor específico
+      document.body.insertBefore(alertaDiv, document.body.firstChild);
+    }
       })
     }
 }
@@ -147,10 +160,23 @@ function editar(grupo){
     var nuevoaula = document.querySelector(".nuevoaula").value;
     var nuevogrupo = document.querySelector(".nuevogrupo").value;
     var nuevocurso = document.querySelector(".nuevocurso").value;
-    if (nuevoaula != "" && nuevocurso != "") {
+    if (nuevogrupo != "" && nuevocurso != "") {
       var url = "aniadircursos.php?aula=" + nuevoaula+"&grupo=" + nuevogrupo+"&curso=" + nuevocurso;
       window.location.href = url;
-      }
+      }else{
+        // Crear un nuevo div para la alerta
+    var alertaDiv = document.createElement('div');
+
+      // Asignar clases de Bootstrap al div
+      alertaDiv.className = 'alert alert-danger';
+      alertaDiv.setAttribute('role', 'alert');
+
+      // Establecer el mensaje de alerta
+      alertaDiv.innerHTML = 'Se debe rellenar el grupo y el curso';
+
+      // Agregar la alerta al cuerpo del documento o en algún contenedor específico
+      document.body.insertBefore(alertaDiv, document.body.firstChild);
+    }
   }
 </script>
 
