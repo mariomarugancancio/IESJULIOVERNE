@@ -69,11 +69,11 @@
                         <input type="date" id="filtroFechaFin" class="form-control" placeholder="Fecha de fin">
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 my-2">
+                <div class="col-lg-6 col-md-6 my-2">
                     <input type="text" id="filtroNombreProfesor" class="form-control"
                         placeholder="Filtrar por nombre del profesor">
                 </div>
-                <div class="col-lg-4 col-md-6 my-2">
+                <div class="col-lg-6 col-md-6 my-2">
                     <input type="text" id="filtroNombreAlumno" class="form-control"
                         placeholder="Filtrar por nombre del alumno">
                 </div>
