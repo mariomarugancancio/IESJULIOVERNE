@@ -102,8 +102,12 @@
       
                     <button type="submit" name="Expulsar"  value="<?php echo isset($alumno['cod_expulsion']) ? $alumno['cod_expulsion'] : ''; ?>" class="btn btn-danger m-1 boton">Expulsar</button>
                 </form>  
+                <button class="btn btn-danger mt-4" onclick="eliminarExpulsion(<?php echo $cod_expulsion; ?>)">Eliminar Expulsión</button>
+
             </div>
+
         </div>  
+
         <h2 class="text-light rounded bg-dark p-2 px-3">Datos de los Partes de <?php echo isset($alumno['nombreAlumnoCompleto']) ? $alumno['nombreAlumnoCompleto'] : ''; ?></h2>
         <table id="tablaPartes" class="table table-striped table-rounded">
             <thead>
@@ -191,7 +195,7 @@
                         if (!$result) {
                             throw new Exception("Error al insertar datos.");
                         } else {
-                            $actualizacion = $db->prepare("UPDATE partes SET caducado = 2 WHERE cod_parte = ?");
+                            $actualizacion = $db->prepare("UPDATE Partes SET caducado = 2 WHERE cod_parte = ?");
                             $actualizacion->execute(array($parte));
                         }
                     }
@@ -226,8 +230,13 @@
             if (!confirm("¿Está seguro de que desea expulsar a este alumno?")) {
                 event.preventDefault();
             }
-        }     
+        }  
         document.querySelector("button[name='Expulsar']").addEventListener("click", confirmarExpulsion);
-    </script>
+        function eliminarExpulsion(cod_expulsion) {
+            if (confirm("¿Estás seguro de que quieres eliminar esta expulsión?")) {
+                window.location.href = "./funcionalidad/eliminarExpulsion.php?cod_expulsion=" + cod_expulsion;
+            }
+        }
+   </script>
 </body>
 </html>

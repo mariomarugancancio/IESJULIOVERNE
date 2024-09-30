@@ -24,10 +24,9 @@
         if($delphos==null){
             $delphos=0;
         }
-        echo '<script language="javascript">alert('.$departamento.');</script>';
 
         // Condicional para ver si se pone la opcion por defecto ponerlo a null
-        // MARIO: Cuando intentar poner esa opcion salta un error
+        // REVISAR ERROR: Cuando intentar poner esa opcion salta un error
         if($departamento == '- Seleccione su departamento -'){
             $dpto_actualizado = null;
         } else {
@@ -37,7 +36,9 @@
         
         // Si los campos están vacios, no deja actualizar
         if($email == "" || $password == "" || $nombre == "" || $apellidos == "" || $dni == "" ){
-            echo "<script>alert('Rellene los campos para actualizar el perfil')</script>";
+            echo '<div class="alert alert-danger" role="alert">';
+            echo 'Rellene los campos para actualizar el perfil';
+            echo '</div>';
             
         } else {
             //Comprobar si se ha cambiado la Contraseña
@@ -71,8 +72,9 @@
 
             // Comprobar errores
             if ($result) {
-                echo '<script>alert("Perfil Actualizado")</script>';
-                // Actualizar los datos existentes del usuario con los nuevos valores ingresados
+                echo '<div class="alert alert-success" role="alert">';
+                echo 'Perfil actualizado';
+                echo '</div>';                // Actualizar los datos existentes del usuario con los nuevos valores ingresados
                 $usuario['Email'] = $email;
                 $usuario['Clave'] = $password;
                 $usuario['Nombre'] = $nombre;

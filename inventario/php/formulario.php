@@ -126,8 +126,19 @@ require_once('../../archivosComunes/conexion.php');
             var departamento = document.getElementById('selectDepartamento').value;
             if (departamento === "- Seleccione su departamento -") {
             // Se muestra un mensaje de error
-            alert("Seleccione un departamento");
-            return false; // Evitar el envío del formulario
+           
+    // Crear un nuevo div para la alerta
+    var alertaDiv = document.createElement('div');
+
+      // Asignar clases de Bootstrap al div
+      alertaDiv.className = 'alert alert-danger';
+      alertaDiv.setAttribute('role', 'alert');
+
+      // Establecer el mensaje de alerta
+      alertaDiv.innerHTML = 'Seleccione un departamento';
+
+      // Agregar la alerta al cuerpo del documento o en algún contenedor específico
+      document.body.insertBefore(alertaDiv, document.body.firstChild);            return false; // Evitar el envío del formulario
             }
         }
     </script>

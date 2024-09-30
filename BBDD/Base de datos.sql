@@ -5,7 +5,7 @@ USE IESJULIOVERNE;
 -- tabla departamento
 CREATE TABLE Departamentos (
 codigo SMALLINT PRIMARY KEY AUTO_INCREMENT,
-referencia VARCHAR(4),
+referencia VARCHAR(5),
 nombre VARCHAR(100)  NOT NULL,
 jefe VARCHAR(50),
 ubicacion VARCHAR(5)
@@ -32,6 +32,7 @@ INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion) VALUES
 ('bio', 'DPTO Biología y geología', 'x', 'xxx'),
 ('gri', 'DPTO Griego', 'x', 'xxx'),
 ('eco', 'DPTO Economía', 'x', 'xxx'),
+('iesjv', 'Centro', 'x', 'xxx');
 ('fol', 'DPTO FOL', 'x', 'xxx');
 
 -- tabla usuarios
@@ -138,7 +139,7 @@ INSERT INTO Periodos (cod_periodo, inicio, fin) VALUES(2, '9:25', '10:20');
 INSERT INTO Periodos (cod_periodo, inicio, fin) VALUES(3, '10:20', '11:15');
 INSERT INTO Periodos (cod_periodo, inicio, fin) VALUES(4, '11:45', '12:40');
 INSERT INTO Periodos (cod_periodo, inicio, fin) VALUES(5, '12:40', '13:35');
-INSERT INTO Periodos (cod_periodo, inicio, fin) VALUES(6, '13:35', '14:25');
+INSERT INTO Periodos (cod_periodo, inicio, fin) VALUES(6, '13:35', '14:30');
 INSERT INTO Periodos (cod_periodo, inicio, fin) VALUES(7, '15:15', '16:10');
 INSERT INTO Periodos (cod_periodo, inicio, fin) VALUES(8, '16:10', '17:05');
 INSERT INTO Periodos (cod_periodo, inicio, fin) VALUES(9, '17:05', '18:00');

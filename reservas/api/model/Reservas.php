@@ -529,7 +529,6 @@ class Reservas extends Dbc{
      * @return JSON Objeto JSON con un array de eventos, puede estar vacío ( [] ).
     */
     function getAsCalendarEvents($aula,$start,$end){
-        //echo '<script language="javascript">alert("juas");</script>';
 
         $stmt = $this -> connect() -> prepare("SELECT COUNT(*) FROM ".self::TABLA." WHERE aula = ? AND fecha BETWEEN ? AND ? LIMIT 2");
         if(!$stmt->execute(array($aula,$start,$end))){

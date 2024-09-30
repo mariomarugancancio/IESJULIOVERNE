@@ -9,7 +9,7 @@ if(isset($_GET['cod_parte'])) {
         $cod_parte = $_GET['cod_parte'];
 
         // Preparar la consulta para eliminar la parte
-        $consulta = $db->prepare("DELETE FROM partes WHERE cod_parte = :cod_parte");
+        $consulta = $db->prepare("DELETE FROM Partes WHERE cod_parte = :cod_parte");
         $consulta->bindParam(':cod_parte', $cod_parte);
         
         // Ejecutar la consulta

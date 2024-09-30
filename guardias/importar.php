@@ -114,16 +114,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <label for="archivo" class="form-label">Seleccionar archivo:</label>
           <input type="file" class="form-control" id="archivo" name="archivo[]" multiple>
         </div>
+        <div class="d-flex justify-content-center">
+
         <button type="submit" class="btn btn-primary">Enviar</button>
+        </div>
       </form>
     </div>
     <div class="container mt-5" style="max-width: 500px;">
 <!-- PHP_SELF para enviar al mismo archivo -->
 <form method="POST" action="borrarhorarios.php">
 <label for="archivo" class="form-label">Eliminar todos los horarios importados</label>
+<div class="d-flex justify-content-center">
 
     <button type="submit" class="btn btn-primary">Eliminar todos los horarios</button>
-
+    </div>
 </form>
 
     <div id="formulario" class="mx-auto mt-3" style="width:400px;">

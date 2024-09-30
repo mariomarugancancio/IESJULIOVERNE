@@ -26,13 +26,23 @@ if($inicio<$fin){
     $activeWorksheet->getColumnDimension('C')->setWidth(20);
     $activeWorksheet->getColumnDimension('D')->setWidth(40);
 
-    $select = "SELECT cod_guardias,observaciones, fecha,  Guardias.cod_usuario AS cod_usuario,
+    $select = "SELECT  DISTINCT cod_guardias,observaciones, fecha, Guardias.cod_usuario AS cod_usuario,
     Usuarios.nombre AS nombre, Usuarios.apellidos AS apellidos, Usuarios.cod_delphos AS delphos, Periodos.inicio AS periodoinicio, Periodos.fin AS periodofin
-    FROM Guardias
-    JOIN Periodos ON Guardias.periodo = Periodos.cod_periodo
-    JOIN Usuarios ON Guardias.cod_usuario = Usuarios.cod_usuario
-    WHERE fecha >= :fechaInicio AND fecha <= :fechaFin
-    ORDER BY fecha ASC";
+    , Horarios.clase AS clase
+                FROM Guardias
+                JOIN Periodos ON Guardias.periodo = Periodos.cod_periodo
+                JOIN Usuarios ON Guardias.cod_usuario = Usuarios.cod_usuario
+                JOIN Horarios ON Horarios.cod_delphos = Usuarios.cod_delphos
+        WHERE Horarios.inicio = Periodos.inicio AND Horarios.fin = Periodos.fin AND Horarios.clase IS NOT NULL AND
+                    CASE 
+                        WHEN DAYOFWEEK(fecha) = 2 THEN 'Lunes'
+                        WHEN DAYOFWEEK(fecha) = 3 THEN 'Martes'
+                        WHEN DAYOFWEEK(fecha) = 4 THEN 'Miércoles'
+                        WHEN DAYOFWEEK(fecha) = 5 THEN 'Jueves'
+                        WHEN DAYOFWEEK(fecha) = 6 THEN 'Viernes'
+                        END = Horarios.dia 
+                AND fecha >= :fechaInicio AND fecha <= :fechaFin
+        ORDER BY fecha ASC";
     $stmt = $db->prepare($select);
     $stmt->bindParam(':fechaInicio', $inicio);
     $stmt->bindParam(':fechaFin', $fin);
@@ -51,55 +61,9 @@ if($inicio<$fin){
         $mes = substr($columna['fecha'],5,2);
         $anio = substr($columna['fecha'],0,4); 
         $semana = date('w',  mktime(0,0,0,$mes,$dia,$anio));  
-        if($semana == 1){
-            $select1 = "SELECT clase
-            FROM Horarios
-            WHERE (cod_usuario = ? OR cod_delphos = ?)  AND inicio = ? AND fin = ? AND  dia = 'Lunes';";
-             $resul1 = $db->prepare($select1);
-             $resul1->execute(array( $usuario,$columna['delphos'],$columna['periodoinicio'], $columna['periodofin']));  
-             if ($columna1 = $resul1->fetch(PDO::FETCH_ASSOC)) {
-                $activeWorksheet->setCellValue('C' . $i, $columna1['clase']);
-            }
-        
-        }else if($semana == 2){
-            $select1 = "SELECT clase
-            FROM Horarios
-            WHERE (cod_usuario = ? OR cod_delphos = ?)  AND inicio = ? AND fin = ? AND  dia = 'Martes';";
-             $resul1 = $db->prepare($select1);
-             $resul1->execute(array( intval($usuario),$columna['delphos'],$columna['periodoinicio'], $columna['periodofin']));  
-             if ($columna1 = $resul1->fetch(PDO::FETCH_ASSOC)) {
-                $activeWorksheet->setCellValue('C' . $i, $columna1['clase']);
-            }
-        }else if($semana == 3){
-            $select1 = "SELECT clase
-            FROM Horarios
-            WHERE (cod_usuario = ? OR cod_delphos = ?)  AND inicio = ? AND fin = ? AND  dia = 'Miércoles';";
-             $resul1 = $db->prepare($select1);
-             $resul1->execute(array( intval($usuario),$columna['delphos'],$columna['periodoinicio'], $columna['periodofin']));  
-             if ($columna1 = $resul1->fetch(PDO::FETCH_ASSOC)) {
-                $activeWorksheet->setCellValue('C' . $i, $columna1['clase']);
-            }
-        }else if($semana == 4){
-            $select1 = "SELECT clase
-            FROM Horarios
-            WHERE (cod_usuario = ? OR cod_delphos = ?)  AND inicio = ? AND fin = ? AND  dia = 'Jueves';";
-             $resul1 = $db->prepare($select1);
-             $resul1->execute(array( intval($usuario),$columna['delphos'],$columna['periodoinicio'], $columna['periodofin']));  
-             if ($columna1 = $resul1->fetch(PDO::FETCH_ASSOC)) {
-                $activeWorksheet->setCellValue('C' . $i, $columna1['clase']);
-             }
-            }else if($semana == 5){
-                $select1 = "SELECT clase
-                FROM Horarios
-                WHERE (cod_usuario = ? OR cod_delphos = ?)  AND inicio = ? AND fin = ? AND  dia = 'Viernes';";
-                 $resul1 = $db->prepare($select1);
-                 $resul1->execute(array( intval($usuario),$columna['delphos'],$columna['periodoinicio'], $columna['periodofin']));  
-                 if ($columna1 = $resul1->fetch(PDO::FETCH_ASSOC)) {
-                    $activeWorksheet->setCellValue('C' . $i, $columna1['clase']);
-                }
-        }else{
-            echo '<td> </td>';
-        }
+        $activeWorksheet->setCellValue('C' . $i, $columna['clase']);
+
+       
         
         $activeWorksheet->setCellValue('D' . $i, $columna['nombre'] . ' ' . $columna['apellidos']);
         $i++;
@@ -107,7 +71,10 @@ if($inicio<$fin){
         $writer = new Xlsx($spreadsheet);
         $writer->save('../Exportar/datos ' . $inicio . ' ' . $fin . '.xlsx');
 }else{
-    echo "<script>alert('La fecha de inicio es mayor a la de fin')</script>";
+    echo '<div class="alert alert-danger" role="alert">';
+    echo 'La fecha de inicio es mayor a la de fin';
+    echo '</div>';
+
 }
 }
 ?>
@@ -137,13 +104,16 @@ if($inicio<$fin){
                 <input type="date" id="fin" name="fin" class="form-control">
             </div>
             <br>
-            <button type="submit" class="btn btn-primary">Crear</button>
+            <div class="d-flex justify-content-center">
+
+                <button type="submit" class="btn btn-primary">Crear</button>
+            </div>
         </form>
     </div>
     <div class="container mt-5" style="max-width: 300px;">
         <?php
         if (isset($_POST['inicio']) && $_POST['fin']) {
-            echo "<a class='text-warning fs-2' href='../Exportar/datos " . $inicio . " " . $fin . ".xlsx'>Descargar</a>";
+            echo "<a class='d-flex justify-content-center text-warning fs-2' href='../Exportar/datos " . $inicio . " " . $fin . ".xlsx'>Descargar</a>";
         }
         ?>
     </div>

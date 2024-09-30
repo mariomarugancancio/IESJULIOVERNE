@@ -5,14 +5,20 @@ require_once "../../archivosComunes/conexion.php";
 try {
     // Iniciar una transacción
     $db->beginTransaction();
-
+    echo'<script type="text/javascript">
+    alert();
+    window.location.href="index.php";
+    </script>';
     // Verificar si se recibió el parámetro cod_expulsion por POST
     if(isset($_GET['cod_expulsion'])) {
         // Obtener el valor del parámetro cod_expulsion
         $cod_expulsion = $_GET['cod_expulsion'];
-
+        echo'<script type="text/javascript">
+    alert('.$cod_expulsion.');
+    window.location.href="index.php";
+    </script>';
         // Actualizar el estado de los partes asociados a esta expulsión
-        $actualizarEstadoPartes = $db->prepare("UPDATE partes SET caducado = 0 WHERE cod_parte IN (SELECT cod_parte FROM PartesExpulsiones WHERE cod_expulsion = :cod_expulsion)");
+        $actualizarEstadoPartes = $db->prepare("UPDATE Partes SET caducado = 0 WHERE cod_parte IN (SELECT cod_parte FROM PartesExpulsiones WHERE cod_expulsion = :cod_expulsion)");
         $actualizarEstadoPartes->bindParam(":cod_expulsion", $cod_expulsion, PDO::PARAM_INT);
         $actualizarEstadoPartes->execute();
         

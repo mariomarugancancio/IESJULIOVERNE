@@ -22,7 +22,7 @@
                 DATE_FORMAT(e.fecha_Fin, '%d-%m-%Y') AS fecha_Fin, -- Formatear la fecha
                 a.grupo
                 FROM Expulsiones e
-                JOIN alumnos a ON e.matricula_del_Alumno = a.matricula 
+                JOIN Alumnos a ON e.matricula_del_Alumno = a.matricula 
                 WHERE cod_expulsion = :cod_expulsion"
                         );
                         $consultaExpulsion->bindParam(":cod_expulsion", $cod_expulsion, PDO::PARAM_INT);

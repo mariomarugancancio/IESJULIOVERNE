@@ -125,9 +125,11 @@ echo'
       }
 
       if(isset($_GET['admin'])){
-        print('<script>
-                  alert("Este usuario no se puede eliminar");
-              </script>');
+
+        echo '<div class="alert alert-danger" role="alert">';
+        echo 'Este usuario no se puede eliminar';
+        echo '</div>';
+       
       }
     ?>
     </article>

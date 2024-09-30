@@ -19,8 +19,10 @@ if (isset($_POST['autorizar'])) {
 
     //comprobar error
     if ($result && $result->rowCount() > 0) {
-      echo "<script>alert('Usuario autorizado')</script>";
-      $cuerpo =
+      echo '<div class="alert alert-success" role="alert">';
+      echo 'Usuario autorizado';
+      echo '</div>'; 
+           $cuerpo =
       "Se ha validado al siguiente usuario:
       <ul>
           <li>Nombre: {$nombre}</li>
@@ -45,8 +47,10 @@ if (isset($_POST['denegar'])) {
 
     //comprobar error
     if ($result) {
-      echo "<script>alert('Usuario denegado')</script>";
-    } else print_r($db->errorinfo());
+      echo '<div class="alert alert-danger" role="alert">';
+      echo 'Usuario denegado';
+      echo '</div>';
+        } else print_r($db->errorinfo());
   }
 
 // Función para Hacer Administrador al Usuario 
@@ -71,7 +75,9 @@ if (isset($_POST['denegar'])) {
 
     //comprobar error
     if ($result) {
-      echo "<script>alert('Administrador Efectuado con éxito')</script>";
+      echo '<div class="alert alert-success" role="alert">';
+      echo 'Administrador Efectuado con éxito';
+      echo '</div>';
     } else print_r($db->errorinfo());
   }
 
@@ -84,8 +90,10 @@ if (isset($_POST['denegar'])) {
 
     //comprobar error
     if ($result) {
-      echo "<script>alert('Administrador Efectuado con éxito')</script>";
-    } else print_r($db->errorinfo());
+      echo '<div class="alert alert-success" role="alert">';
+      echo 'Administrador Efectuado con éxito';
+      echo '</div>';
+      } else print_r($db->errorinfo());
   }
 
   header("Location: gestionUsuariosAdmin.php");
