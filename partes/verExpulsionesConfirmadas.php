@@ -85,13 +85,7 @@
                         ?>
                     </select>
                 </div>
-                <div class="col-lg-2 col-md-6 my-2">
-                    <select id="filtroEstado" class="form-select">
-                        <option value="">Filtrar por estado</option>
-                        <option value="Confirmada">Confirmada</option>
-                        <option value="Pendiente">Pendiente</option>
-                    </select>
-                </div>
+
             </div>
             <table id="tablaExpulsiones" class="table table-striped table-rounded">
                 <thead>
@@ -111,25 +105,22 @@
                     try {
                         // Obtener el rol del usuario
                         $rol_usuario = $_SESSION['usuario_login']['rol']; // Asegúrate de ajustar esto según tu sistema de autenticación
+                        $tutor_usuario = $_SESSION['usuario_login']['tutor_grupo']; // Asegúrate de ajustar esto según tu sistema de autenticación
+
                         $query = " ";
                         // Preparar la consulta SQL
                         if ($rol_usuario == 1) {
                             // Si el rol del usuario es 1, mostrar todas las expulsiones
                             $id_usuario = $_SESSION['usuario_login']['cod_usuario']; // Asegúrate de ajustar esto según tu sistema de autenticación
-                            $query = "WHERE u.cod_usuario = $id_usuario";
+                            $query = "WHERE '$tutor_usuario' = a.grupo";
                         }
 
                         $consulta = $db->prepare(    
                             "SELECT  e.cod_expulsion, DATE(e.fecha_Insercion) fecha_Insercion, a.matricula, 
-                            CONCAT(a.nombre, ' ', a.apellidos) AS nombreAlumnoCompleto, a.grupo,
-                            CASE 
-                            WHEN fecha_Inicio IS NOT NULL THEN 'Confirmada'
-                            ELSE 'Pendiente'
-                            END estado
+                            CONCAT(a.nombre, ' ', a.apellidos) AS nombreAlumnoCompleto, a.grupo
                             FROM Expulsiones e
-                            JOIN Alumnos a ON e.matricula_del_Alumno = a.matricula
-                            $query
-
+                            JOIN Alumnos a ON e.matricula_del_Alumno = a.matricula 
+                            $query AND e.fecha_Inicio IS NOT NULL
                             ORDER BY fecha_Insercion DESC
                         ");
 
@@ -137,20 +128,12 @@
 
                         // Iterar sobre los resultados y mostrar cada expulsion en una fila de la tabla
                         while ($row = $consulta->fetch(PDO::FETCH_ASSOC)) {
-                            // Determinar la clase CSS según el estado
                             echo "<tr>";
                             echo "<td>" . $row['fecha_Insercion'] . "</td>";
                             echo "<td>" . $row['nombreAlumnoCompleto'] . "</td>";
-                            echo "<td>" . $row['grupo'] . "</td>";
-                            
-                            
-                            if ($row['estado'] == 'Confirmada') {
-                                echo "<td class='text-success'>" . $row['estado'] . "</td>";
-                                echo "<td><p><a class='text-decoration-none  text-black' href='detalleExpulsion.php?cod_expulsion=" . $row['cod_expulsion'] . "'>Ver detalle -></a></p></td>";
-                            } else {
-                                echo "<td class='text-warning'>" . $row['estado'] . "</td>";
-                                echo "<td><p><a class='text-decoration-none  text-black' href='confirmarExpulsion.php?cod_expulsion=" . $row['cod_expulsion'] . "&puntosInsuficientes=false'>Confirmar expulsión -></a></p></td>";
-                            }
+                            echo "<td>" . $row['grupo'] . "</td>"; 
+                            echo "<td class='text-success'>" . "Confirmada" . "</td>";
+                            echo "<td><p><a class='text-decoration-none  text-black' href='detalleExpulsion.php?cod_expulsion=" . $row['cod_expulsion'] . "'>Ver detalle -></a></p></td>";
                             echo "</tr>";
                         }
                     } catch (PDOException $e) {
@@ -185,7 +168,6 @@
     const filtroFechaFin = document.getElementById("filtroFechaFin");
             const filtroNombreAlumno = document.getElementById("filtroNombreAlumno");
             const filtroGrupo = document.getElementById("filtroGrupo");
-            const filtroEstado = document.getElementById("filtroEstado");
             const tablaExpulsiones = document.getElementById("tablaExpulsiones").getElementsByTagName("tbody")[0].getElementsByTagName("tr");
 
             // Agregar event listeners para los campos de filtro
@@ -193,14 +175,12 @@
             filtroFechaFin.addEventListener("input", filtrarTabla);
             filtroNombreAlumno.addEventListener("input", filtrarTabla);
             filtroGrupo.addEventListener("change", filtrarTabla);
-            filtroEstado.addEventListener("change", filtrarTabla);
 
             function filtrarTabla() {
                 const fechaInicio = filtroFechaInicio.valueAsDate;
                 const fechaFin = filtroFechaFin.valueAsDate;
                 const textoNombreAlumno = filtroNombreAlumno.value.toLowerCase();
                 const valorGrupo = filtroGrupo.value;
-                const valorEstado = filtroEstado.value;
                 // Iterar sobre las filas de la tabla
                 for (let fila of tablaExpulsiones) {
                     const fecha = new Date(fila.cells[0].textContent);
@@ -209,13 +189,11 @@
                     const cumpleFiltroFechaFin = !fechaFin || fecha <= fechaFin; // Verificar si la fecha está antes de la fecha de fin
                     const nombreAlumno = fila.cells[1].textContent.toLowerCase(); // Cambiado a 0, primera celda de la fila
                     const grupo = fila.cells[2].textContent; // Cambiado a 1, segunda celda de la fila
-                    const estado = fila.cells[3].textContent; // Cambiado a 2, tercera celda de la fila
                     // Verificar si la fila coincide con los filtros
                     const cumpleFiltroNombreAlumno = nombreAlumno.includes(textoNombreAlumno) || textoNombreAlumno === "";
                     const cumpleFiltroGrupo = valorGrupo === "" || grupo === valorGrupo;
-                    const cumpleFiltroEstado = valorEstado === "" || estado === valorEstado;
                     // Mostrar u ocultar la fila según los filtros
-                    fila.style.display = cumpleFiltroFechaInicio && cumpleFiltroFechaFin && cumpleFiltroNombreAlumno && cumpleFiltroGrupo && cumpleFiltroEstado ? "" : "none";
+                    fila.style.display = cumpleFiltroFechaInicio && cumpleFiltroFechaFin && cumpleFiltroNombreAlumno && cumpleFiltroGrupo ? "" : "none";
                 }
             }
         });

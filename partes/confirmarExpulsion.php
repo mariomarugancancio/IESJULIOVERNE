@@ -54,6 +54,9 @@
                             echo "<p>Error en la conexión a la base de datos.</p>";
                         }
                     ?>
+        <?php
+        if ( $_SESSION['usuario_login']['rol'] == 0){
+            ?>
         <div class="m-2">
             <h2 class="text-light rounded bg-dark p-2 px-3">Seleccione fecha de expulsión y Partes de: <?php echo isset($alumno['nombreAlumnoCompleto']) ? $alumno['nombreAlumnoCompleto'] : ''; ?></h2> 
             <div class='card card-rounded'>
@@ -107,7 +110,10 @@
             </div>
 
         </div>  
-
+        ?>
+        <?php
+       }
+            ?>
         <h2 class="text-light rounded bg-dark p-2 px-3">Datos de los Partes de <?php echo isset($alumno['nombreAlumnoCompleto']) ? $alumno['nombreAlumnoCompleto'] : ''; ?></h2>
         <table id="tablaPartes" class="table table-striped table-rounded">
             <thead>

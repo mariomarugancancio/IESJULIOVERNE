@@ -132,18 +132,19 @@
                     try {
                         // Obtener el rol del usuario
                         $rol_usuario = $_SESSION['usuario_login']['rol']; // Asegúrate de ajustar esto según tu sistema de autenticación
+                        $tutor_usuario = $_SESSION['usuario_login']['tutor_grupo']; // Asegúrate de ajustar esto según tu sistema de autenticación
                         $query = " ";
                         // Preparar la consulta SQL
                         if ($rol_usuario == 1) {
                             // Si el rol del usuario es 1, mostrar todas las partes
                             $id_usuario = $_SESSION['usuario_login']['cod_usuario']; // Asegúrate de ajustar esto según tu sistema de autenticación
-                            $query = "WHERE u.cod_usuario = $id_usuario OR u.tutor_grupo = a.grupo";
+                            $query = "WHERE u.cod_usuario = $id_usuario OR a.grupo = '$tutor_usuario'";
                         }
 
                         $consulta = $db->prepare("SELECT p.cod_parte, CONCAT(u.nombre, ' ', u.apellidos) AS nombreProfesorCompleto, p.fecha, i.puntos, CONCAT(a.nombre, ' ', a.apellidos) AS nombreAlumnoCompleto, p.materia, p.descripcion, p.caducado, a.grupo
-                        FROM Incidencias i
-                        JOIN Partes p ON i.cod_incidencia = p.incidencia
-                        JOIN Usuarios u ON p.cod_usuario = u.cod_usuario
+                        FROM  Partes p 
+                        LEFT JOIN Usuarios u ON p.cod_usuario = u.cod_usuario
+                        LEFT JOIN Incidencias i ON i.cod_incidencia = p.incidencia
                         JOIN Alumnos a ON p.matricula_Alumno = a.matricula
                         $query
                         ORDER BY p.fecha DESC

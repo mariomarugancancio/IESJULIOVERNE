@@ -10,6 +10,7 @@
     <!-- Bootstrap CSS v5.2.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
     <link rel="shortcut icon" href="../images/logoJulioVerneNuevo.png">
+    <script src="../js/multiselect-dropdown.js"></script>
 
 </head>
 
@@ -40,8 +41,13 @@
                     </div>
                     <div class="col">
                         <label for="matriculaAlumno" class="form-label">Matrícula del Alumno</label>
-                        <select name="matricula_Alumno[]" id="matriculaAlumno" class="form-select" multiple  onclick="marcar(this)">
-                        </select>
+                        
+                          <!-- creamos un select -->
+                            <select name="matricula_Alumno[]" id="matriculaAlumno" class="form-control" required multiple multiselect-search="true" multiselect-select-all="true" multiselect-max-items="3" onchange="console.log(this.selectedOptions)">
+                            
+                            
+                            </select>
+                      
                     </div>
                 </div>
                 <div class="mb-3">
@@ -103,7 +109,7 @@
             grupoSelect.addEventListener("change", function() {
                 const grupo = this.value;
                 // Limpiar el select de alumnos y materias
-                matriculaAlumnoSelect.innerHTML = '<option value="">Seleccione uno o más Alumnos</option>';
+
                 materiaSelect.innerHTML = '<option value="">Seleccione una Materia</option>';
 
                 if (grupo) {
@@ -113,19 +119,22 @@
                 }
             });
 
-            function fetchAlumnos(grupo) {
-                fetch(`./funcionalidad/fetch_alumnos.php?grupo=${encodeURIComponent(grupo)}`)
+           async function fetchAlumnos(grupo) {
+
+               await fetch(`./funcionalidad/fetch_alumnos.php?grupo=${encodeURIComponent(grupo)}`)
         .then(response => response.json())
         .then(alumnos => {
 
             // Filtrar y agregar las opciones al select
             alumnos.forEach(alumno => {
+
                 const option = document.createElement("option");
                 option.value = alumno.matricula;
                 option.textContent = alumno.nombreCompleto;
                 
                 matriculaAlumnoSelect.appendChild(option);
             });
+            matriculaAlumnoSelect.loadOptions();
 
 
         })

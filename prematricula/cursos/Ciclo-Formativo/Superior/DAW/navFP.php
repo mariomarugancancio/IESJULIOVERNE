@@ -135,7 +135,7 @@ if (isset($_SESSION['usuario_login']['cod_usuario'])) {
 } else {
   echo '<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-    <a class="navbar-brand ms-xl-5" href="/iesjulioverne/prematricula/prematricula.php">Prematrícula 2024/2025</a>
+    <a class="navbar-brand ms-xl-5" href="/prematricula/prematricula.php">Prematrícula 2024/2025</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>

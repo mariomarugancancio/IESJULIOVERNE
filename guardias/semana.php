@@ -4,7 +4,7 @@ require_once("../archivosComunes/conexion.php");
 // Para acceder a esta pagina hay que iniciar sesion previamente.
 require_once('../archivosComunes/loginRequerido.php');
 
-$select = "SELECT cod_guardias,observaciones, fecha,  Guardias.cod_usuario AS cod_usuario,
+$select = "SELECT DISTINCT cod_guardias,observaciones, fecha,  Guardias.cod_usuario AS cod_usuario,
 Usuarios.nombre AS nombre, Usuarios.apellidos AS apellidos, Usuarios.cod_delphos AS delphos, Periodos.inicio AS periodoinicio, Periodos.fin AS periodofin
 , Horarios.clase AS clase
 FROM Guardias

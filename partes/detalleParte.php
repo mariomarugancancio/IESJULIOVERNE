@@ -37,7 +37,7 @@
         $cod_parte = $_GET['cod_parte'];
         
         // Preparar la consulta para obtener los detalles de la parte
-        $consulta = $db->prepare("SELECT p.cod_parte, CONCAT(u.nombre, ' ', u.apellidos) AS nombreProfesorCompleto, p.fecha, i.puntos, CONCAT(a.nombre, ' ', a.apellidos) AS nombreAlumnoCompleto, asi.nombre Materia, p.descripcion, p.caducado
+        $consulta = $db->prepare("SELECT p.cod_parte, CONCAT(u.nombre, ' ', u.apellidos) AS nombreProfesorCompleto, p.fecha, i.puntos, i.nombre AS incidencia, CONCAT(a.nombre, ' ', a.apellidos) AS nombreAlumnoCompleto, asi.nombre Materia, p.descripcion, p.caducado
                                 FROM Incidencias i
                                 JOIN Partes p ON i.cod_incidencia = p.incidencia
                                 JOIN Usuarios u ON p.cod_usuario = u.cod_usuario
@@ -62,6 +62,7 @@
             echo "<p class='card-text'>Nombre del Alumno: " . $parte['nombreAlumnoCompleto'] . "</p>";
             echo "<p class='card-text'>Puntos: " . $parte['puntos'] . "</p>";
             echo "<p class='card-text'>Materia: " . $parte['Materia'] . "</p>";
+            echo "<p class='card-text'>Incidencia: " . $parte['incidencia'] . "</p>";
             echo "<p class='card-text'>Detalle: " . $parte['descripcion'] . "</p>";
             echo "<p class='card-text ".($parte['caducado'] == 1 ? 'text-danger' : '')."'>".($parte['caducado'] == 1 ? 'Caducado' : '')."</p>";
             if($_SESSION['usuario_login']['rol'] == 0){

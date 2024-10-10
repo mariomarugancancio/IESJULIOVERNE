@@ -63,7 +63,10 @@
                     echo "<p class='card-text'>Desde: " . $expulsion['fecha_Inicio'] . "</p>";
                     echo "<p class='card-text'>Hasta: " . $expulsion['Fecha_Fin'] . "</p>";
                     echo "<p class='card-text'>Tipo de expulsión: " . $expulsion['tipo_expulsion'] . "</p>";
-                    echo "<button class='btn btn-danger mt-4' onclick='eliminarExpulsion(" . $cod_expulsion . ")'>Eliminar Expulsión</button>";
+                    if ($rol_usuario == 0) {
+
+                        echo "<button class='btn btn-danger mt-4' onclick='eliminarExpulsion(" . $cod_expulsion . ")'>Eliminar Expulsión</button>";
+                    }
                     if ($expulsion['tipo_expulsion'] == "Expulsión a Casa"){
                             echo "<button class='btn btn-danger mt-4 ms-4' onclick='pdfExpulsionCasa(" . $cod_expulsion . ")'>PDF Expulsión a casa</button>";
                         }else{

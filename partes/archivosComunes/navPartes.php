@@ -20,11 +20,14 @@ echo '  <li class="nav-item">' ?>
 <a class="nav-link   <?php if (str_contains($_SERVER['SCRIPT_NAME'], 'verPartes.php')) echo 'active' ?>" href="verPartes.php">Ver Partes</a>
 <?php echo '</li>';
 
-if ($_SESSION['usuario_login']['rol'] == "0") {
 
   echo '<li class="nav-item">' ?>
-  <a class="nav-link   <?php if (str_contains($_SERVER['SCRIPT_NAME'], 'verExpulsiones.php')) echo 'active' ?>" href="verExpulsiones.php">Ver Expulsiones</a>
+  <a class="nav-link   <?php if (str_contains($_SERVER['SCRIPT_NAME'], 'verExpulsionesPendientes.php')) echo 'active' ?>" href="verExpulsionesPendientes.php">Ver Expulsiones Pendientes</a>
   <?php echo '</li>';
+  echo '<li class="nav-item">' ?>
+  <a class="nav-link   <?php if (str_contains($_SERVER['SCRIPT_NAME'], 'verExpulsionesConfirmadas.php')) echo 'active' ?>" href="verExpulsionesConfirmadas.php">Ver Expulsiones Confirmadas</a>
+  <?php echo '</li>';
+  if ($_SESSION['usuario_login']['rol'] == "0") {
 
   echo '<li class="nav-item">' ?>
   <div class="dropdown">
