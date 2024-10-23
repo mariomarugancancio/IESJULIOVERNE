@@ -23,6 +23,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["crearInci"])) {
   } else {
     // Se insertan los datos en la tabla tareas
     try {
+          // Mostrar un mensaje emergente que indica que se está guardando la tarea
+    echo '<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+        // Mostrar el mensaje de guardando
+        document.getElementById("mensajeCargando").style.display = "block";
+    });
+  </script>';
       $insert = 'INSERT INTO Tareas(estado, nivel_tarea, descripcion, imagen, localizacion, fecha_inicio, cod_usuario_crea)
               VALUES (?, ?, ?, ?, ?, ?, ?);';
       $insert2 = $db->prepare($insert);
@@ -50,13 +57,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["crearInci"])) {
         </ul>
           ";
           
-        enviarcorreo($SESSION['usuario_login']['email'], "Nueva tarea de mantenimiento asignada", "$cuerpo");
+      enviarcorreo($SESSION['usuario_login']['email'], "Nueva tarea de mantenimiento asignada", "$cuerpo");
        // Mostrar el error en la pantalla
        echo '<div class="alert alert-success" role="alert">';
        echo 'Incidencia creada correctamente';
        echo '</div>';
-        require_once("emailCrearTarea.php");
-
+      //require_once("emailCrearTarea.php");
+  // Ocultar el mensaje de carga y mostrar éxito
+  echo '<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function() {
+      // Ocultar el mensaje de guardando
+      document.getElementById("mensajeCargando").style.display = "none";
+     
+  });
+</script>';
     } catch (PDOException $e) {
       echo "Error en la base de datos ";
     }

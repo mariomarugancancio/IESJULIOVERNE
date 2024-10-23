@@ -2,8 +2,8 @@
     "require": {
         "mpdf/mpdf": "^8.1",
         "phpmailer/phpmailer": "^6.8",
-        "phpoffice/phpspreadsheet": "^1.28"
+        "phpoffice/phpspreadsheet": "^1.28",
+        "twilio/sdk": "^8.3"
     }
     
 }
-

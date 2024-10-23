@@ -36,11 +36,11 @@ try {
         $db->commit();
 
         // Redireccionar al usuario a alguna página, por ejemplo, a la página de inicio
-        header("Location: ../verExpulsiones.php?eliminado=1");
+        header("Location: ../verExpulsionesConfirmadas.php?eliminado=1");
         exit();
     } else {
         // Redireccionar al usuario a alguna página de error si el parámetro no se proporcionó correctamente
-        header("Location: ../verExpulsiones.php?eliminado=0");
+        header("Location: ../verExpulsionesConfirmadas.php?eliminado=0");
         exit();
     }
 } catch (Exception $e) {

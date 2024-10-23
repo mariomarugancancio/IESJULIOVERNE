@@ -100,7 +100,11 @@ if(isset($_GET['cod_guardias'])){
                         <textarea name="observaciones" cols="50" rows="10"><?php echo $columna['observaciones'] ?></textarea>
                     </div>
                 </div>
+                <div class="d-flex justify-content-center">
+
         <input type="submit" name="guardar" class="btn btn-primary mt-2" value="Guardar cambios">
+        </div>
+
     </form>
 </div>
 

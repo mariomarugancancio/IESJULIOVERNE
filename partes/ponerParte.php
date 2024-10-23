@@ -109,7 +109,7 @@
             grupoSelect.addEventListener("change", function() {
                 const grupo = this.value;
                 // Limpiar el select de alumnos y materias
-
+                matriculaAlumnoSelect.innerHTML = '';
                 materiaSelect.innerHTML = '<option value="">Seleccione una Materia</option>';
 
                 if (grupo) {

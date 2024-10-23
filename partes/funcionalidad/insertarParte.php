@@ -54,7 +54,7 @@ try {
             SELECT matricula_del_Alumno
             FROM Expulsiones
             WHERE fecha_Inicio IS NULL
-            )
+            ) AND p.caducado = 0 
         GROUP BY p.matricula_Alumno, a.nombre, a.apellidos
     ");
     $consultaPuntos->execute($matriculas_Alumnos);

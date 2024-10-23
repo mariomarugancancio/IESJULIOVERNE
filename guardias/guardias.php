@@ -10,6 +10,7 @@
     <script src="https://kit.fontawesome.com/d7bc41fc30.js" crossorigin="anonymous"></script>
     <script src="js/paginacion.js"></script>
     <link rel="shortcut icon" href="../images/logoJulioVerneNuevo.png">
+    <link rel="stylesheet" href="../css/confirmarEliminar.css">
 
     <!-- <style>
       @media (min-width: 768px) {
@@ -17,9 +18,17 @@
         }
       }
     </style> -->
+   
 </head>
 <body class="m-auto">
-
+<!-- Modal personalizado -->
+<div id="customConfirm" class="modal">
+    <div class="modal-content">
+        <p>¿Está seguro de que desea borrar esta guardia?</p>
+        <button id="confirmBtn" class="btn btn-success">Sí, borrar</button>
+        <button id="cancelBtn" class="btn btn-danger">No, cancelar</button>
+    </div>
+</div>
   <?php
     include('navguardias.php');
 
@@ -91,12 +100,30 @@
       window.location.href = url;
   }
   
-  function eliminarGuardia(codguardia){
-    if (confirm("¿Está seguro de que desea borrar esta guardia?")) {
-      var url = "borrarguardias.php?cod_guardias=" + codguardia;
-      window.location.href = url;
+  function eliminarGuardia(codguardia) {
+        // Mostrar el modal personalizado
+        var modal = document.getElementById("customConfirm");
+        modal.style.display = "block";
+
+        // Manejo del botón confirmar
+        document.getElementById("confirmBtn").onclick = function() {
+            var url = "borrarguardias.php?cod_guardias=" + codguardia;
+            window.location.href = url;
+        };
+
+        // Manejo del botón cancelar
+        document.getElementById("cancelBtn").onclick = function() {
+            modal.style.display = "none"; // Cerrar el modal si cancela
+        };
     }
-  }
+
+    // Opción para cerrar el modal si se hace clic fuera de él
+    window.onclick = function(event) {
+        var modal = document.getElementById("customConfirm");
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    };
 
 </script>
 <?php

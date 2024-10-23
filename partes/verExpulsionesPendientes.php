@@ -89,7 +89,7 @@
                 </div>
 
             </div>
-            <table id="tablaExpulsiones" class="table table-striped table-rounded">
+            <table id="tablaExpulsiones" class="table table-striped table-rounded  mx-auto text-center">
                 <thead>
                     <tr>
                         <th>Fecha Expulsion</th>

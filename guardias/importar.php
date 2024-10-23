@@ -85,6 +85,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
     }
+    echo '<script>
+    window.onload = function() {
+        document.getElementById("mensajeCargando").style.display = "none";
+    };
+  </script>';
 }
 
 
@@ -99,6 +104,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Exportal excel</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/mensajeEmergente.css">
+
 </head>
 
 <body>
@@ -106,6 +113,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     include('../guardias/navguardias.php');
 
     ?>
+        <!-- Mensaje emergente mientras se guarda la tarea con un logo -->
+<div id="mensajeCargando" style="display:none;">
+<div class="sombra">
+    <div class="alert alert-info" role="alert">
+      <img src="../images/logoJulioVerneNuevo.png" alt="Cargando..." /><br>
+     Importando horarios, por favor espera...
+      </div>
+    </div>
+  </div>
     <div class="container mt-5" style="max-width: 500px;">
     <h1>Máximo 20 archivos simultáneos.</h1><p> El hosting no soporta más de 20 hojas de cálculo en el proceso de la importación</p>
 
@@ -140,3 +156,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php
         include('../archivosComunes/footer.php');
         ?>
+         <!-- JavaScript para mostrar el mensaje emergente -->
+    <script>
+        function mostrarMensajeCargando() {
+            document.getElementById("mensajeCargando").style.display = "block";
+        }
+    </script>

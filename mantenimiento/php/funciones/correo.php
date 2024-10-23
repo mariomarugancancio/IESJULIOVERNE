@@ -2,7 +2,8 @@
 use PHPMailer\PHPMailer\PHPMailer;
     
     function enviarcorreo($direcciondeenvio,$asunto,$cuerpodecorreo){
-        require "../../vendor/autoload.php";
+ 
+      require "../../vendor/autoload.php";
 
         $mail = new PHPMailer();
         $mail->IsSMTP();
@@ -24,7 +25,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 
         $address = $direcciondeenvio; // a quien se lo vas a enviar
         $mail->AddAddress($address,"Test"); //Test es un nombre que tendra ese usuario para ti 
-        $mail->AddAddress("martingomezalonso@gmail.com","Martín Gómez Alonso"); //Test es un nombre que tendra ese usuario para ti 
+        $mail->AddAddress("incidenciasiesbargas@gmail.com","Departamento de incidencias"); //Test es un nombre que tendra ese usuario para ti 
 
         $resul = $mail->Send(); //hace el envio
         if(!$resul){//si el envido da falso salta un error

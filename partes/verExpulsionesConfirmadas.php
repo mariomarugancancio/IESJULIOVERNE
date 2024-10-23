@@ -87,7 +87,7 @@
                 </div>
 
             </div>
-            <table id="tablaExpulsiones" class="table table-striped table-rounded">
+            <table id="tablaExpulsiones" class="table table-striped table-rounded  mx-auto text-center">
                 <thead>
                     <tr>
                         <th>Fecha Expulsion</th>
@@ -133,7 +133,7 @@
                             echo "<td>" . $row['nombreAlumnoCompleto'] . "</td>";
                             echo "<td>" . $row['grupo'] . "</td>"; 
                             echo "<td class='text-success'>" . "Confirmada" . "</td>";
-                            echo "<td><p><a class='text-decoration-none  text-black' href='detalleExpulsion.php?cod_expulsion=" . $row['cod_expulsion'] . "'>Ver detalle -></a></p></td>";
+                            echo "<td><p><a class='text-decoration-none  text-black' href='detalleExpulsion.php?cod_expulsion=" . $row['cod_expulsion'] . "'>Ver detalle expulsión -></a></p></td>";
                             echo "</tr>";
                         }
                     } catch (PDOException $e) {

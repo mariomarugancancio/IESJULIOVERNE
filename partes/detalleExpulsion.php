@@ -63,7 +63,7 @@
                     echo "<p class='card-text'>Desde: " . $expulsion['fecha_Inicio'] . "</p>";
                     echo "<p class='card-text'>Hasta: " . $expulsion['Fecha_Fin'] . "</p>";
                     echo "<p class='card-text'>Tipo de expulsión: " . $expulsion['tipo_expulsion'] . "</p>";
-                    if ($rol_usuario == 0) {
+                    if ($_SESSION['usuario_login']['rol'] == 0) {
 
                         echo "<button class='btn btn-danger mt-4' onclick='eliminarExpulsion(" . $cod_expulsion . ")'>Eliminar Expulsión</button>";
                     }

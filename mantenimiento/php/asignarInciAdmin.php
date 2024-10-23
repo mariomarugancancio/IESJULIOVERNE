@@ -15,6 +15,7 @@ require_once('../php/funciones/loginRequerido.php');
   <link rel="stylesheet" href="../css/bootstrap.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
   <link rel="shortcut icon" href="../../images/logoJulioVerneNuevo.png">
+  <link rel="stylesheet" href="../../css/mensajeEmergente.css">
 
   <title>Administrador</title>
   <style>
@@ -29,12 +30,21 @@ require_once('../php/funciones/loginRequerido.php');
   // Funcion Header
     require_once("funciones/header.php")
   ?>
-
+    <!-- Mensaje emergente mientras se guarda la tarea con un logo -->
+    <div id="mensajeCargando" style="display:none;">
+<div class="sombra">
+    <div class="alert alert-info" role="alert">
+      <img src="../../images/logoJulioVerneNuevo.png" alt="Cargando..." /><br>
+      Asignando la incidencia, por favor espera...
+      </div>
+    </div>
+  </div>
   <section>
     <article>
       <div class="container px-4 py-5" id="asignarInci">
         <h2 class="pb-2 border-bottom titletable">Asignar Incidencia</h2>
-        <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+        <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>" onsubmit="mostrarMensajeCargando()">
+
           <div class="row">
             <div class="col-md-6 p-3 ">
               <label for="tipoIncidencia" class="form-label">Tipo de Incidencia</label>
@@ -159,6 +169,12 @@ require_once('../php/funciones/loginRequerido.php');
                     
                   enviarcorreo($emailA, "Nueva tarea de mantenimiento asignada", "$cuerpo");
                        // Mostrar el error en la pantalla
+                        // Mostrar el mensaje de guardando
+               echo '<script>
+               window.onload = function() {
+                   document.getElementById("mensajeCargando").style.display = "none";
+               };
+             </script>';
      echo '<div class="alert alert-success" role="alert">';
      echo 'Incidencia asignada correctamente';
      echo '</div>';
@@ -213,6 +229,12 @@ require_once('../php/funciones/loginRequerido.php');
                       ";
                     
                   enviarcorreo($email, "Nueva tarea de mantenimiento asignada", "$cuerpo");
+                  // Mostrar el mensaje de guardando
+               echo '<script>
+               window.onload = function() {
+                   document.getElementById("mensajeCargando").style.display = "none";
+               };
+             </script>';
                   echo '<div class="alert alert-success" role="alert">';
                   echo 'Incidencia asignada correctamente';
                   echo '</div>';
@@ -225,6 +247,7 @@ require_once('../php/funciones/loginRequerido.php');
               }
             } catch (PDOException $e) {
               //echo "Error en la base de datos " . $e->getMessage();
+         
             }
           }
         }
@@ -234,3 +257,9 @@ require_once('../php/funciones/loginRequerido.php');
   </section>
   <script src="../js/bootstrap.bundle.min.js"></script>
   <script src="../js/asignarUsuario.js"></script>
+      <!-- JavaScript para mostrar el mensaje emergente -->
+      <script>
+        function mostrarMensajeCargando() {
+            document.getElementById("mensajeCargando").style.display = "block";
+        }
+    </script>

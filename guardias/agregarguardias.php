@@ -8,6 +8,7 @@
     <title>Guardias</title>
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="shortcut icon" href="../images/logoJulioVerneNuevo.png">
+    <link rel="stylesheet" href="../css/mensajeEmergente.css">
 
     <script src="../js/bootstrap.bundle.min.js"></script>
       <script src="../js/multiselect-dropdown.js"></script>
@@ -27,7 +28,9 @@
     require_once('../correo/correo.php');
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        try {
+     
+  try {
+        
         $fecha = $_POST['fecha'];
         $periodo = $_POST['periodo'];
         $usuario = $_POST['usuario'];
@@ -162,10 +165,19 @@
     
         // Enviar correo jefatura@iesbargas.com
         enviarcorreo('jefatura@iesbargas.com', "Nueva guardia " . $fecha, $cuerpo);
+                 // Ocultar un mensaje emergente que indica que se está guardando la tarea
+         // Mostrar el mensaje de guardando
+       
         // Redirigir a la página de guardias
         header('Location: guardias.php');
         exit();
     } catch (PDOException $e) {
+               // Mostrar el mensaje de guardando
+               echo '<script>
+               window.onload = function() {
+                   document.getElementById("mensajeCargando").style.display = "none";
+               };
+             </script>';
         // Mostrar el error en la pantalla
         echo '<div class="alert alert-danger" role="alert">';
         echo ' Guardia duplicada. Error: ' . $e->getMessage();
@@ -175,10 +187,19 @@
 
 
     ?>
+    <!-- Mensaje emergente mientras se guarda la tarea con un logo -->
+<div id="mensajeCargando" style="display:none;">
+<div class="sombra">
+    <div class="alert alert-info" role="alert">
+      <img src="../images/logoJulioVerneNuevo.png" alt="Cargando..." /><br>
+      Guardando la guardia, por favor espera...
+      </div>
+    </div>
+  </div>
     <div id="formulario" class="mx-auto mt-3" style="width:400px;">
 
         <!-- PHP_SELF para enviar al mismo archivo -->
-        <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+        <form method="POST" action="<?php echo htmlspecialchars(string: $_SERVER["PHP_SELF"]); ?>" onsubmit="mostrarMensajeCargando()">
             <div class="mb-3">
                 <div class="form-floating mb-3">
                     <input type="date" name="fecha" class="form-control" id="floatingInput" placeholder="name@example.com" required>
@@ -231,11 +252,20 @@
                 </div>
 
 
-                <button type="submit" class="btn btn-primary">Guardar</button>
-
+                <div class="d-flex justify-content-center">
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</div>
         </form>
     </div>
     </div>
     <?php
         include('../archivosComunes/footer.php');
     ?>
+
+
+    <!-- JavaScript para mostrar el mensaje emergente -->
+    <script>
+        function mostrarMensajeCargando() {
+            document.getElementById("mensajeCargando").style.display = "block";
+        }
+    </script>

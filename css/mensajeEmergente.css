@@ -1,0 +1,36 @@
+/* Estilos para el mensaje emergente */
+#mensajeCargando {
+    position: fixed;
+    top: 0; /* El mensaje aparecerá al 30% de la altura de la pantalla */
+    left: 0; /* Lo posicionamos al 50% del ancho de la pantalla */
+    
+    z-index: 1001; /* Aseguramos que el mensaje esté por encima de la sombra */
+  }
+  
+  .sombra {
+    position: fixed;
+    top: 0; /* Cubrir la parte superior de la pantalla */
+    left: 0; /* Cubrir el lado izquierdo de la pantalla */
+    width: 100vw; /* Asegura que cubra todo el ancho de la ventana */
+    height: 100vh; /* Asegura que cubra todo el alto de la ventana */
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.7); /* Sombra que cubre toda la pantalla */
+    z-index: 1000; /* Debe estar detrás del mensaje */
+    display: flex; /* Para centrar el mensaje en la sombra */
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+  }
+  
+  #mensajeCargando .alert {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  #mensajeCargando img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 15px;
+  }
+  

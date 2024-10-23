@@ -38,7 +38,7 @@
                     margin: 15% auto;
                     padding: 20px;
                     border: 1px solid #888;
-                    width: 30%;
+                    width: 50%;
                     border-radius: 10px;
                     text-align: center;
                 }

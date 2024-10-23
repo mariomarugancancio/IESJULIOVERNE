@@ -42,6 +42,7 @@
                                                           ORDER BY p.fecha DESC");
                                 $consulta->execute(array($cod_expulsion));
                                 $alumno = $consulta->fetch();
+                       
                                 $consulta->execute(array($cod_expulsion));
                                 $tipoExpulsion = $consulta->fetch();
                                $consulta->execute(array($cod_expulsion));
@@ -92,7 +93,8 @@
                                 if (isset($partes)) {
                                     $i=1;
                                     foreach ($partes as $parte) {
-                                        
+                                        echo '  <input hidden type="text" id="matricula" name="matricula[]" value="' . $parte['matricula'] . '">';
+
                                         echo '<input type="checkbox" id="'.$i.'" name="partes[]" value="' . $parte['cod_parte'] . '">';
                                         echo '<label for='.$i.'"">'.$i.'. ' . $parte['nombreProfesorCompleto'] . ' - ' . $parte['fecha_Comunicacion'] .' / '. $parte['puntos'] .'</label><br>';
                                           $i=$i+1;
@@ -102,7 +104,7 @@
                             ?>
                         </div>
                     </div>
-      
+
                     <button type="submit" name="Expulsar"  value="<?php echo isset($alumno['cod_expulsion']) ? $alumno['cod_expulsion'] : ''; ?>" class="btn btn-danger m-1 boton">Expulsar</button>
                 </form>  
                 <button class="btn btn-danger mt-4" onclick="eliminarExpulsion(<?php echo $cod_expulsion; ?>)">Eliminar Expulsión</button>
@@ -110,7 +112,7 @@
             </div>
 
         </div>  
-        ?>
+        
         <?php
        }
             ?>
@@ -184,6 +186,7 @@
                     $fecha_inicio = $_POST["fecha_inicio"];
                     $fecha_fin = $_POST["fecha_final"];
                     $tipo_expulsion = $_POST["tipoExpulsion"];
+                    $matricula_Alumno = $_POST["matricula"];
 
                     $actualizar_Expulsion = $db->prepare("UPDATE Expulsiones SET fecha_Inicio = ?, Fecha_Fin = ?, tipo_expulsion = ?  WHERE cod_expulsion = ?");
                     $result = $actualizar_Expulsion->execute(array($fecha_inicio, $fecha_fin, $tipo_expulsion, $cod_expulsion));
@@ -191,9 +194,8 @@
                     if (!$result) {
                         throw new Exception("Error al actualizar la expulsión.");
                     }
-                
+                    
                     $partes = $_POST["partes"];
-           
                     foreach ($partes as $parte) {
                         $Añadir_Parte_Expulsion = $db->prepare("INSERT INTO PartesExpulsiones(cod_parte, cod_expulsion) VALUES (?, ?)");
                         $result = $Añadir_Parte_Expulsion->execute(array($parte, $cod_expulsion));
@@ -207,9 +209,13 @@
                     }
                 
                     $db->commit();
+                    
+                    include("./funcionalidad/insertarExpulsionSinPartes.php");
+
+
                     print "
                     <script>
-                    window.location = 'verExpulsiones.php?insertado=1';
+                    window.location = 'verExpulsionesConfirmadas.php?insertado=1';
                     </script>"; 
                     exit();
                 } catch (Exception $e) {
@@ -217,7 +223,7 @@
                     echo "Error: " . $e->getMessage();
                     print "
                     <script>
-                    window.location = 'verExpulsiones.php?insertado=0';
+                    window.location = 'verExpulsionesPendientes.php?insertado=0';
                     </script>"; 
                     exit();
                 }
@@ -225,7 +231,7 @@
             } else {
                 print "
                 <script>
-                window.location = 'verExpulsiones.php?insertado=2';
+                window.location = 'verExpulsionesPendientes.php?insertado=2';
                 </script>"; 
                 exit();            
             }

@@ -15,14 +15,25 @@ require_once('./funciones/loginRequerido.php');
   <link rel="stylesheet" href="../../css/styles.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
   <link rel="shortcut icon" href="../../images/logoJulioVerneNuevo.png">
+  <link rel="stylesheet" href="../../css/mensajeEmergente.css">
 
   <title>Crear Incidencia</title>
+
 </head>
 
 <body>
   <?php
   require_once("funciones/header.php");
   ?>
+<!-- Mensaje emergente mientras se guarda la tarea con un logo -->
+<div id="mensajeCargando" style="display:none;">
+<div class="sombra">
+    <div class="alert alert-info" role="alert">
+      <img src="../../images/logoJulioVerneNuevo.png" alt="Cargando..." /><br>
+      Guardando la incidencia, por favor espera...
+      </div>
+    </div>
+  </div>
   <section>
     <article>
       <div class="container px-4 py-5" id="editarPerfil">
@@ -83,6 +94,13 @@ require_once('./funciones/loginRequerido.php');
     </article>
   </section>
   <script src="../js/bootstrap.min.js"></script>
+  <script>
+        // Mostrar mensaje de guardado al enviar el formulario
+        document.querySelector('form').addEventListener('submit', function() {
+      document.getElementById('mensajeCargando').style.display = 'block';
+    });
+
+  </script>
   <?php
     require_once("funciones/footer.php");
   ?>
