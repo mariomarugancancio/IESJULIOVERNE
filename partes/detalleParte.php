@@ -10,6 +10,7 @@
     <!-- Bootstrap CSS v5.2.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
     <link rel="shortcut icon" href="../images/logoJulioVerneNuevo.png">
+    <link rel="stylesheet" href="../css/confirmarEliminarr.css">
 
     <style>
         .card-rounded {
@@ -25,6 +26,22 @@
             require_once "./archivosComunes/navPartes.php";
         ?>
     </header>
+    <!-- Modal personalizado -->
+<div id="customConfirm" class="modal">
+    <div class="modal-content">
+        <p>¿Está seguro de que desea borrar este parte?</p>
+        <button id="confirmBtn" class="btnConfirmar btn-success">Sí, borrar</button>
+        <button id="cancelBtn" class="btnConfirmar btn-danger">No, cancelar</button>
+    </div>
+</div>
+    <!-- Modal personalizado -->
+    <div id="customConfirmCaducar" class="modal">
+    <div class="modal-content">
+        <p>¿Está seguro de que desea caducar este parte?</p>
+        <button id="confirmBtnCaducar" class="btnConfirmar btn-success">Sí, borrar</button>
+        <button id="cancelBtnCaducar" class="btnConfirmar btn-danger">No, cancelar</button>
+    </div>
+</div>
     <main class="p-4 col-11 m-auto">
         <div class=" m-2">
         <?php
@@ -99,18 +116,56 @@
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
 
     <script>
+        
         function eliminarParte(cod_parte) {
-            if (confirm("¿Estás seguro de que quieres eliminar este parte?")) {
-                // Redirigir a la página de eliminación con el código del parte
-                window.location.href = "./funcionalidad/eliminarParte.php?cod_parte=" + cod_parte;
-            }
+            // Mostrar el modal personalizado
+        var modal = document.getElementById("customConfirm");
+        modal.style.display = "block";
+
+        // Manejo del botón confirmar
+        document.getElementById("confirmBtn").onclick = function() {
+            // Redirigir a la página de eliminación con el código del parte
+            window.location.href = "./funcionalidad/eliminarParte.php?cod_parte=" + cod_parte;
+        };
+
+        // Manejo del botón cancelar
+        document.getElementById("cancelBtn").onclick = function() {
+            modal.style.display = "none"; // Cerrar el modal si cancela
+        };
+    }
+
+    // Opción para cerrar el modal si se hace clic fuera de él
+    window.onclick = function(event) {
+        var modal = document.getElementById("customConfirm");
+        if (event.target == modal) {
+            modal.style.display = "none";
         }
-        function caducarParte(cod_parte) {
-            if (confirm("¿Estás seguro de que quieres caducar este parte?")) {
-                // Redirigir a la página de eliminación con el código del parte
-                window.location.href = "./funcionalidad/caducarParte.php?cod_parte=" + cod_parte;
-            }
+    };
+    function caducarParte(cod_parte) {
+            // Mostrar el modal personalizado
+        var modal = document.getElementById("customConfirmCaducar");
+        modal.style.display = "block";
+
+        // Manejo del botón confirmar
+        document.getElementById("confirmBtnCaducar").onclick = function() {
+            // Redirigir a la página de eliminación con el código del parte
+            window.location.href = "./funcionalidad/caducarParte.php?cod_parte=" + cod_parte;
+        };
+
+        // Manejo del botón cancelar
+        document.getElementById("cancelBtnCaducar").onclick = function() {
+            modal.style.display = "none"; // Cerrar el modal si cancela
+        };
+    }
+
+    // Opción para cerrar el modal si se hace clic fuera de él
+    window.onclick = function(event) {
+        var modal = document.getElementById("customConfirmCaducar");
+        if (event.target == modal) {
+            modal.style.display = "none";
         }
+    };
+
     </script>
 </body>
 

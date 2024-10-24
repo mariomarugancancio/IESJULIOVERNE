@@ -7,10 +7,10 @@
     <title>Guardias</title>
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <script src="../js/bootstrap.bundle.min.js"></script>
-    <script src="https://kit.fontawesome.com/d7bc41fc30.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/0a601e401a.js" crossorigin="anonymous"></script>
     <script src="js/paginacion.js"></script>
     <link rel="shortcut icon" href="../images/logoJulioVerneNuevo.png">
-    <link rel="stylesheet" href="../css/confirmarEliminar.css">
+    <link rel="stylesheet" href="../css/confirmarEliminarr.css">
 
     <!-- <style>
       @media (min-width: 768px) {
@@ -25,8 +25,8 @@
 <div id="customConfirm" class="modal">
     <div class="modal-content">
         <p>¿Está seguro de que desea borrar esta guardia?</p>
-        <button id="confirmBtn" class="btn btn-success">Sí, borrar</button>
-        <button id="cancelBtn" class="btn btn-danger">No, cancelar</button>
+        <button id="confirmBtn" class="btnConfirmar btn-success">Sí, borrar</button>
+        <button id="cancelBtn" class="btnConfirmar btn-danger">No, cancelar</button>
     </div>
 </div>
   <?php

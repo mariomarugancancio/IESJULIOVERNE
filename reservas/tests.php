@@ -3,7 +3,14 @@ session_start();
 if (isset($_SESSION['usuario_login']) && $_SESSION['usuario_login']['cod_usuario'] == '0') {
     include_once('./fragments/headers.php');
 ?>
-
+      <!-- Modal personalizado -->
+      <div id="customConfirm" class="modal">
+    <div class="modal-content">
+        <p id="mensajeEliminar"></p>
+        <button id="confirmBtn" class="btnConfirmar btn-success">Sí</button>
+        <button id="cancelBtn" class="btnConfirmar btn-danger">No, cancelar</button>
+    </div>
+</div>
 <main class="container mx-auto px-5 py-2">
     <h3 class="text-center my-2 p-2">PÁGINA DE PRUEBAS - DEBUG</h3>
     <table id="misreservas" class="table table-striped table-bordered w-100 nowrap">
@@ -150,7 +157,14 @@ if (isset($_SESSION['usuario_login']) && $_SESSION['usuario_login']['cod_usuario
 
     
     function editarReserva(){
-        if(confirm('¿Cambiar datos de la reserva?')){
+                 // Mostrar el modal personalizado
+      var mensaje =document.getElementById("mensajeEliminar");
+        mensaje.innerHTML= "¿Cambiar datos de la reserva?";
+        var modal = document.getElementById("customConfirm");
+        modal.style.display = "block";
+
+        // Manejo del botón confirmar
+        document.getElementById("confirmBtn").onclick = function() {
             formData = getEditForm()
             $.ajax({
                 type: "POST",
@@ -174,17 +188,38 @@ if (isset($_SESSION['usuario_login']) && $_SESSION['usuario_login']['cod_usuario
                         console.log(r);
                         showError(r.error, 15000)
                     }
+                    modal.style.display = "none"; // Cerrar el modal si cancela
+
                 },
                 error: function(e){
                     console.log(e);
                     showError('ERROR EN LA PETICIÓN<br>Si persiste, contacte con jefatura')
                 }
             })
-        }
-    }
+        };
 
+        // Manejo del botón cancelar
+        document.getElementById("cancelBtn").onclick = function() {
+            modal.style.display = "none"; // Cerrar el modal si cancela
+        };
+      
+    }
+  // Opción para cerrar el modal si se hace clic fuera de él
+    window.onclick = function(event) {
+        var modal = document.getElementById("customConfirm");
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    };
     function borrarReserva(rid,row){
-        if(confirm('¿Estás seguro de eliminar esta reserva? No se podrá recuperar'))
+                 // Mostrar el modal personalizado
+      var mensaje =document.getElementById("mensajeEliminar");
+        mensaje.innerHTML= "¿Estás seguro de eliminar esta reserva? No se podrá recuperar?";
+        var modal = document.getElementById("customConfirm");
+        modal.style.display = "block";
+
+        // Manejo del botón confirmar
+        document.getElementById("confirmBtn").onclick = function() {
             $.ajax({
                 type: "POST",
                 data: { rid: rid },
@@ -199,12 +234,21 @@ if (isset($_SESSION['usuario_login']) && $_SESSION['usuario_login']['cod_usuario
                         console.log(r);
                         showError(r.error, 15000)
                     }
+                    modal.style.display = "none"; // Cerrar el modal si cancela
+
                 },
                 error: function(e){
                     console.log(e);
                     showError('ERROR EN LA PETICIÓN<br>Si persiste, contacte con jefatura')
                 }
             })
+        };
+
+        // Manejo del botón cancelar
+        document.getElementById("cancelBtn").onclick = function() {
+            modal.style.display = "none"; // Cerrar el modal si cancela
+        };
+           
     }
 
     function getEditForm(){

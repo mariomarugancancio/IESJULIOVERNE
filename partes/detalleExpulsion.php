@@ -10,6 +10,7 @@
     <!-- Bootstrap CSS v5.2.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
     <link rel="shortcut icon" href="../images/logoJulioVerneNuevo.png">
+    <link rel="stylesheet" href="../css/confirmarEliminarr.css">
 
 </head>
 
@@ -19,6 +20,14 @@
         require_once "./archivosComunes/navPartes.php";
         ?>
     </header>
+        <!-- Modal personalizado -->
+<div id="customConfirm" class="modal">
+    <div class="modal-content">
+        <p>"¿Estás seguro de que quieres eliminar esta expulsión?"</p>
+        <button id="confirmBtn" class="btnConfirmar btn-success">Sí, borrar</button>
+        <button id="cancelBtn" class="btnConfirmar btn-danger">No, cancelar</button>
+    </div>
+</div>
     <main class="p-4 col-11 m-auto">
         <div class=" m-2">
             <?php
@@ -127,11 +136,32 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
     <script>
+        
+
         function eliminarExpulsion(cod_expulsion) {
-            if (confirm("¿Estás seguro de que quieres eliminar esta expulsión?")) {
-                window.location.href = "./funcionalidad/eliminarExpulsion.php?cod_expulsion=" + cod_expulsion;
-            }
+            // Mostrar el modal personalizado
+        var modal = document.getElementById("customConfirm");
+        modal.style.display = "block";
+
+        // Manejo del botón confirmar
+        document.getElementById("confirmBtn").onclick = function() {
+            window.location.href = "./funcionalidad/eliminarExpulsion.php?cod_expulsion=" + cod_expulsion;
+        };
+
+        // Manejo del botón cancelar
+        document.getElementById("cancelBtn").onclick = function() {
+            modal.style.display = "none"; // Cerrar el modal si cancela
+        };
+    }
+
+    // Opción para cerrar el modal si se hace clic fuera de él
+    window.onclick = function(event) {
+        var modal = document.getElementById("customConfirm");
+        if (event.target == modal) {
+            modal.style.display = "none";
         }
+    };
+
         function pdfExpulsionCasa(cod_expulsion) {
                 window.location.href = "./funcionalidad/pdfExpulsionCasa.php?cod_expulsion=" + cod_expulsion;
         }

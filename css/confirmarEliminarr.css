@@ -1,6 +1,6 @@
 
         /* Estilo para el modal */
-        .modal {
+        #customConfirm {
             display: none; /* Ocultar inicialmente */
             position: fixed;
             z-index: 1000;
@@ -10,7 +10,7 @@
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
         }
-        .modal-content {
+        #customConfirm .modal-content {
             background-color: #fff;
             margin: 15% auto;
             padding: 20px;
@@ -19,7 +19,7 @@
             border-radius: 10px;
             text-align: center;
         }
-        .btn {
+        #customConfirm .btnConfirmar {
             padding: 10px 20px;
             margin: 10px;
             border: none;
@@ -27,11 +27,11 @@
             font-size: 16px;
             border-radius: 5px;
         }
-        .btn-success {
+        #customConfirm .btn-success {
             background-color: #28a745;
             color: white;
         }
-        .btn-danger {
+        #customConfirm .btn-danger {
             background-color: #dc3545;
             color: white;
         }

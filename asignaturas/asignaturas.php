@@ -10,9 +10,10 @@
     <title>Asignaturas</title>
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <script src="https://kit.fontawesome.com/d7bc41fc30.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/0a601e401a.js" crossorigin="anonymous"></script>
     <script src="./js/paginacion.js"></script>
     <link rel="shortcut icon" href="../images/logoJulioVerneNuevo.png">
+    <link rel="stylesheet" href="../css/confirmarEliminarr.css">
 
     <style>
       .aniadirdiv{
@@ -44,6 +45,14 @@
         require_once('../archivosComunes/loginRequerido.php');
       }
   ?>
+  <!-- Modal personalizado -->
+<div id="customConfirm" class="modal">
+    <div class="modal-content">
+        <p id="mensajeEliminar">¿Está seguro de que desea borrar esta asignatura?</p>
+        <button id="confirmBtn" class="btnConfirmar btn-success">Sí, borrar</button>
+        <button id="cancelBtn" class="btnConfirmar btn-danger">No, cancelar</button>
+    </div>
+</div>
   <div style="  position: fixed; bottom: 70px; right: 20px;">
     <a href="#" onclick="aniadir();"><i class="fa-solid fa-address-book fa-2xl"></i></a>
   </div>
@@ -137,12 +146,34 @@ function editar(cod_asignatura){
 }
 
     
-    function borrar(cod_asignatura, nombre, curso){
-    if (confirm("¿Está seguro de que desea borrar la asignatura "+nombre+" de "+curso+ "?")) {
-      var url = "borrarAsignaturas.php?cod_asignatura=" + cod_asignatura;
-      window.location.href = url;
+function borrar(cod_asignatura, nombre, curso){
+      var mensaje =document.getElementById("mensajeEliminar");
+        mensaje.innerHTML= "¿Está seguro de que desea borrar la asignatura "+nombre+" de "+curso+ "?";
+
+        // Mostrar el modal personalizado
+        var modal = document.getElementById("customConfirm");
+        modal.style.display = "block";
+
+        // Manejo del botón confirmar
+        document.getElementById("confirmBtn").onclick = function() {
+          var url = "borrarAsignaturas.php?cod_asignatura=" + cod_asignatura;
+          window.location.href = url;
+        };
+
+        // Manejo del botón cancelar
+        document.getElementById("cancelBtn").onclick = function() {
+            modal.style.display = "none"; // Cerrar el modal si cancela
+        };
     }
-  }
+
+    // Opción para cerrar el modal si se hace clic fuera de él
+    window.onclick = function(event) {
+        var modal = document.getElementById("customConfirm");
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    };
+
 
   function aniadir(){
     var div = document.querySelector(".aniadirdiv");

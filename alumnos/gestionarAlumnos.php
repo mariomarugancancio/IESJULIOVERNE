@@ -9,10 +9,11 @@
     <!-- Bootstrap CSS v5.2.1 -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <script src="../js/bootstrap.bundle.min.js"></script>
-    <script src="https://kit.fontawesome.com/d7bc41fc30.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/0a601e401a.js" crossorigin="anonymous"></script>
     <script src="./js/paginacionFiltroAlumnos.js"></script>
 
     <link rel="shortcut icon" href="../images/logoJulioVerneNuevo.png">
+    <link rel="stylesheet" href="../css/confirmarEliminarr.css">
 
 </head>
 
@@ -54,7 +55,14 @@
     }
 
     ?>
-
+      <!-- Modal personalizado -->
+      <div id="customConfirm" class="modal">
+    <div class="modal-content">
+        <p id="mensajeEliminar">¿Está seguro de que desea borrar este alumno?</p>
+        <button id="confirmBtn" class="btnConfirmar btn-success">Sí, borrar</button>
+        <button id="cancelBtn" class="btnConfirmar btn-danger">No, cancelar</button>
+    </div>
+</div>
     <main class="container mt-3">
 
         <div class="d-flex justify-content-between flex-wrap">
@@ -208,11 +216,32 @@
     }
 
     function eliminarAlumno(matricula) {
-        if (confirm("¿Está seguro de que desea borrar este alumno?")) {
+
+      // Mostrar el modal personalizado
+      var mensaje =document.getElementById("mensajeEliminar");
+        mensaje.innerHTML= "¿Está seguro de que desea borrar este alumno?"
+        var modal = document.getElementById("customConfirm");
+        modal.style.display = "block";
+
+        // Manejo del botón confirmar
+        document.getElementById("confirmBtn").onclick = function() {
             var url = "./funcionalidad/eliminarAlumno.php?matricula=" + encodeURIComponent(matricula);
-            window.location.href = url;
-        }
+          window.location.href = url;
+        };
+
+        // Manejo del botón cancelar
+        document.getElementById("cancelBtn").onclick = function() {
+            modal.style.display = "none"; // Cerrar el modal si cancela
+        };
     }
+
+    // Opción para cerrar el modal si se hace clic fuera de él
+    window.onclick = function(event) {
+        var modal = document.getElementById("customConfirm");
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    };
 </script>
 
 </html>

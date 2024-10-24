@@ -32,7 +32,7 @@ INSERT INTO Departamentos(referencia, nombre, jefe, ubicacion) VALUES
 ('bio', 'DPTO Biología y geología', 'x', 'xxx'),
 ('gri', 'DPTO Griego', 'x', 'xxx'),
 ('eco', 'DPTO Economía', 'x', 'xxx'),
-('iesjv', 'Centro', 'x', 'xxx');
+('iesjv', 'Centro', 'x', 'xxx'),
 ('fol', 'DPTO FOL', 'x', 'xxx');
 
 -- tabla usuarios

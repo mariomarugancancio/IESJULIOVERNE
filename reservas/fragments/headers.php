@@ -36,6 +36,7 @@
 
     <!-- Estilos propios -->
     <link href="./static/css/estilos.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/confirmarEliminarr.css">
 
 </head>
 

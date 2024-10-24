@@ -6,6 +6,14 @@
         include_once('./fragments/headers.php');
 
 ?>
+      <!-- Modal personalizado -->
+      <div id="customConfirm" class="modal">
+    <div class="modal-content">
+        <p id="mensajeEliminar"></p>
+        <button id="confirmBtn" class="btnConfirmar btn-success">Sí</button>
+        <button id="cancelBtn" class="btnConfirmar btn-danger">No, cancelar</button>
+    </div>
+</div>
     <main class="container">
         <h3 class="text-center pt-4">Zona de Administradores</h3>
         <nav>
@@ -65,8 +73,8 @@
             <div class="tab-pane fade shadow rounded-bottom border border-primary py-2 px-4" id="tab-db" role="tabpanel" aria-labelledby="nav-db-tab">
                 <p class="text-center fw-bold fs-4">Funciones relacionadas con la base de datos</p>
                 <div class="">
-                    <button class="btn btn-warning" title="Crea un archivo de volcado de la tabla reservas" onclick="if(confirm('¿Seguro/a de realizar el volcado?')) reservasBackup()">Backup 'Reservas'</button>
-                    <button class="btn btn-danger" title="Borra todos los registros de la tabla reservas" onclick="if(confirm('¿Estás seguro/a? Se creará un archivo de volcado y luego se vaciará la tabla por completo.')) clearReservas()">Borrar 'Reservas'</button>
+                    <button class="btn btn-warning" title="Crea un archivo de volcado de la tabla reservas" onclick="reservasBackup()">Backup 'Reservas'</button>
+                    <button class="btn btn-danger" title="Borra todos los registros de la tabla reservas" onclick="clearReservas()">Borrar 'Reservas'</button>
                 </div>
                 <div class="col">
                     <div class="d-inline-flex mt-4">
@@ -162,8 +170,15 @@
 
         // FUNCIONES PARA USUARIOS
         function activarUsuario(uid,row){
-            if(confirm('¿Estás seguro/a de activar este usuario?'))
-                $.ajax({
+                          // Mostrar el modal personalizado
+      var mensaje =document.getElementById("mensajeEliminar");
+        mensaje.innerHTML= "¿Estás seguro/a de activar este usuario?";
+        var modal = document.getElementById("customConfirm");
+        modal.style.display = "block";
+
+        // Manejo del botón confirmar
+        document.getElementById("confirmBtn").onclick = function() {
+            $.ajax({
                     type: "POST",
                     data: { uid: uid },
                     url: "./api/users/verificarUser",
@@ -177,17 +192,35 @@
                             console.log(r);
                             showError(r.error, 15000)
                         }
+                        modal.style.display = "none";
+
                     },
                     error: function(e){
                         console.log(e);
                         showError('ERROR EN LA PETICIÓN<br>Si persiste, contacte con jefatura')
                     }
                 })
+        };
+
+        // Manejo del botón cancelar
+        document.getElementById("cancelBtn").onclick = function() {
+            modal.style.display = "none"; // Cerrar el modal si cancela
+        };
+    
+
+               
         }
 
         function eliminarUsuario(uid,row){
-            if(confirm('¿Estás seguro/a de eliminar este usuario? Esto es irreversible'))
-                $.ajax({
+                                      // Mostrar el modal personalizado
+      var mensaje =document.getElementById("mensajeEliminar");
+        mensaje.innerHTML= "¿Estás seguro/a de eliminar este usuario? Esto es irreversible";
+        var modal = document.getElementById("customConfirm");
+        modal.style.display = "block";
+
+        // Manejo del botón confirmar
+        document.getElementById("confirmBtn").onclick = function() {
+            $.ajax({
                     type: "POST",
                     data: { uid: uid },
                     url: "./api/users/borrarUser",
@@ -201,12 +234,22 @@
                             console.log(r);
                             showError(r.error, 15000)
                         }
+                        modal.style.display = "none";
+
                     },
                     error: function(e){
                         console.log(e);
                         showError('ERROR EN LA PETICIÓN<br>Si persiste, contacte con jefatura')
                     }
                 })
+        };
+
+        // Manejo del botón cancelar
+        document.getElementById("cancelBtn").onclick = function() {
+            modal.style.display = "none"; // Cerrar el modal si cancela
+        };
+    
+               
         }
 
         function getUsuarios(toast = false){
@@ -397,8 +440,15 @@
         }
 
         function borrarReserva(rid, row){
-            if(confirm(`¿Borrar de forma permanente la reserva con ID ${rid}? NO se podrá recuperar`))
-                $.ajax({
+                                      // Mostrar el modal personalizado
+      var mensaje =document.getElementById("mensajeEliminar");
+        mensaje.innerHTML= "¿Borrar de forma permanente la reserva con ID ${rid}? NO se podrá recuperar?";
+        var modal = document.getElementById("customConfirm");
+        modal.style.display = "block";
+
+        // Manejo del botón confirmar
+        document.getElementById("confirmBtn").onclick = function() {
+            $.ajax({
                     type: "POST",
                     data: { rid: rid },
                     url: "./api/reservas/borrarReserva",
@@ -412,12 +462,22 @@
                             // console.log(r);
                             showError(r.error, 15000)
                         }
+                        modal.style.display = "none";
+
                     },
                     error: function(e){
                         // console.log(e);
                         showError('ERROR EN LA PETICIÓN<br>Si persiste, contacte con jefatura')
                     }
                 })
+        };
+
+        // Manejo del botón cancelar
+        document.getElementById("cancelBtn").onclick = function() {
+            modal.style.display = "none"; // Cerrar el modal si cancela
+        };
+    
+              
         }
 
 
@@ -476,6 +536,14 @@
         }
 
         function clearReservas(){
+                                            // Mostrar el modal personalizado
+      var mensaje =document.getElementById("mensajeEliminar");
+        mensaje.innerHTML= "¿Estás seguro/a? Se creará un archivo de volcado y luego se vaciará la tabla por completo.";
+        var modal = document.getElementById("customConfirm");
+        modal.style.display = "block";
+
+        // Manejo del botón confirmar
+        document.getElementById("confirmBtn").onclick = function() {
             $.ajax({
                 type: "POST",
                 data: {},
@@ -489,15 +557,33 @@
                         // console.log(r);
                         showError(r.error, 15000)
                     }
+                    modal.style.display = "none";
+
                 },
                 error: function(e){
                     // console.log(e);
                     showError('ERROR EN LA PETICIÓN<br>Si persiste, contacte con jefatura')
                 }
             })
+        };
+
+        // Manejo del botón cancelar
+        document.getElementById("cancelBtn").onclick = function() {
+            modal.style.display = "none"; // Cerrar el modal si cancela
+        };
+    
+          
         }
 
         function reservasBackup(){
+              // Mostrar el modal personalizado
+      var mensaje =document.getElementById("mensajeEliminar");
+        mensaje.innerHTML= "¿Seguro/a de realizar el volcado?";
+        var modal = document.getElementById("customConfirm");
+        modal.style.display = "block";
+
+        // Manejo del botón confirmar
+        document.getElementById("confirmBtn").onclick = function() {
             $.ajax({
                 type: "POST",
                 data: {},
@@ -511,14 +597,32 @@
                         // console.log(r);
                         showError(r.error, 15000)
                     }
+                    modal.style.display = "none";
+
                 },
                 error: function(e){
                     // console.log(e);
                     showError('ERROR EN LA PETICIÓN<br>Si persiste, contacte con jefatura')
                 }
             })
+        };
+
+        // Manejo del botón cancelar
+        document.getElementById("cancelBtn").onclick = function() {
+            modal.style.display = "none"; // Cerrar el modal si cancela
+        };
+    
+
+          
         }
 
+            // Opción para cerrar el modal si se hace clic fuera de él
+    window.onclick = function(event) {
+        var modal = document.getElementById("customConfirm");
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    };
         // GENERAL
         $('#allReservas tbody').on( 'click', 'button.btn-danger', function () {
             rid = parseInt($(this).attr('id'))

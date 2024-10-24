@@ -7,6 +7,14 @@
         $reservas = new Reservas();
         $todas = $reservas -> getByAutor($_SESSION["usuario_login"]['cod_usuario']);
 ?>
+      <!-- Modal personalizado -->
+      <div id="customConfirm" class="modal">
+    <div class="modal-content">
+        <p id="mensajeEliminar"></p>
+        <button id="confirmBtn" class="btnConfirmar btn-success">Sí</button>
+        <button id="cancelBtn" class="btnConfirmar btn-danger">No, cancelar</button>
+    </div>
+</div>
         <main class="container my-3">
             <h3 class="text-center">MIS RESERVAS</h3>
             <div class="row">
@@ -157,8 +165,15 @@
         })
 
         function editarReserva(){
-            if(confirm('¿Cambiar datos de la reserva?')){
-                formData = getEditForm()
+                     // Mostrar el modal personalizado
+      var mensaje =document.getElementById("mensajeEliminar");
+        mensaje.innerHTML= "¿Cambiar datos de la reserva?";
+        var modal = document.getElementById("customConfirm");
+        modal.style.display = "block";
+
+        // Manejo del botón confirmar
+        document.getElementById("confirmBtn").onclick = function() {
+            formData = getEditForm()
                 $.ajax({
                     type: "POST",
                     data: formData,
@@ -175,18 +190,39 @@
                             // console.log(r);
                             showError(r.error, 15000)
                         }
+                        modal.style.display = "none"; // Cerrar el modal si cancela
+
                     },
                     error: function(e){
                         // console.log(e);
                         showError('ERROR EN LA PETICIÓN<br>Si persiste, contacte con jefatura')
                     }
                 })
-            }
-        }
+        };
 
+        // Manejo del botón cancelar
+        document.getElementById("cancelBtn").onclick = function() {
+            modal.style.display = "none"; // Cerrar el modal si cancela
+        };
+          
+        }
+  // Opción para cerrar el modal si se hace clic fuera de él
+  window.onclick = function(event) {
+        var modal = document.getElementById("customConfirm");
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    };
         function borrarReserva(rid,row){
-            if(confirm('¿Estás seguro de eliminar esta reserva? No se podrá recuperar'))
-                $.ajax({
+                     // Mostrar el modal personalizado
+      var mensaje =document.getElementById("mensajeEliminar");
+        mensaje.innerHTML= "";
+        var modal = document.getElementById("customConfirm");
+        modal.style.display = "block";
+
+        // Manejo del botón confirmar
+        document.getElementById("confirmBtn").onclick = function() {
+            $.ajax({
                     type: "POST",
                     data: { rid: rid },
                     url: "./api/reservas/borrarReserva",
@@ -200,13 +236,21 @@
                             // console.log(r);
                             showError(r.error, 15000)
                         }
+                        modal.style.display = "none"; // Cerrar el modal si cancela
+
                     },
                     error: function(e){
                         // console.log(e);
                         showError('ERROR EN LA PETICIÓN<br>Si persiste, contacte con jefatura')
                     }
                 })
-        }
+        };
+
+        // Manejo del botón cancelar
+        document.getElementById("cancelBtn").onclick = function() {
+            modal.style.display = "none"; // Cerrar el modal si cancela
+        };
+    }
 
         function getEditForm(){
             var formData = {
