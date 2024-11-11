@@ -124,12 +124,10 @@
     </article>
     <section>
     <article>
-    Las Miniolimpiadas tendrán lugar en Albacete, Cuenca y Toledo. Las fechas y lugares de las jornadas son las siguientes:
-    <ul>
-            <li><span class="negrita">Toledo</span>: 17 de mayo de 2024. <span class="negrita">
-           aula magna del edificio 37</span> del Campus Tecnológico de la Fábrica de Armas de Toledo. <a target="_blank" href="https://iesbargas.es/olimpiadasfyq/index.php">fyqminiolimpiadas de Toledo</a></li>
-            <li><span class="negrita">Albacete</span>: 23 de mayo de 2024. <span class="negrita">Escuela Superior de Ingeniería Informática del campus de Albacete</span>. <a target="_blank" href="https://sites.google.com/view/fyqminiolimpiadas/inicio">fyqminiolimpiadas de Albacete</a></li>
-            <li><span class="negrita">Cuenca</span>: 23 de mayo de 2024. <span class="negrita">Villanueva de la Jara</span>.</li>
+    Las Miniolimpiadas tendrán lugar en Albacete, Cuenca y Toledo. Las fechas y lugares de las jornadas son las siguientes:     <ul>
+            <li><span class="negrita">Toledo: 7 de mayo de 2025. aula “Envases de Cartón” del Campus Tecnológico de la Fábrica de Armas de Toledo.</span></li>
+            <li><span class="negrita">Albacete</span>: Fecha y lugar sin determinar. </li>
+            <li><span class="negrita">Cuenca</span>:  Fecha y lugar sin determinar.</li>
     </ul>
        
   </article>

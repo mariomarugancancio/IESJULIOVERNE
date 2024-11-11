@@ -3,7 +3,8 @@
         "mpdf/mpdf": "^8.1",
         "phpmailer/phpmailer": "^6.8",
         "phpoffice/phpspreadsheet": "^1.28",
-        "twilio/sdk": "^8.3"
+        "twilio/sdk": "^8.3",
+        "endroid/qr-code": "^6.0"
     }
     
 }

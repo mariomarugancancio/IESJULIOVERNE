@@ -2,7 +2,7 @@
   <nav id="navegador" class="navbar navbar-expand-md navbar-light" style="background-color: rgba(0, 0, 0, 0.2)">
     <div class="container-fluid">
       <a class="navbar-brand" href="funciones/rolApp.php">
-        <img src="../images/logoJulioVerne.png" width="65px" height="65px">
+        <img src="../../images/logoJulioVerneNuevo.png" width="65px" height="65px">
         <span class="text-dark" style="font-size: 18px;">
           <?php
           require_once('funciones/bienvenido.php');

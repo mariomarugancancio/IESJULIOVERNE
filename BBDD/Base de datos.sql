@@ -188,10 +188,68 @@ CREATE TABLE Reservas(
 );
 
 
+CREATE TABLE Aulas (
+  aula varchar(20) PRIMARY KEY
+);
+
+INSERT INTO Aulas VALUES 
+('Althia 1'),
+('B0.4'),
+('A1.1'),
+('B1.4'),
+('GIMNASIO'),
+('P Izquie'),
+('Taller1'),
+('Taller2'),
+('B0.1'),
+('B0.6'),
+('A0.1'),
+('A0.2'),
+('A0.3'),
+('A0.4'),
+('A0.6'),
+('A0.7'),
+('A1.2'),
+('A1.3'),
+('A1.4'),
+('A1.5'),
+('A1.6'),
+('A1.7'),
+('Plást1'),
+('A2.1'),
+('A2.2'),
+('A2.3'),
+('A2.4'),
+('B0.3'),
+('B0.5'),
+('B1.1'),
+('B1.2'),
+('C0.5'),
+('B1.3'),
+('Plást2'),
+('B0.2'),
+('D1.1'),
+('D1.2'),
+('D1.3'),
+('D1.4'),
+('B2.1'),
+('B2.2'),
+('LabFísic'),
+('LabBiolo'),
+('Música1'),
+('C1.8'),
+('Salón ac'),
+('P Derech'),
+('A0.5'),
+('B2.3'),
+('B2.4');
+
+
 CREATE TABLE Cursos (
   grupo varchar(20) NOT NULL PRIMARY KEY,
   aula varchar(20),
-  curso VARCHAR(30) NOT NULL
+  curso VARCHAR(30) NOT NULL,
+  FOREIGN KEY (aula) REFERENCES Aulas(aula) ON UPDATE CASCADE ON DELETE SET NULL
 );
 
 INSERT INTO Cursos (grupo, aula, curso) VALUES
@@ -252,6 +310,8 @@ CREATE TABLE Alumnos (
   apellidos varchar(50),
   grupo varchar(20),
   saldo DECIMAL(10,2) DEFAULT 0,
+  qr_datos TEXT  NOT NULL,
+  qr_imagen LONGBLOB  NOT NULL,
   FOREIGN KEY (grupo) REFERENCES Cursos(grupo)
 );
 
@@ -506,39 +566,41 @@ CREATE TABLE Incidencias (
   cod_incidencia INT PRIMARY KEY AUTO_INCREMENT,
   nombre varchar(150) NOT NULL,
   puntos int(11) NOT NULL,
-  descripcion text
+  descripcion text,
+  tipo varchar(75) NOT NULL
   );
 
 
-INSERT INTO Incidencias (nombre, puntos, descripcion) VALUES
-('Desconsideración con otros miembros de la comunidad escolar.', 3, 'Desconsideración con otros miembros de la comunidad escolar.'),
-('Faltas injustificadas de asistencia a clase o de puntualidad.', 3, 'Faltas injustificadas de asistencia a clase o de puntualidad. '),
-('Interrupción del normal desarrollo de las clases.', 3, 'Interrupción del normal desarrollo de las clases.'),
-('Actos de indisciplina contra miembros de la comunidad escolar.', 5, 'Actos de indisciplina contra miembros de la comunidad escolar.'),
-('Alteración del desarrollo normal de las actividades del centro.', 5, 'Alteración del desarrollo normal de las actividades del centro.'),
-('Deterioro intencionado de material del centro o de otros miembros de la CE.', 5, 'Deterioro, causado intencionadamente, de las dependencias del centro, de su material, o materiales de otros miembros de la comunidad educativa.'),
-('Acoso o la violencia contra las personas.', 10, 'Acoso o la violencia contra las personas, y las actuaciones perjudiciales para la salud y la integridad personal.'),
-('Acoso o violencia contra el profesorado y las actuaciones perjudiciales para su salud e IP.', 10, 'Acoso o violencia contra el profesorado y las actuaciones perjudiciales para su salud y su integridad personal.'),
-('Actos de indisciplina perjudiciales para el profesorado o el funcionamiento de la clase.', 10, 'Actos de indisciplina perjudiciales para el profesorado o el funcionamiento de la clase.'),
-('Actos de indisciplina que alteren gravemente el desarrollo normal de las actividades del centro.', 10, 'Actos de indisciplina que alteren gravemente el desarrollo normal de las actividades del centro.'),
-('Actos que menoscaben la autoridad del profesorado y perturban el desarrollo de las clases.', 10, 'Actos que menoscaben la autoridad del profesorado y perturban el desarrollo de las clases.'),
-('Desconsideración hacia el profesorado.', 10, 'Desconsideración hacia el profesorado.'),
-('Deterioro grave e intencionado de las dependencias del centro u otros miembros de la CE.', 10, 'Deterioro grave e intencionado de las dependencias del centro, de su material, o pertenencias de otros miembros de la comunidad educativa.'),
-('Deterioro grave, causado intencionalmente, de propiedades y material del profesorado', 10, 'Deterioro grave, causado intencionalmente, de propiedades y material del profesorado'),
-('Deterioro intencionado del material que utiliza el profesor en sus clases.', 10, 'Deterioro intencionado del material que utiliza el profesor en sus clases.'),
-('Exhibir símbolos racistas, emblemas de ideologías que preconicen violencia, xenofobia o terrorismo.', 10, 'Exhibir símbolos racistas, emblemas o manifestación de ideologías que preconicen violencia, xenofobia o terrorismo.'),
-('Incumplimiento de las medidas correctoras impuestas con anterioridad.', 10, 'Incumplimiento de las medidas correctoras impuestas con anterioridad.'),
-('Incumplimiento reiterado de los alumnos de trasladar información a los tutores.', 10, 'Incumplimiento reiterado de los alumnos de trasladar información a los tutores.'),
-('Injurias u ofensas graves contra otros miembros de la comunidad escolar.', 10, 'Injurias u ofensas graves contra otros miembros de la comunidad escolar.'),
-('Injurias, ofensas graves, vejaciones o humillaciones hacia el profesorado.', 10, 'Injurias, ofensas graves, vejaciones o humillaciones hacia el profesorado.'),
-('Interrupción reiterada de las clases y actividades educativas.', 10, 'Interrupción reiterada de las clases y actividades educativas.'),
-('Introducción de objetos o sustancias peligrosas para la salud y la IP del profesorado.', 10, 'Introducción de objetos o sustancias peligrosas para la salud y la integridad personal del profesorado.'),
-('Reiteración de conductas contrarias a las normas de convivencia en el centro.', 10, 'Reiteración de conductas contrarias a las normas de convivencia en el centro.'),
-('Suplantación de identidad, falsificación de documentos que estén bajo responsabilidad del prof.', 10, 'Suplantación de identidad, falsificación o sustitución de documentos que estén bajo responsabilidad del profesorado.'),
-('Suplantación de personalidad, la falsificación o sustracción de documentos y material académico.', 10, 'Suplantación de personalidad, la falsificación o sustracción de documentos y material académico.'),
-('Utilizar símbolos e ideologías que menoscaben de la autoridad y dignidad del prof.', 10, 'Utilizar y exhibir símbolos o manifestar ideologías que supongan un menoscabo de la autoridad y dignidad del profesorado.'),
-('Vejaciones o humillaciones a miembros de la C.E', 10, 'Vejaciones o humillaciones a miembros de la C.E, particularmente las de género, sexual o racial, o contra alumnado vulnerable.'),
-('Uso no autorizado de teléfono móvil (art. 7 de la Orden 140/2024, de 28 de agosto, de la Consejería de Educación, Cultura y Deportes)',10.'Uso no autorizado de teléfono móvil (art. 7 de la Orden 140/2024, de 28 de agosto, de la Consejería de Educación, Cultura y Deportes)');
+INSERT INTO Incidencias (nombre, puntos, descripcion, tipo) VALUES
+ ('22 a Faltas injustificadas de asistencia a clase o de puntualidad.', 3, '22 a Faltas injustificadas de asistencia a clase o de puntualidad.', '1. CONDUCTAS CONTRARIAS A LAS NORMAS DE CONVIVENCIA'),
+ ('22 b Desconsideración con otros miembros de la comunidad escolar.',  3, '22 b Desconsideración con otros miembros de la comunidad escolar.', '1. CONDUCTAS CONTRARIAS A LAS NORMAS DE CONVIVENCIA'),
+ ('22 c Interrupción del normal desarrollo de las clases.', 3, '22 c Interrupción del normal desarrollo de las clases.', '1. CONDUCTAS CONTRARIAS A LAS NORMAS DE CONVIVENCIA'),
+ ('22 d Alteración del desarrollo normal de las actividades del centro.', 5,  '22 d Alteración del desarrollo normal de las actividades del centro.', '1. CONDUCTAS CONTRARIAS A LAS NORMAS DE CONVIVENCIA'),
+ ('22 e Actos de indisciplina contra miembros de la comunidad escolar.', 5, '22 e Actos de indisciplina contra miembros de la comunidad escolar.', '1. CONDUCTAS CONTRARIAS A LAS NORMAS DE CONVIVENCIA'),
+ ('22 f Deterioro, causado intencionadamente, de las dependencias del centro, de su material, o materiales de otros miembros de la comunidad educativa.', 5, '22 f Deterioro, causado intencionadamente, de las dependencias del centro, de su material, o materiales de otros miembros de la comunidad educativa.', '1. CONDUCTAS CONTRARIAS A LAS NORMAS DE CONVIVENCIA'),
+('23 a Actos de indisciplina que alteren gravemente el desarrollo normal de las actividades del centro.', 10, '23 a Actos de indisciplina que alteren gravemente el desarrollo normal de las actividades del centro.', '2. CONDUCTAS PERJUDICIALES PARA LA CONVIVENCIA EN EL CENTRO '),
+('23 b Injurias u ofensas graves contra otros miembros de la comunidad escolar.', 10, '23 b Injurias u ofensas graves contra otros miembros de la comunidad escolar.', '2. CONDUCTAS PERJUDICIALES PARA LA CONVIVENCIA EN EL CENTRO '),
+('23 c Acoso o la violencia contra las personas, y las actuaciones perjudiciales para la salud y la integridad personal.', 10, '23 c Acoso o la violencia contra las personas, y las actuaciones perjudiciales para la salud y la integridad personal.', '2. CONDUCTAS PERJUDICIALES PARA LA CONVIVENCIA EN EL CENTRO '),
+('23 d Vejaciones o humillaciones a miembros de la C.E, particularmente las de género, sexual o racial, o contra alumnado vulnerable.', 10, '23 d Vejaciones o humillaciones a miembros de la C.E, particularmente las de género, sexual o racial, o contra alumnado vulnerable.', '2. CONDUCTAS PERJUDICIALES PARA LA CONVIVENCIA EN EL CENTRO '),
+('23 e Suplantación de personalidad, la falsificación o sustracción de documentos y material académico.', 10, '23 e Suplantación de personalidad, la falsificación o sustracción de documentos y material académico.', '2. CONDUCTAS PERJUDICIALES PARA LA CONVIVENCIA EN EL CENTRO '),
+('23 f Deterioro grave e intencionado de las dependencias del centro, de su material, o pertenencias de otros miembros de la comunidad educativa.', 10, '23 f Deterioro grave e intencionado de las dependencias del centro, de su material, o pertenencias de otros miembros de la comunidad educativa.', '2. CONDUCTAS PERJUDICIALES PARA LA CONVIVENCIA EN EL CENTRO '),
+('23 g Exhibir símbolos racistas, emblemas o manifestación de ideologías que preconicen violencia, xenofobia o terrorismo.', 10, '23 g Exhibir símbolos racistas, emblemas o manifestación de ideologías que preconicen violencia, xenofobia o terrorismo.', '2. CONDUCTAS PERJUDICIALES PARA LA CONVIVENCIA EN EL CENTRO '),
+('23 h Reiteración de conductas contrarias a las normas de convivencia en el centro.', 10, '23 h Reiteración de conductas contrarias a las normas de convivencia en el centro.', '2. CONDUCTAS PERJUDICIALES PARA LA CONVIVENCIA EN EL CENTRO '),
+('23 i Incumplimiento de las medidas correctoras impuestas con anterioridad.', 10, '23 i Incumplimiento de las medidas correctoras impuestas con anterioridad.', '2. CONDUCTAS PERJUDICIALES PARA LA CONVIVENCIA EN EL CENTRO '),
+('23 j Uso no autorizado de teléfono móvil (art. 7 de la Orden 140/2024, de 28 de agosto, de la Consejería de Educación, Cultura y Deportes).', 10, '23 j Uso no autorizado de teléfono móvil (art. 7 de la Orden 140/2024, de 28 de agosto, de la Consejería de Educación, Cultura y Deportes).', '2. CONDUCTAS PERJUDICIALES PARA LA CONVIVENCIA EN EL CENTRO '),
+('4 a Actos que menoscaben la autoridad del profesorado y perturban el desarrollo de las clases.', 10, '4 a Actos que menoscaben la autoridad del profesorado y perturban el desarrollo de las clases.', '3. CONDUCTAS GRAVEMENTE ATENTATORIAS DE LA AUTORIDAD DEL PROFESORADO'),
+('4 b Desconsideración hacia el profesorado.', 10, '4 b Desconsideración hacia el profesorado.', '3. CONDUCTAS GRAVEMENTE ATENTATORIAS DE LA AUTORIDAD DEL PROFESORADO'),
+('4 c Incumplimiento reiterado de los alumnos de trasladar información a los tutores.', 10, '4 c Incumplimiento reiterado de los alumnos de trasladar información a los tutores.', '3. CONDUCTAS GRAVEMENTE ATENTATORIAS DE LA AUTORIDAD DEL PROFESORADO'),
+('4 d Deterioro intencionado del material que utiliza el profesor en sus clases.', 10, '4 d Deterioro intencionado del material que utiliza el profesor en sus clases.', '3. CONDUCTAS GRAVEMENTE ATENTATORIAS DE LA AUTORIDAD DEL PROFESORADO'),
+('5 a Actos de indisciplina perjudiciales para el profesorado o el funcionamiento de la clase.', 10, '5 a Actos de indisciplina perjudiciales para el profesorado o el funcionamiento de la clase.', '3. CONDUCTAS GRAVEMENTE ATENTATORIAS DE LA AUTORIDAD DEL PROFESORADO'),
+('5 b Interrupción reiterada de las clases y actividades educativas.', 10, '5 b Interrupción reiterada de las clases y actividades educativas.', '3. CONDUCTAS GRAVEMENTE ATENTATORIAS DE LA AUTORIDAD DEL PROFESORADO'),
+('5 c Acoso o violencia contra el profesorado y las actuaciones perjudiciales para su salud y su integridad personal.', 10, '5 c Acoso o violencia contra el profesorado y las actuaciones perjudiciales para su salud y su integridad personal.', '3. CONDUCTAS GRAVEMENTE ATENTATORIAS DE LA AUTORIDAD DEL PROFESORADO'),
+('5 d Injurias, ofensas graves, vejaciones o humillaciones hacia el profesorado.', 10, '5 d Injurias, ofensas graves, vejaciones o humillaciones hacia el profesorado.', '3. CONDUCTAS GRAVEMENTE ATENTATORIAS DE LA AUTORIDAD DEL PROFESORADO'),
+('5 e Suplantación de identidad, falsificación o sustitución de documentos que estén bajo responsabilidad del profesorado.', 10, '5 e Suplantación de identidad, falsificación o sustitución de documentos que estén bajo responsabilidad del profesorado.', '3. CONDUCTAS GRAVEMENTE ATENTATORIAS DE LA AUTORIDAD DEL PROFESORADO'),
+('5 f Introducción de objetos o sustancias peligrosas para la salud y la integridad personal del profesorado.', 10, '5 f Introducción de objetos o sustancias peligrosas para la salud y la integridad personal del profesorado.', '3. CONDUCTAS GRAVEMENTE ATENTATORIAS DE LA AUTORIDAD DEL PROFESORADO'),
+('5 g Utilizar y exhibir símbolos o manifestar ideologías que supongan un menoscabo de la autoridad y dignidad del profesorado.', 10, '5 g Utilizar y exhibir símbolos o manifestar ideologías que supongan un menoscabo de la autoridad y dignidad del profesorado.', '3. CONDUCTAS GRAVEMENTE ATENTATORIAS DE LA AUTORIDAD DEL PROFESORADO'),
+('5 h Incumplimiento de las medidas correctoras impuestas con anterioridad.', 10, '5 h Incumplimiento de las medidas correctoras impuestas con anterioridad.', '3. CONDUCTAS GRAVEMENTE ATENTATORIAS DE LA AUTORIDAD DEL PROFESORADO'),
+('5 i Deterioro grave, causado intencionalmente, de propiedades y material del profesorado', 10, '5 i Deterioro grave, causado intencionalmente, de propiedades y material del profesorado', '3. CONDUCTAS GRAVEMENTE ATENTATORIAS DE LA AUTORIDAD DEL PROFESORADO');
 -- --------------------------------------------------------
 
 CREATE TABLE Partes (

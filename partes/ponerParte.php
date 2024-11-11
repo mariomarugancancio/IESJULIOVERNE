@@ -55,11 +55,22 @@
                     <select name="incidencia" id="incidencia" class="form-select" required>
                         <option value="">Seleccione una incidencia</option>
                         <?php
-                        $consulta = $db->prepare("SELECT cod_incidencia, descripcion, puntos FROM Incidencias");
+                        $consulta = $db->prepare("SELECT cod_incidencia, descripcion, puntos, tipo FROM Incidencias WHERE tipo <> '' ORDER BY tipo, puntos");
                         $consulta->execute();
+                        $tipo="";
                         while ($row = $consulta->fetch(PDO::FETCH_ASSOC)) {
-                            echo "<option value='" . $row['cod_incidencia'] . "'>" . $row['puntos'] . " - " . $row['descripcion'] . "</option>";
+                            if($tipo != $row['tipo']){
+                                if($tipo!=""){
+                                    echo "</optgroup>";
+                                }
+                                echo "<optgroup label='".$row['tipo']."'>";
+                                $tipo = $row['tipo'];
                         }
+                        echo "<option value='" . $row['cod_incidencia'] . "'>" . $row['puntos'] . " - " . $row['descripcion'] . "</option>";
+
+                    }
+                    echo "</optgroup>";
+
                         ?>
                     </select>
                 </div>

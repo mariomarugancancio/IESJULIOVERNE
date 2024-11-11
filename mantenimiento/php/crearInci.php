@@ -25,6 +25,9 @@ require_once('./funciones/loginRequerido.php');
   <?php
   require_once("funciones/header.php");
   ?>
+    <?php
+          require_once("funciones/crearIncidenciaFuncion.php");
+        ?>
 <!-- Mensaje emergente mientras se guarda la tarea con un logo -->
 <div id="mensajeCargando" style="display:none;">
 <div class="sombra">
@@ -86,9 +89,7 @@ require_once('./funciones/loginRequerido.php');
           </div>
         </form>
 
-        <?php
-          require_once("funciones/crearIncidenciaFuncion.php");
-        ?>
+      
         
       </div>
     </article>

@@ -54,7 +54,7 @@
         $cod_parte = $_GET['cod_parte'];
         
         // Preparar la consulta para obtener los detalles de la parte
-        $consulta = $db->prepare("SELECT p.cod_parte, CONCAT(u.nombre, ' ', u.apellidos) AS nombreProfesorCompleto, p.fecha, i.puntos, i.nombre AS incidencia, CONCAT(a.nombre, ' ', a.apellidos) AS nombreAlumnoCompleto, asi.nombre Materia, p.descripcion, p.caducado
+        $consulta = $db->prepare("SELECT p.cod_parte, CONCAT(u.nombre, ' ', u.apellidos) AS nombreProfesorCompleto, p.fecha, i.puntos, i.nombre AS incidencia, CONCAT(a.nombre, ' ', a.apellidos) AS nombreAlumnoCompleto, a.matricula, asi.nombre Materia, p.descripcion, p.caducado
                                 FROM Incidencias i
                                 JOIN Partes p ON i.cod_incidencia = p.incidencia
                                 JOIN Usuarios u ON p.cod_usuario = u.cod_usuario
@@ -85,7 +85,7 @@
             if($_SESSION['usuario_login']['rol'] == 0){
 
            
-            echo "<button class='btn btn-danger mt-4' onclick='eliminarParte(" . $parte['cod_parte'] . ")' " . ($parte['caducado'] == 2 ? "disabled" : "") . ">Eliminar Parte</button>";
+            echo "<button class='btn btn-danger mt-4' onclick='eliminarParte(" . $parte['cod_parte'] . ", \"" . $parte['matricula'] . "\")' " . ($parte['caducado'] == 2 ? "disabled" : "") . ">Eliminar Parte</button>";
             echo '<button class="btn ' . ($parte['caducado'] == 0 ? 'btn-warning' : 'btn-danger') . ' mt-4 ms-4" onclick="caducarParte(' . $parte['cod_parte'] . ')" ' . ($parte['caducado'] == 0 ? '' : 'disabled') . '>Caducar Parte</button>';
         }
             echo "</div>";
@@ -117,15 +117,14 @@
 
     <script>
         
-        function eliminarParte(cod_parte) {
+        function eliminarParte(cod_parte, matricula) {
             // Mostrar el modal personalizado
         var modal = document.getElementById("customConfirm");
         modal.style.display = "block";
-
         // Manejo del botón confirmar
         document.getElementById("confirmBtn").onclick = function() {
             // Redirigir a la página de eliminación con el código del parte
-            window.location.href = "./funcionalidad/eliminarParte.php?cod_parte=" + cod_parte;
+            window.location.href = "./funcionalidad/eliminarParte.php?cod_parte=" + cod_parte +"&matricula="+matricula;
         };
 
         // Manejo del botón cancelar

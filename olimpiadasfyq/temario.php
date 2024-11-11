@@ -13,11 +13,11 @@
     <link rel="shortcut icon" href="../images/logoJulioVerneNuevo.png">
 
     <style>
-         body {
+        body {
             font-family: 'Arial', sans-serif;
             padding: 0;
             background-color: #f8f8f8;
-            text-align:justify;
+            text-align: justify;
 
         }
 
@@ -30,7 +30,7 @@
 
         section {
             margin: 20px 50px;
-            display:flex;
+            display: flex;
             flex: row;
             -webkit-flex-wrap: wrap;
             flex-wrap: wrap;
@@ -38,16 +38,20 @@
 
         }
 
-   
-        h1{
+        section div {
+            width: 400px;
+            /* Añade margen si es necesario */
+        }
+
+        h1 {
             color: white;
         }
 
-         h2 {
+        h2 {
             color: #333;
         }
 
-        ol{
+        ol {
             font-size: 14px;
         }
 
@@ -62,50 +66,52 @@
             flex-wrap: wrap;
             align-items: center;
         }
-                    /* Estilos para el icono de Instagram */
+
+        /* Estilos para el icono de Instagram */
         .instagram-icon {
-            width: 30px; /* Tamaño del icono */
+            width: 30px;
+            /* Tamaño del icono */
             height: 30px;
             /* Otros estilos, como color, margen, etc. */
         }
-        </style>
+    </style>
 </head>
 
 <body>
     <?php
     include('navegacion.php');
     ?>
-     <header>
+    <header>
         <h1>Temario de la MiniOlimpiada de Física y Química</h1>
     </header>
 
     <section>
-    <div>
-    <h2>QUÍMICA<h2>
+        <div>
+            <h2>QUÍMICA<h2>
 
-    <ol>
-    <li>El método científico.</li>
-    <li>Sistemas materiales y estados de agregación.</li>
-    <li>Mezclas, sustancias puras.</li>
-    <li>Elementos y compuestos.</li>
-    <li>Modelos atómicos.</li>
-    <li>Sistema periódico y uniones entre átomos.</li>
-    <li>Las fórmulas químicas y su significado.</li>
-    <li>Reacciones químicas: masa y volumen.</li>
-    <li>Reacciones químicas: energía y velocidad. </li>
-    <li>Importancia de las reacciones químicas y de sus aplicaciones: química y sociedad.</li>
-    <li>El laboratorio de química.</li>
-</ol>
-    </div>
-<div>
-<h2>FÍSICA</h2>
-<ol>
-<li>cinemática.</li>
-<li>Dinámica.</li>
-<li>Trabajo, calor y energía.</li>
-</ol>
-    </div>
-</section>
+                    <ol>
+                        <li>El método científico.</li>
+                        <li>Sistemas materiales y estados de agregación.</li>
+                        <li>Mezclas, sustancias puras.</li>
+                        <li>Elementos y compuestos.</li>
+                        <li>Modelos atómicos.</li>
+                        <li>Sistema periódico y uniones entre átomos.</li>
+                        <li>Las fórmulas químicas y su significado.</li>
+                        <li>Reacciones químicas: masa y volumen.</li>
+                        <li>Reacciones químicas: energía y velocidad. </li>
+                        <li>Importancia de las reacciones químicas y de sus aplicaciones: química y sociedad.</li>
+                        <li>El laboratorio de química.</li>
+                    </ol>
+        </div>
+        <div>
+            <h2>FÍSICA</h2>
+            <ol>
+                <li>cinemática.</li>
+                <li>Dinámica.</li>
+                <li>Trabajo, calor y energía.</li>
+            </ol>
+        </div>
+    </section>
 
     <footer>
         <p>© 2024 MiniOlimpiadas de Física y Química - APFyQ-CLM. Todos los derechos reservados.</p>

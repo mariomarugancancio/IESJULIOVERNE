@@ -83,7 +83,7 @@ if($inicio<$fin){
 <html>
 
 <head>
-    <title>Exportal excel</title>
+    <title>Exportar excel</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
 </head>

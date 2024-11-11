@@ -24,6 +24,7 @@
         require_once "archivosComunes/nav.php";
         require_once("../archivosComunes/conexion.php");
         require_once('../archivosComunes/loginRequerido.php');
+        require_once('./funcionalidad/generarQR.php');
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -152,6 +153,7 @@
                             <th scope="col">Nombre</th>
                             <th scope="col">Apellidos</th>
                             <th scope="col">Grupo</th>
+                            <th scope="col">Ver</th>
                             <th scope="col">Editar</th>
                             <th scope="col">Borrar</th>
                         </tr>
@@ -176,7 +178,7 @@
                             echo '<td>' . $columna['nombre'] . '</td>';
                             echo '<td>' . $columna['apellidos'] . '</td>';
                             echo '<td>' . $columna['grupo'] . '</td>';
-                            
+                            echo '<td> <a href="#" class="btn-editar" onclick="verAlumno(\'' . $columna['matricula'] . '\')"><i class="fa-solid fa-magnifying-glass"></i></a> </td>';
                             echo '<td> <a href="#" class="btn-editar" onclick="editarAlumno(\'' . $columna['matricula'] . '\')"><i class="fa-solid fa-pencil"></i></a> </td>';
                             echo '<td> <a href="#"  class="btn-borrar" onclick="eliminarAlumno(\'' . $columna['matricula'] . '\')"><i class="fa-solid fa-trash"></i></a> </td>';
                             echo "</tr>";
@@ -212,6 +214,10 @@
 <script type="text/javascript">
     function editarAlumno(matricula) {
         var url = "editarAlumno.php?matricula=" + encodeURIComponent(matricula);
+        window.location.href = url;
+    }
+    function verAlumno(matricula) {
+        var url = "verAlumno.php?matricula=" + encodeURIComponent(matricula);
         window.location.href = url;
     }
 

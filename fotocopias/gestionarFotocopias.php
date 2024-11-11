@@ -167,6 +167,7 @@
 
                 </div>
             </div>
+            <button onclick="window.location.href='escanearQR.php';">Ir a Escanear QR (JavaScript)</button>
 
 
     </main>

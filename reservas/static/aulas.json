@@ -1,59 +1,152 @@
 [
-    {"nombre": "A0.1"},
-    {"nombre": "A0.2"},
-    {"nombre": "A0.3"},
-    {"nombre": "A0.4"},
-    {"nombre": "A0.5"},
-    {"nombre": "A0.6"},
-    {"nombre": "A0.7"},
-    {"nombre": "A1.1"},
-    {"nombre": "A1.2"},
-    {"nombre": "A1.3"},
-    {"nombre": "A1.4"},
-    {"nombre": "A1.5"},
-    {"nombre": "A1.6"},
-    {"nombre": "A1.7"},
-    {"nombre": "A2.1"},
-    {"nombre": "A2.2"},
-    {"nombre": "A2.3"},
-    {"nombre": "A2.4"},
-    {"nombre": "B0.1"},
-    {"nombre": "B0.2"},
-    {"nombre": "B0.3"},
-    {"nombre": "B0.4"},
-    {"nombre": "B0.5"},
-    {"nombre": "B0.6"},
-    {"nombre": "B1.1"},
-    {"nombre": "B1.2"},
-    {"nombre": "B1.3"},
-    {"nombre": "B1.4"},
-    {"nombre": "B2.1"},
-    {"nombre": "B2.2"},
-    {"nombre": "B2.3"},
-    {"nombre": "B2.4"},
-    {"nombre": "C0.5"},
-    {"nombre": "C1.1"},
-    {"nombre": "C1.2"},
-    {"nombre": "C1.7"},
-    {"nombre": "C1.8"},
-    {"nombre": "D1.1"},
-    {"nombre": "PDerech"},
-    {"nombre": "PIzquie"},
-    {"nombre": "Althia1"},
-    {"nombre": "Plást1"},
-    {"nombre": "Plást2"},
-    {"nombre": "Taller1"},
-    {"nombre": "Taller2"},
-    {"nombre": "Bibliote"},
-    {"nombre": "GIMNASIO"},
-    {"nombre": "LabBiolo"},
-    {"nombre": "LabFísic"},
-    {"nombre": "Música1"},
-    {"nombre": "Música2"},
-    {"nombre": "Salón ac"},
-	{"nombre": "TabletsPlanta0"},
-    {"nombre": "TabletsPlanta2"},
-    {"nombre": "PortátilesPlanta0"},
-    {"nombre": "PortátilesPlanta1"}
-
+    {
+        "nombre": "A0.1"
+    },
+    {
+        "nombre": "A0.2"
+    },
+    {
+        "nombre": "A0.3"
+    },
+    {
+        "nombre": "A0.4"
+    },
+    {
+        "nombre": "A0.5"
+    },
+    {
+        "nombre": "A0.6"
+    },
+    {
+        "nombre": "A0.7"
+    },
+    {
+        "nombre": "A1.1"
+    },
+    {
+        "nombre": "A1.2"
+    },
+    {
+        "nombre": "A1.3"
+    },
+    {
+        "nombre": "A1.4"
+    },
+    {
+        "nombre": "A1.5"
+    },
+    {
+        "nombre": "A1.6"
+    },
+    {
+        "nombre": "A1.7"
+    },
+    {
+        "nombre": "A2.1"
+    },
+    {
+        "nombre": "A2.2"
+    },
+    {
+        "nombre": "A2.3"
+    },
+    {
+        "nombre": "A2.4"
+    },
+    {
+        "nombre": "Althia 1"
+    },
+    {
+        "nombre": "B0.1"
+    },
+    {
+        "nombre": "B0.2"
+    },
+    {
+        "nombre": "B0.3"
+    },
+    {
+        "nombre": "B0.4"
+    },
+    {
+        "nombre": "B0.5"
+    },
+    {
+        "nombre": "B0.6"
+    },
+    {
+        "nombre": "B1.1"
+    },
+    {
+        "nombre": "B1.2"
+    },
+    {
+        "nombre": "B1.3"
+    },
+    {
+        "nombre": "B1.4"
+    },
+    {
+        "nombre": "B2.1"
+    },
+    {
+        "nombre": "B2.2"
+    },
+    {
+        "nombre": "B2.3"
+    },
+    {
+        "nombre": "B2.4"
+    },
+    {
+        "nombre": "C0.5"
+    },
+    {
+        "nombre": "C1.8"
+    },
+    {
+        "nombre": "D1.1"
+    },
+    {
+        "nombre": "D1.2"
+    },
+    {
+        "nombre": "D1.3"
+    },
+    {
+        "nombre": "D1.4"
+    },
+    {
+        "nombre": "GIMNASIO"
+    },
+    {
+        "nombre": "LabBiolo"
+    },
+    {
+        "nombre": "LabFísic"
+    },
+    {
+        "nombre": "Música1"
+    },
+    {
+        "nombre": "P Derech"
+    },
+    {
+        "nombre": "P Izquie"
+    },
+    {
+        "nombre": "Plást1"
+    },
+    {
+        "nombre": "Plást2"
+    },
+    {
+        "nombre": "Salón ac"
+    },
+    {
+        "nombre": "Taller1"
+    },
+    {
+        "nombre": "Taller2"
+    }
 ]

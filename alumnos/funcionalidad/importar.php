@@ -1,4 +1,8 @@
 <?php 
+// Importa la biblioteca
+require '../../vendor/autoload.php';
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Writer\PngWriter;
 
 require_once("../../archivosComunes/conexion.php");
 
@@ -45,10 +49,25 @@ if (isset($_FILES['archivo']) && !empty($_FILES['archivo']['name'][0])) {
                 $grupo = trim($datos[3]);
 
                 if($matricula != ""){
+            // Datos para generar el QR
+            $data = $matricula." ".$nombre." ".$apellidos; // El contenido del QR
+
+            // Crea una instancia de QrCode
+            $qrCode = new QrCode($data);
+           
+
+            // Usa PngWriter para escribir el código QR en PNG
+            $writer = new PngWriter();
+            $result = $writer->write($qrCode);
+
+// Obtén la imagen PNG como una cadena de bytes y luego conviértela a base64
+$qrImage = base64_encode($result->getString());                                            
+                        $qrImageEncoded = base64_encode($qrImage);
                         // Intentamos ejecutar la inserción en la base de datos
-                        $conexion = $db->prepare("INSERT INTO Alumnos (matricula, nombre, apellidos, grupo)
-                            VALUES (:matricula, :nombre, :apellidos, :grupo)");
-                        $conexion->execute(array(":matricula" => $matricula, ":nombre" => $nombre, ":apellidos" => $apellidos, ":grupo" => $grupo));
+                        $conexion = $db->prepare("INSERT INTO Alumnos (matricula, nombre, apellidos, grupo, qr_datos, qr_imagen)
+                            VALUES (:matricula, :nombre, :apellidos, :grupo, :qr_datos, :qr_imagen)");
+                        $conexion->execute(array(":matricula" => $matricula, ":nombre" => $nombre, ":apellidos" => $apellidos, ":grupo" => $grupo, 
+                   ":qr_datos" => $data,":qr_imagen" => $qrImage));
 
                 }
             }

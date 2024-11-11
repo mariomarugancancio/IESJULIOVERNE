@@ -30,7 +30,7 @@
    
     // Para acceder a esta pagina hay que iniciar sesion previamente.
     if (isset($_GET['matricula'])) {
-        $select = "SELECT matricula, nombre, apellidos, grupo, saldo
+        $select = "SELECT matricula, nombre, apellidos, grupo, saldo, qr_imagen, qr_datos
     FROM Alumnos
     WHERE matricula = '" . $_GET['matricula'] . "';";
         $resul = $db->query($select);
@@ -38,9 +38,10 @@
     }
     ?>
 
-    <div id="formulario" class="mx-auto mt-3 mb-5" style="width:400px; height:400px;">
+    <div id="formulario" class="mx-auto mt-3 mb-5" style="width:400px; height:800px;">
         <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
             <?php if ($_SESSION["usuario_login"]["rol"] == 0) {
+              
                 if (isset($columna['matricula'])) {
 
                     echo "<input type='text' class='form-control' name='matriculaAntigua' id='matriculaAntigua' value='" . $columna['matricula'] . "' hidden>";
@@ -125,9 +126,18 @@
                     echo "<label for='saldo'>Saldo:</label>";
                     echo "</div>";
                 }
+                // Imprime la imagen en HTML
+                if (isset($columna['qr_imagen'])) {
+
+                    echo "<div class='form-group form-floating mb-3 text-center'>";
+                    echo '<img src="data:image/png;base64,' . $columna['qr_imagen'] . '" alt="Código QR">';
+                    echo "</div>";
+                }
             } ?>
 
-            <input type="submit" name="guardar" class="btn btn-primary mt-2" value="Guardar cambios">
+            <div class="text-center">
+                <input type="submit" name="guardar" class="btn btn-primary mt-2" value="Guardar cambios">
+            </div>
         </form>
     </div>
 

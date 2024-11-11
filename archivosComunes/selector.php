@@ -111,6 +111,11 @@ require_once('loginRequerido.php');
         <img src="../images/cursos1.jpg" alt="Imagen GestionCursos1">
         <img src="../images/clase2.png" alt="Imagen GestionCursos2">
       </a>
+      <a href="../aulas/aulas.php" id="aulas">
+        Gestión de Aulas
+        <img src="../images/aulas1.jpg" alt="Imagen GestionAulas1">
+        <img src="../images/clase2.png" alt="Imagen GestionAulas2">
+      </a>
       <a href="../alumnos/gestionarAlumnos.php" id="alumnos">
         Gestión de Alumnos
         <img src="../images/alumnos1.jpg" alt="Imagen GestionAlumnos1">
@@ -155,6 +160,7 @@ require_once('loginRequerido.php');
           document.getElementById("prematricula").style.display="block";
           document.getElementById("alumnos").style.display="none";
           document.getElementById("fotocopias").style.display="block";
+          document.getElementById("aulas").style.display="none";
 
           </script>';
         }
@@ -171,6 +177,7 @@ require_once('loginRequerido.php');
           document.getElementById("prematricula").style.display="none";
           document.getElementById("alumnos").style.display="none";
           document.getElementById("fotocopias").style.display="none";
+          document.getElementById("aulas").style.display="none";
 
           </script>';
         }
@@ -187,6 +194,7 @@ require_once('loginRequerido.php');
           document.getElementById("prematricula").style.display="block";
           document.getElementById("alumnos").style.display="none";
           document.getElementById("fotocopias").style.display="none";
+          document.getElementById("aulas").style.display="none";
 
           </script>';
         }
@@ -203,6 +211,7 @@ require_once('loginRequerido.php');
           document.getElementById("prematricula").style.display="block";
           document.getElementById("alumnos").style.display="block";
           document.getElementById("fotocopias").style.display="block";
+          document.getElementById("aulas").style.display="block";
 
           </script>';
         }

@@ -98,7 +98,8 @@
     <main>
     <section>
     <article>
-        <p><span class="negrita">La Asociación de Profesores de Física y Química de Castilla-La Mancha (APFyQ-CLM)</span> tiene por objeto promover, desarrollar y divulgar la disciplina de Física y Química, tanto en su aspecto de ciencia pura como en el de sus aplicaciones, en toda Castilla-La Mancha. En el año 2023, únicamente la sede de Albacete, promotora de este encuentro, desarrolló este concurso. En el año 2024 se amplía el número de sedes en las que se celebrará la MiniOlimpiada de Física y Química, siendo las sedes participantes:</p>
+        <p><span class="negrita">La Asociación de Profesores de Física y Química de Castilla-La Mancha (APFyQCLM)</span> tiene por objeto promover, desarrollar y divulgar la disciplina de Física y Química, tanto en su aspecto de ciencia pura como en el de sus aplicaciones, en toda Castilla-La Mancha. En el año 2023, únicamente la sede de Albacete, promotora de este encuentro, desarrolló este concurso. En el año 2024 las sedes se ampliaron a Cuenca y Toledo. Y este año 2025, esperamos poder contar con las sedes de Ciudad Real y Guadalajara. </p>
+        <p>A continuación, se muestran los enlaces a las web de Toledo y Albacete: </p>
         <ul>
             <li>Toledo  <a target="_blank" href="https://iesbargas.es/olimpiadasfyq/index.php">fyqminiolimpiadas de Toledo</a></li>
             <li>Albacete <a target="_blank" href="https://sites.google.com/view/fyqminiolimpiadas/inicio">fyqminiolimpiadas de Albacete</a></li>

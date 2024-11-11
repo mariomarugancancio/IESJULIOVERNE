@@ -69,9 +69,10 @@
         <h1>Formulario de inscripción</h1>
     </header>
 
+    
     <section>
-    <p>La inscripción la debe llevar a cabo el docente de Física y Química responsable en cada centro y rellenar una inscripción por cada alumno participante. <span class="negrita"> La fecha límite es el 15 de abril de 2024.</span></p>
-    <p>La inscripción se rellena online a través del siguiente <a target="_blank" href="https://docs.google.com/forms/d/1MjFUeTJXN9gF6jPNQhorCuWPc6r5GhUzompJVzG7wU8/formrestricted">enlace</a>.</p>
+    <p>La inscripción la debe llevar a cabo el docente de Física y Química responsable en cada centro y rellenar una inscripción por cada alumno participante.<span class="negrita"> La fecha límite es el 1 de abril de 2025.</span></p>
+    <p>La inscripción se rellena online a través del siguiente enlace<a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSeEBxpTmYCKEG-F2q66Gcb4u9flYFqIMJ8BRjcWczMCQOlT2A/viewform"> Formulario de inscripción 2025</a>.</p>
     <p>En caso de que tenga problemas, escriba al correo <a target="_blank" href="mailto:miniolimpiadasfqtoledo@gmail.com">miniolimpiadasfqtoledo@gmail.com</a></p>
      </section>
 

@@ -12,7 +12,7 @@
 
     <script src="../js/bootstrap.bundle.min.js"></script>
       <script src="../js/multiselect-dropdown.js"></script>
-      <script src="https://kit.fontawesome.com/d7bc41fc30.js" crossorigin="anonymous"></script>
+      <script src="https://kit.fontawesome.com/0a601e401a.js" crossorigin="anonymous"></script>
 
 </head>
 

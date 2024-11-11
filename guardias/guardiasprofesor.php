@@ -7,7 +7,7 @@
     <title>Guardias</title>
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <script src="../js/bootstrap.bundle.min.js"></script>
-    <script src="https://kit.fontawesome.com/d7bc41fc30.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/0a601e401a.js" crossorigin="anonymous"></script>
     <script src="js/paginacion.js"></script>
     <link rel="shortcut icon" href="../images/logoJulioVerneNuevo.png">
     <link rel="shortcut icon" href="../css/confirmarEliminarr.css">

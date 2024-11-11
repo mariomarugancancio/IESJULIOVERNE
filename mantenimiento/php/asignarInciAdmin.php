@@ -34,7 +34,7 @@ require_once('../php/funciones/loginRequerido.php');
     <div id="mensajeCargando" style="display:none;">
 <div class="sombra">
     <div class="alert alert-info" role="alert">
-      <img src="../../images/logoJulioVerneNuevo.png" alt="Cargando..." /><br>
+      <img src="../../images/vinicius.jpg" alt="Cargando..." /><br>
       Asignando la incidencia, por favor espera...
       </div>
     </div>
