@@ -16,6 +16,7 @@ $contador = 0;
   <link rel="stylesheet" href="../css/bootstrap.min.css">
   <link rel="stylesheet" href="../css/styles.css">
   <link rel="shortcut icon" href="../../images/logoJulioVerneNuevo.png">
+  <link rel="stylesheet" href="../../css/tablasResponsive.css">
 
   <title>Incidencias Admin</title>
 </head>
@@ -63,7 +64,7 @@ $contador = 0;
                 $incidencias = "SELECT * FROM Tareas where tipo_incidencia='informatica' AND cod_usuario_gestion = '$nomb_usu' ORDER BY fecha_inicio DESC";
                 $incidencias = $db->query($incidencias);
                 if ($consulta_dep = "informatica") {
-                  echo ('<div id="tablaScript" class="tablaInci table-responsive-lg"> <table class="table table-striped table-hover text-center">');
+                  echo ('<div id="tablaScript" class="tablaInci table-responsive-lg"> <div class="table-responsive"><table class="table table-striped table-hover text-center">');
                   echo ("<thead>
                          <tr> 
                            <th scope='col'>#</th>
@@ -164,7 +165,7 @@ $contador = 0;
            </tbody>";
               }
                        }
-                       echo "</table></div>";
+                       echo "</table></div></div>";
                      }
                    }
                  } catch (PDOException $e) {

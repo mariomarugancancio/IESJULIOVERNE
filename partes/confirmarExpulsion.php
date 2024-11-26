@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
     <link rel="shortcut icon" href="../images/logoJulioVerneNuevo.png">
     <link rel="stylesheet" href="../css/confirmarEliminarr.css">
+    <link rel="stylesheet" href="../css/tablasResponsive.css">
 
     <style>
         .card-rounded {
@@ -126,6 +127,8 @@
        }
             ?>
         <h2 class="text-light rounded bg-dark p-2 px-3">Datos de los Partes de <?php echo isset($alumno['nombreAlumnoCompleto']) ? $alumno['nombreAlumnoCompleto'] : ''; ?></h2>
+        <div class="table-responsive">
+
         <table id="tablaPartes" class="table table-striped table-rounded">
             <thead>
                 <tr>
@@ -153,7 +156,7 @@
                         echo "<td>" . $row['nombreAlumnoCompleto'] . "</td>";
                         echo "<td class='text-center'>" . $row['grupo'] . "</td>";
                         echo "<td class='text-center'>" . $row['puntos'] . "</td>";
-                        echo "<td><p><a class='text-decoration-none  text-black' href='detalleParte.php?cod_parte=" . $row['cod_parte'] . "'>Ver Parte -></a></p></td>";
+                        echo "<td><p><a class='text-decoration-none' href='detalleParte.php?cod_parte=" . $row['cod_parte'] . "'>Ver Parte</a></p></td>";
 
                         echo "</tr>";
                         $i=$i+1;
@@ -164,6 +167,7 @@
             ?>
             </tbody>
         </table>
+        </div>
     </main>
     <footer>
         <?php require_once "./archivosComunes/footerPartes.php"; ?>

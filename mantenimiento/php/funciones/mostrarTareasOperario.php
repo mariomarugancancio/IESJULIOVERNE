@@ -7,7 +7,7 @@ try {
   // Seleccionamos las tareas que sean de centro
   $incidencias = "SELECT * FROM Tareas where tipo_incidencia='centro' ORDER BY fecha_inicio ASC";
   $incidencias = $db->query($incidencias);
-  echo ('<div id="tablaScript" class="tablaInci table-responsive-lg"> <table class="table table-striped table-hover text-center">');
+  echo ('<div id="tablaScript" class="tablaInci table-responsive-lg"> <div class="table-responsive"> <table class="table table-striped table-hover text-center">');
   echo ("<thead>
     <tr>
       <th scope='col'>#</th>
@@ -108,7 +108,7 @@ try {
       }
     }
     
-    echo "</table></div>";
+    echo "</table></div></div>";
   } catch (PDOException $e) {
     echo 'Error con la base de datos ' . $e->getMessage();
   }

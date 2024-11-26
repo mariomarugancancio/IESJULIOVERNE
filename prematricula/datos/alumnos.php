@@ -11,6 +11,7 @@
   <script src="../js/paginacion.js"></script>
   <link rel="shortcut icon" href="../../images/logoJulioVerneNuevo.png">
   <link rel="stylesheet" href="../../css/confirmarEliminarr.css">
+  <link rel="stylesheet" href="../../css/tablasResponsive.css">
 
 </head>
 <body >
@@ -44,7 +45,7 @@
                 </div>
                 <?php } ?>
 
-
+<div class="table-responsive">
     <table  id="tablaAlumnos" class="table  table-bordered table-striped table-hover text-center" >
   <thead>
     <tr>
@@ -88,6 +89,7 @@ while ($columna = $resul->fetch(PDO::FETCH_ASSOC)) {
   </tbody>
 
 </table>
+</div>
 <div class="d-flex justify-content-center mt-5" id="tablaPaginacion">
 
 <nav aria-label="Page navigation example">

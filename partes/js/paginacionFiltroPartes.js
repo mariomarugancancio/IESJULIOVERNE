@@ -25,7 +25,11 @@ function mostrarPagina(pagina, filasPorPagina) {
   var inicio;
   if(pagina <= 5){
     inicio = 1;
-    fin = 10;
+    if(totalPaginas >= 11){
+      fin = 11;
+    }else {
+      fin = totalPaginas;
+    }
   }else{
     inicio = pagina - 5;
     fin = pagina + 5;

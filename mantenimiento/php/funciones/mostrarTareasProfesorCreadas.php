@@ -11,7 +11,7 @@ try {
 
     $incidencias = "SELECT * FROM Tareas where cod_usuario_crea = '$nomb_usu' ORDER BY fecha_inicio DESC";
     $incidencias = $db->query($incidencias);
-      echo ('<div id="tablaScript" class="tablaInci table-responsive-lg"> <table class="table table-striped table-hover text-center">');
+      echo ('<div id="tablaScript" class="tablaInci table-responsive-lg"> <div class="table-responsive"> <table class="table table-striped table-hover text-center">');
       echo ("<thead>
       <tr> 
         <th scope='col'>#</th>
@@ -185,7 +185,7 @@ try {
    </tbody>";
 
     }
-      echo "</table></div>";
+      echo "</table></div></div>";
     
   
 

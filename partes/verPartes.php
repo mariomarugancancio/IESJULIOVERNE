@@ -12,6 +12,7 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
     <script src="./js/paginacionFiltroPartes.js"></script>
     <link rel="shortcut icon" href="../images/logoJulioVerneNuevo.png">
+    <link rel="stylesheet" href="../css/tablasResponsive.css">
 
     <style>
         .rounded {
@@ -113,6 +114,8 @@
                 </div>
 
             </div>
+            <div class="table-responsive">
+
             <table id="tablaPartes" class="table table-striped rounded">
                 <thead>
                     <tr>
@@ -187,7 +190,7 @@ switch ($row['caducado']) {
 
 echo "<td class='text-center $color'>$estado</td>";
 
-echo "<td><p><a class='text-decoration-none  text-black' href='detalleParte.php?cod_parte=" . $row['cod_parte'] . "'>Ver Parte -></a></p></td>";
+echo "<td><p><a class='text-decoration-none ' href='detalleParte.php?cod_parte=" . $row['cod_parte'] . "'>Ver Parte</a></p></td>";
 echo "</tr>";
 
 }
@@ -203,6 +206,7 @@ echo "</tr>";
                     ?>
                 </tbody>
             </table>
+            </div>
             <div class="d-flex justify-content-center mt-5" id="tablaPaginacion">
 
                 <nav aria-label="Page navigation example">

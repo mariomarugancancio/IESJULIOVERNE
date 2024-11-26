@@ -15,6 +15,8 @@ require_once('loginRequerido.php');
     <link rel="stylesheet" type="text/css" href="../css/editarUsuario.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
   <link rel="shortcut icon" href="../images/logoJulioVerneNuevo.png">
+  <link rel="stylesheet" href="../css/tablasResponsive.css">
+  <script src="./js/paginacion.js"></script>
 
     <title>Editar Perfil</title>
 </head>
@@ -65,7 +67,15 @@ echo'
     </header>
     <section>
     <article>
+    <div class="col-lg-12 col-md-12 my-2">
+    <div class='form-group form-floating mb-3'>
+            <input type='text' class='form-control' name='buscador' id='filtro'>
+            <label for="buscador">Buscador</label>
 
+        </div>
+                </div>
+
+  
     <!-- TODOS LOS USUARIOS -->
     <?php
       if($_SESSION['usuario_login']['rol'] == 0){
@@ -76,8 +86,8 @@ echo'
           // Mostramos los usuarios que no estan autorizados en la app
           $usuarios = 'SELECT * FROM Usuarios ORDER BY nombre, apellidos';
           $usuarios = $db->query($usuarios);
-          echo ('<div class="container-fluid">');
-          echo ('<table class="table text-light">');
+          echo ('<div class="table-responsive">');
+          echo ('<table id="tablaUsuarios" class="table text-light">');
           echo ("<thead>
               <tr>
                 <th scope='col'>#</th>
@@ -100,7 +110,7 @@ echo'
             echo "
             <form method='POST' action='actualizarUsuario.php?idusuario=$Cod_Usuario'>
               <tbody>
-                <tr>
+                <tr class='fila-tabla'>
                   <th scope='row'>$contador</th>
                     <td>$nombre</td>
                     <td>$apellidos</td>
@@ -116,6 +126,17 @@ echo'
                 </form>";
           }
           echo "</table></div>";
+          ?>
+          <div class="d-flex justify-content-center mt-5" id="tablaPaginacion">
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination" id="paginacion">
+
+    </ul>
+</nav>
+
+</div>
+<?php
         } catch (PDOException $e) {
           echo 'Error con la base de datos ' . $e->getMessage();
       }

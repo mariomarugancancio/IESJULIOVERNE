@@ -51,7 +51,7 @@ if (isset($_FILES['archivo']) && !empty($_FILES['archivo']['name'][0])) {
                 if($matricula != ""){
             // Datos para generar el QR
             $data = $matricula." ".$nombre." ".$apellidos; // El contenido del QR
-
+            /*Sin logo
             // Crea una instancia de QrCode
             $qrCode = new QrCode($data);
            
@@ -63,11 +63,67 @@ if (isset($_FILES['archivo']) && !empty($_FILES['archivo']['name'][0])) {
 // Obtén la imagen PNG como una cadena de bytes y luego conviértela a base64
 $qrImage = base64_encode($result->getString());                                            
                         $qrImageEncoded = base64_encode($qrImage);
+                        */
+                         // Datos para generar el QR
+        $data = $matricula." ".$nombre." ".$apellidos; // El contenido del QR
+        $logoPath = '../images/logoJulioVerneNuevo.png';
+
+        // Crear el código QR
+        $qrCode = new QrCode($data);
+        $writer = new PngWriter();
+        $qrCodeImage = $writer->write($qrCode);
+
+        // Crear una imagen desde el QR generado
+        $qrImageResource = imagecreatefromstring($qrCodeImage->getString());
+
+        // Cargar y redimensionar el logo
+        $logo = imagecreatefrompng($logoPath);
+        $logoWidth = imagesx($logo);
+        $logoHeight = imagesy($logo);
+
+        $centralAreaSize = 40;
+        if ($logoWidth > $centralAreaSize || $logoHeight > $centralAreaSize) {
+            $ratio = min($centralAreaSize / $logoWidth, $centralAreaSize / $logoHeight);
+            $newLogoWidth = (int)($logoWidth * $ratio);
+            $newLogoHeight = (int)($logoHeight * $ratio);
+
+            $logoResized = imagecreatetruecolor($newLogoWidth, $newLogoHeight);
+            imagealphablending($logoResized, false);
+            imagesavealpha($logoResized, true);
+            $transparent = imagecolorallocatealpha($logoResized, 255, 255, 255, 127);
+            imagefill($logoResized, 0, 0, $transparent);
+            imagecopyresampled($logoResized, $logo, 0, 0, 0, 0, $newLogoWidth, $newLogoHeight, $logoWidth, $logoHeight);
+            $logo = $logoResized;
+        }
+
+        // Calcular la posición del logo en el centro del QR
+        $logoWidth = imagesx($logo);
+        $logoHeight = imagesy($logo);
+        $centerX = (imagesx($qrImageResource) - $logoWidth) / 2;
+        $centerY = (imagesy($qrImageResource) - $logoHeight) / 2;
+
+        // Superponer el logo en el centro del QR
+        imagecopy($qrImageResource, $logo, $centerX, $centerY, 0, 0, $logoWidth, $logoHeight);
+
+        // Capturar la imagen final en una cadena de bytes
+        ob_start();
+        imagepng($qrImageResource);
+        $imageData = ob_get_contents();
+        ob_end_clean();
+
+        // Convertir la imagen a base64 para almacenar en la base de datos
+        $qrImageBase64 = base64_encode($imageData);
+
+        // Libera los recursos de imagen
+        imagedestroy($qrImageResource);
+        imagedestroy($logo);
+
+
                         // Intentamos ejecutar la inserción en la base de datos
                         $conexion = $db->prepare("INSERT INTO Alumnos (matricula, nombre, apellidos, grupo, qr_datos, qr_imagen)
                             VALUES (:matricula, :nombre, :apellidos, :grupo, :qr_datos, :qr_imagen)");
                         $conexion->execute(array(":matricula" => $matricula, ":nombre" => $nombre, ":apellidos" => $apellidos, ":grupo" => $grupo, 
-                   ":qr_datos" => $data,":qr_imagen" => $qrImage));
+                   ":qr_datos" => $data,":qr_imagen" =>  $qrImageBase64));
 
                 }
             }

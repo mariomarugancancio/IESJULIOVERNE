@@ -6,7 +6,7 @@ $contador = 0;
 try {
   $incidencias = "SELECT * FROM Tareas ORDER BY fecha_inicio DESC";
   $incidencias = $db->query($incidencias);
-  echo ('<div class="tablaInci table-responsive-lg"> <table id="tablaScript" class="table table-striped table-hover text-center">');
+  echo ('<div class="tablaInci table-responsive-lg"> <div class="table-responsive"><table id="tablaScript" class="table table-striped table-hover text-center">');
   echo ("<thead>
      <tr> 
        <th scope='col'>#</th>
@@ -126,7 +126,7 @@ try {
       
 
   }
-  echo "</table></div>";
+  echo "</table></div></div>";
 } catch (PDOException $e) {
   echo 'Error con la base de datos ' . $e->getMessage();
 }

@@ -11,6 +11,7 @@
     <script src="js/paginacion.js"></script>
     <link rel="shortcut icon" href="../images/logoJulioVerneNuevo.png">
     <link rel="stylesheet" href="../css/confirmarEliminarr.css">
+    <link rel="stylesheet" href="../css/tablasResponsive.css">
 
     <!-- <style>
       @media (min-width: 768px) {
@@ -53,6 +54,8 @@
                         placeholder="Filtrar por clase">
                 </div>
                 </div>
+                <div class="table-responsive">
+
     <table  id="tablaGuardias" class="table  table-bordered table-striped table-hover text-center" >
   <thead>
     <tr>
@@ -85,6 +88,7 @@
   </tbody>
   
 </table>
+</div>
 <div class="d-flex justify-content-center mt-5" id="tablaPaginacion">
 
 <nav aria-label="Page navigation example">

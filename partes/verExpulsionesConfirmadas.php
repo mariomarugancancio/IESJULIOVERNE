@@ -10,6 +10,7 @@
     <!-- Bootstrap CSS v5.2.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
     <link rel="shortcut icon" href="../images/logoJulioVerneNuevo.png">
+    <link rel="stylesheet" href="../css/tablasResponsive.css">
 
     <style>
         .table-rounded {
@@ -87,13 +88,15 @@
                 </div>
 
             </div>
+            <div class="table-responsive">
+
             <table id="tablaExpulsiones" class="table table-striped table-rounded  mx-auto text-center">
                 <thead>
                     <tr>
                         <th>Fecha Expulsion</th>
                         <th>Nombre Alumno</th>
                         <th>Grupo</th>
-                        <th>Estado</th>
+                        <th class="	d-none d-lg-block">Estado</th>
                         <th>Administrar</th>
                     </tr>
                 </thead>
@@ -132,8 +135,8 @@
                             echo "<td>" . $row['fecha_Insercion'] . "</td>";
                             echo "<td>" . $row['nombreAlumnoCompleto'] . "</td>";
                             echo "<td>" . $row['grupo'] . "</td>"; 
-                            echo "<td class='text-success'>" . "Confirmada" . "</td>";
-                            echo "<td><p><a class='text-decoration-none  text-black' href='detalleExpulsion.php?cod_expulsion=" . $row['cod_expulsion'] . "'>Ver detalle expulsión -></a></p></td>";
+                            echo "<td class='text-success 	d-none d-lg-block  py-3'>" . "Confirmada" . "</td>";
+                            echo "<td><p><a class='text-decoration-none  ' href='detalleExpulsion.php?cod_expulsion=" . $row['cod_expulsion'] . "'>Ver detalle expulsión</a></p></td>";
                             echo "</tr>";
                         }
                     } catch (PDOException $e) {
@@ -145,6 +148,7 @@
                     ?>
                 </tbody>
             </table>
+            </div>  
             <div class="d-flex justify-content-center mt-5" id="tablaPaginacion">
                 <nav aria-label="Page navigation example">
                     <ul class="pagination" id="paginacion">

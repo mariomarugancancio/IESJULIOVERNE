@@ -8,6 +8,8 @@ require_once("../archivosComunes/conexion.php");
             $apellidos = $_POST['apellidos'];
             $grupo = $_POST['grupo'];
             $fotocopias = $_POST['fotocopias'];
+            $pagina = isset($_POST['pagina']) ? trim(htmlspecialchars($_POST['pagina'])) : '';
+
             $saldoAntiguo = 0;
             $fecha_actual = date('Y-m-d H:i:s');
             $precio=0;
@@ -55,7 +57,13 @@ require_once("../archivosComunes/conexion.php");
             $stmt->bindParam(':gasto', $gasto);
             $lastID = $stmt->execute();
               // Redirigir a la página de asignaturas
-              header('Location: gestionarFotocopias.php?correcto=true');
+              if($pagina == "todos"){
+                header('Location: gestionarFotocopias.php?correcto=true');
+
+              }else{
+                header('Location: escanearQR.php?correcto=true');
+
+              }
               exit();
             }
         }

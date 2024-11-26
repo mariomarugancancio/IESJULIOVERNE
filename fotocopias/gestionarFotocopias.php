@@ -12,7 +12,19 @@
     <script src="https://kit.fontawesome.com/0a601e401a.js" crossorigin="anonymous"></script>
     <script src="./js/paginacionFiltroAlumnos.js"></script>
     <link rel="shortcut icon" href="../images/logoJulioVerneNuevo.png">
+    <style>
+           /* Media Query para pantallas más pequeñas */
+           @media (max-width: 768px) {
+            
+            table {
+            font-size: 0.9em; /* Reduce el tamaño de la fuente */
+        }
 
+        .table-responsive {
+            margin-bottom: 1rem; /* Espaciado inferior para móviles */
+        }
+        }
+    </style>
 
 </head>
 
@@ -23,6 +35,11 @@
         require_once "archivosComunes/nav.php";
         require_once("../archivosComunes/conexion.php");
         require_once('../archivosComunes/loginRequerido.php');
+            // Redirigir si el usuario no tiene rol 0
+            if ($_SESSION['usuario_login']['rol'] !== "0") {
+                header("Location: gestionarFotocopias.php");
+                exit;
+            }
 ?>
     </header>
     <?php
@@ -82,6 +99,8 @@
     <?php
         }
     ?>
+    
+
     <h2 class="text-decoration-underline mb-5">Lista de Alumnos </h2>
 
         <div class='form-group form-floating mb-3'>
@@ -89,7 +108,7 @@
             <label for="buscador">Buscador</label>
 
         </div>
-        <div class="d-flex justify-content-center flex-wrap">
+        <div class="table-responsive">
 
 
                 <table class="table table-bordered table-striped table-hover text-center mt-2" id="lista">
@@ -141,7 +160,9 @@
                                         <input hidden type="text" id="apellidos" name="apellidos" value='.$columna['apellidos'].'>
                                         <input hidden type="text" id="grupo" name="grupo" value='.$columna['grupo'].'>
 
-                                        <input type="number" name="fotocopias" id="fotocopias" placeholder="Num de fotocopias" min=1>
+                                        <input type="number" name="fotocopias" id="fotocopias" placeholder="Num de fotocopias" min=1 required>
+                                                                   <input type="hidden" id="pagina" name="pagina" value="todos">
+
                                         <button type="submit" class="btn btn-primary">Enviar</button>
                                     </form>
                                 </td>';
@@ -167,7 +188,6 @@
 
                 </div>
             </div>
-            <button onclick="window.location.href='escanearQR.php';">Ir a Escanear QR (JavaScript)</button>
 
 
     </main>

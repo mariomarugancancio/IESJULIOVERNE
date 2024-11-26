@@ -12,6 +12,7 @@
     <script src="./js/paginacionFiltro.js"></script>
     <link rel="shortcut icon" href="../images/logoJulioVerneNuevo.png">
     <link rel="stylesheet" href="../css/confirmarEliminarr.css">
+    <link rel="stylesheet" href="../css/tablasResponsive.css">
 
     <style>
       .aniadirdiv{
@@ -58,6 +59,8 @@
                         <input type="text" id="filtro" class="form-control" placeholder="Buscador">
                     </div>
                 </div>
+                <div class="table-responsive">
+
 <table id="tablaAulas" class="table table-bordered table-striped table-hover text-center">
   <thead>
     <tr>
@@ -72,6 +75,7 @@ include("mostraraulas.php");
 ?>
   </tbody>
 </table>
+</div>
 <div class="d-flex justify-content-center mt-5" id="tablaPaginacion">
 
 <nav aria-label="Page navigation example">

@@ -14,6 +14,7 @@
 
     <link rel="shortcut icon" href="../images/logoJulioVerneNuevo.png">
     <link rel="stylesheet" href="../css/confirmarEliminarr.css">
+    <link rel="stylesheet" href="../css/tablasResponsive.css">
 
 </head>
 
@@ -24,7 +25,7 @@
         require_once "archivosComunes/nav.php";
         require_once("../archivosComunes/conexion.php");
         require_once('../archivosComunes/loginRequerido.php');
-        require_once('./funcionalidad/generarQR.php');
+        //require_once('./funcionalidad/generarQR.php');
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -145,6 +146,7 @@
                     <label for="buscador">Buscador</label>
 
                 </div>
+                <div class="table-responsive">
 
                 <table class="table table-bordered table-striped table-hover text-center mt-2" id="lista">
                     <thead>
@@ -187,6 +189,7 @@
 
                     </tbody>
                 </table>
+                </div>
                 <div class="d-flex justify-content-center mt-5" id="tablaPaginacion">
 
                     <nav aria-label="Page navigation example">

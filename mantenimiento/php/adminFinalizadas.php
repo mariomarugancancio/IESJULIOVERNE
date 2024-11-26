@@ -17,6 +17,7 @@ controlarrol(0);
   <link rel="stylesheet" href="../css/bootstrap.min.css">
   <link rel="stylesheet" href="../css/styles.css">
   <link rel="shortcut icon" href="../../images/logoJulioVerneNuevo.png">
+  <link rel="stylesheet" href="../../css/tablasResponsive.css">
 
   <title>Administrador</title>
 </head>

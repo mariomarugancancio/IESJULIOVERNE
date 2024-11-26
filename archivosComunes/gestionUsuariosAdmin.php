@@ -29,6 +29,8 @@ if ($_SESSION['usuario_login']['rol'] != 0) {
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/tablasResponsive.css">
+    <script src="./js/paginacion.js"></script>
 
   <title>Gestión de Usuarios</title>
   <style>
@@ -102,15 +104,23 @@ if ($_SESSION['usuario_login']['rol'] != 0) {
 
     <h1 class="text-light mb-5">Gestión de Usuarios</h1>
     <hr class="text-white-50">
+    <div class="col-lg-12 col-md-12 my-2">
+    <div class='form-group form-floating mb-3'>
+            <input type='text' class='form-control' name='buscador' id='filtro'>
+            <label for="buscador">Buscador</label>
+
+        </div>
+                </div>
     <?php
     require_once ('conexion.php');
     $contador = 0;
     try {
       // Mostramos los usuarios que no estan autorizados en la app
       $usuarios = 'SELECT nombre, apellidos, email, cod_usuario,rol FROM Usuarios WHERE validar = "no" and rol != 0 ORDER BY nombre, apellidos';
-
+      
       $usuarios = $db->query($usuarios)->fetchAll();
-      echo ('<table class=" table text-light">');
+      echo (' <div class="table-responsive">
+<table id="tablaUsuarios" class=" table text-light">');
 
       echo ("<thead>
     <tr>");
@@ -196,7 +206,7 @@ if ($_SESSION['usuario_login']['rol'] != 0) {
 
         // Ocultamos en los input las variables obtenidas de los usuarios seleccionados para poder autorizarles denegarles o hacer administradores
         echo "
-        <tr>
+        <tr  class='fila-tabla'>
           <th scope='row'>$contador</th>
             <td>$nombre</td>
             <td>$apellidos</td>
@@ -217,7 +227,19 @@ if ($_SESSION['usuario_login']['rol'] != 0) {
       }
 
       echo "</tbody>
-          </table>";
+          </table>
+          </div>";
+    ?>
+    <div class="d-flex justify-content-center mt-5" id="tablaPaginacion">
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination" id="paginacion">
+
+    </ul>
+</nav>
+
+</div>
+<?php
     } catch (PDOException $e) {
       echo 'Error con la base de datos ' . $e->getMessage();
     }

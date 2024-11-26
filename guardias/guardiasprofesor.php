@@ -11,6 +11,7 @@
     <script src="js/paginacion.js"></script>
     <link rel="shortcut icon" href="../images/logoJulioVerneNuevo.png">
     <link rel="shortcut icon" href="../css/confirmarEliminarr.css">
+    <link rel="stylesheet" href="../css/tablasResponsive.css">
 
 </head>
 <body>
@@ -38,6 +39,8 @@
                         placeholder="Filtrar por clase">
                 </div>
                 </div>
+                <div class="table-responsive">
+
     <table  id="tablaGuardias" class="table  table-bordered table-striped text-center ">
   <thead>
     <tr>
@@ -61,6 +64,7 @@
       ?>
   </tbody>
 </table>
+</div>
 <div class="d-flex justify-content-center mt-5" id="tablaPaginacion">
 
 <nav aria-label="Page navigation example">

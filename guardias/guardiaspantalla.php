@@ -10,6 +10,7 @@
     <script src="../js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/0a601e401a.js" crossorigin="anonymous"></script>
     <link rel="shortcut icon" href="../images/logoJulioVerneNuevo.png">
+    <link rel="stylesheet" href="../css/tablasResponsive.css">
 
   <style>
 
@@ -121,6 +122,7 @@
 <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>" onchange='submit();'>
 
 </form>
+<div class="table-responsive">
 
     <table class="table  table-bordered table-hover text-center align-middle" id="contenidoTabla">
   <thead>
@@ -142,7 +144,7 @@
       ?>
   </tbody>
 </table>
-
+</div>
 <?php
         include('../archivosComunes/footer.php');
         ?>

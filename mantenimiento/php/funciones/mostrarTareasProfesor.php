@@ -15,7 +15,7 @@ try {
     $incidencias = "SELECT * FROM Tareas where tipo_incidencia='informatica' AND cod_usuario_gestion = '$nomb_usu' ORDER BY fecha_inicio ASC";
     $incidencias = $db->query($incidencias);
     if ($consulta_dep = "informatica") {
-      echo ('<div id="tablaScript" class="tablaInci table-responsive-lg"> <table class="table table-striped table-hover text-center">');
+      echo ('<div id="tablaScript" class="tablaInci table-responsive-lg"> <div class="table-responsive"> <table class="table table-striped table-hover text-center">');
       echo ("<thead>
       <tr> 
         <th scope='col'>#</th>
@@ -119,7 +119,7 @@ try {
    </tbody>";
       }
     }
-      echo "</table></div>";
+      echo "</table></div></div>";
     }
   } 
 } catch (PDOException $e) {

@@ -54,7 +54,7 @@
                     <div class='card col-lg-7 col-10 g-3 m-auto my-3 bg-dark text-light'>
                         <div class='row'>
                             <div class='col-2 d-lg-block d-none'>
-                                <img src='./img/expulsion.jpg' class=' rounded-start' alt='foto' style='height: 150px; margin-left: -8px;'>
+                                <img src='./img/expulsionpendiente.jpg' class=' rounded-start' alt='foto' style='height: 150px; margin-left: -8px;'>
                             </div>
                                 <div class='col-lg-10 col-12'>
                                 <div class='card-body'>

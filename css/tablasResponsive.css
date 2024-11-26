@@ -1,0 +1,11 @@
+       /* Media Query para pantallas más pequeñas */
+       @media (max-width: 768px) {
+            
+        table {
+        font-size: 0.9em; /* Reduce el tamaño de la fuente */
+    }
+
+    .table-responsive {
+        margin-bottom: 1rem; /* Espaciado inferior para móviles */
+    }
+    }
